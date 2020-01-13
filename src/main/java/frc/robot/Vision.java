@@ -8,7 +8,6 @@
 package frc.robot;
 
 import java.lang.Math;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Vision {
@@ -16,49 +15,28 @@ public class Vision {
     private static float CameraHeight = 36;
     private static float TargetHeight = 90;
     private static float CameraAngle = 30;
-    private static float LIMELIGHT_X_AXIS_PIXELS = 320;
-    private static double LIMELIGHT_X_AXIS_FOV = 59.6;
-    private static int LIMELIGHT_X_AXIS_CENTER = 160;
     private static float LIMELIGHT_Y_AXIS_PIXELS = 240;
-    private static double LIMELIGHT_Y_AXIS_FOV = 45.7;
-    private static int LIMELIGHT_Y_AXIS_CENTER = 120;
 
-    private float perPixelToDegree_xAxis () {
-        float degreeToPixelX = 0;
-        degreeToPixelX = (float) LIMELIGHT_X_AXIS_FOV / LIMELIGHT_X_AXIS_PIXELS;
-        return degreeToPixelX;
-    }
+    public VisionData getDistanceAndAngleOffTarget (VisionData data) {
 
-    private float perPixelToDegree_yAxis () {
-        float degreeToPixelY = 0;
-        degreeToPixelY = (float) LIMELIGHT_Y_AXIS_FOV / LIMELIGHT_Y_AXIS_PIXELS;
-        return degreeToPixelY;
-    }
+        double degrees;
+        double ty0;
+        double degreesTargetOffGround;
+        double distance;   
+        double angleOffTarget;
 
-    private double getCurrentAngleToCenterOfTarget_yAxis () {
-        double currentAngleToCenterOfTarget = 0;
-        int targetYPixel = 0; // need to write something to obtain the target y pixel from camera (getTargetYPixel)
-        int pixelDifference = 0;
-        double angleDifference = 0;
-        // Subtract your 'target Y pixel' from your 'center y pixel.'
-        pixelDifference = targetYPixel - LIMELIGHT_Y_AXIS_CENTER;
-        // Multiply your answer from above by the 'perPixelToDegree_yAxis'
-        angleDifference = pixelDifference * perPixelToDegree_yAxis();
-        // Add that answer to 'CameraAngle.' And set it equal to 'currentAngleToCenterOfTarget.'
-        currentAngleToCenterOfTarget = angleDifference + CameraAngle;
-        return currentAngleToCenterOfTarget;
-    }
+        ty0 = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty0").getDouble(0);
+        degrees = ty0 *(LIMELIGHT_Y_AXIS_PIXELS/2);
+        degreesTargetOffGround = CameraAngle - degrees;
+        distance = (TargetHeight - CameraHeight) / Math.tan(degreesTargetOffGround);
+        angleOffTarget = ty0 = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
 
-    public VisionData getDistanceAndAngleFromTarget (VisionData data) {
-
-        // still need to right what angle to turn to 'x axis degrees'
-
-        double side2;
-        double distance;
-
-        side2 = (double) TargetHeight - CameraHeight;
-        distance = side2 / Math.tan(getCurrentAngleToCenterOfTarget_yAxis());
+        System.out.println("distance from target:" + distance);
+        System.out.println("angle off center target:" + angleOffTarget);
+        
+        data.setAngleOffTarget((float)angleOffTarget);
         data.setDistanceAwayFromTarget((float)distance);
+
         return data;
     }
 }
