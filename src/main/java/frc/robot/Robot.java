@@ -11,11 +11,17 @@ import edu.wpi.first.wpilibj.TimedRobot;
 
 
 public class Robot extends TimedRobot {
- 
+  KeyMap gamepad;
  
   @Override
   public void robotInit() {
-    
+    gamepad = new KeyMap();
+    Shooter.getInstance();
+  }
+
+  @Override
+  public void teleopPeriodic() {
+    Shooter.tick();
   }
 
   @Override
@@ -36,12 +42,6 @@ public class Robot extends TimedRobot {
    
   }
 
-  /**
-   * This function is called periodically during operator control.
-   */
-  @Override
-  public void teleopPeriodic() {
-  }
 
   /**
    * This function is called periodically during test mode.
