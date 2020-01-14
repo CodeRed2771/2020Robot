@@ -3,11 +3,13 @@ package frc.robot;
 public class VisionData {
 
     private float DistanceAwayFromTarget;
-    private float AngleOffTarget;
+	private float AngleOffTarget;
+	private float HoodAngle;
     
     public VisionData() {
         DistanceAwayFromTarget = 0;
-        AngleOffTarget = 0;
+		AngleOffTarget = 0;
+		HoodAngle = 60;
     }
 
     public float getDistanceAwayFromTarget() {
@@ -15,7 +17,7 @@ public class VisionData {
 	}
 	
 	public void setDistanceAwayFromTarget(float distanceAwayFromTarget) {
-		DistanceAwayFromTarget = distanceAwayFromTarget;
+		this.DistanceAwayFromTarget = distanceAwayFromTarget;
 	}
 	
 	public float getAngleOffTarget() {
@@ -23,7 +25,15 @@ public class VisionData {
 	}
 	
 	public void setAngleOffTarget(float angleOffTarget) {
-		AngleOffTarget = angleOffTarget;
+		this.AngleOffTarget = angleOffTarget;
+	}
+
+	public float getHoodAngle () {
+		return HoodAngle;
+	}
+
+	public void setHoodAngle (float hoodAngle) {
+		this.HoodAngle = hoodAngle;
 	}
 
 }
