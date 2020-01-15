@@ -17,6 +17,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     gamepad = new KeyMap();
     Shooter.getInstance();
+    Shooter.StartShooter();
   }
 
   @Override
