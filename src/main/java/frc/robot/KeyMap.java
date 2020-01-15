@@ -64,9 +64,8 @@ public class KeyMap {
     
 
     // TEST CONTROLLER
-    private final HID.Button singleClimbRevolutionButton = LogitechF310.A;
-    private final HID.Button singleClimbRevolutionReverseButton = LogitechF310.B;
-    private final HID.Axis manualClimb = LogitechF310.STICK_LEFT_Y;
+    private final HID.Button startShooting = LogitechF310.A;
+    private final HID.Button stopShooting = LogitechF310.B;
 
     public HID getHID(int gamepad) {
         if (!singleControllerMode) {
@@ -96,6 +95,17 @@ public class KeyMap {
     public boolean getRobotCentricModifier() {
         return getHID(gamepad1).button(switchToRobotCentric);
     }
+
+    public boolean startShooter() {
+        return getHID(gamepad2).button(startShooting);
+    }
+
+    public boolean stopShooter() {
+        return getHID(gamepad2).button(stopShooting);
+    }
+
+    
+    // old stuff
 
     public boolean getAutoPlaceHatch() {
         return getHID(gamepad1).button(autoPlaceHatch);
@@ -149,22 +159,6 @@ public class KeyMap {
 
     public boolean ejectGamePiece() {
         return getHID(gamepad2).axis(ejectGamePiece) > 0.8;
-    }
-
-    public boolean goToLvl1() {
-        return getHID(gamepad2).button(goToLvl1);
-    }
-
-    public boolean goToLvl2() {
-        return getHID(gamepad2).button(goToLvl2);
-    }
-
-    public boolean goToLvl3() {
-        return getHID(gamepad2).button(goToLvl3);
-    }
-
-    public boolean getCargoShipPlacement() {
-        return getHID(gamepad2).button(goToShipCargo);
     }
 
     public double getManualLift () {

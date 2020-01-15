@@ -103,10 +103,10 @@ public class Calibration {
 	
 	public static final double INTAKE_MAX_CURRENT = 14;
 	
-	public static final double SHOOTER_P = 0.6;
+	public static final double SHOOTER_P = 0.0;
 	public static final double SHOOTER_I = 0.0;
 	public static final double SHOOTER_D = 0.0;
-	public static final double SHOOTER_F = 1.0;
+	public static final double SHOOTER_F = 0.0;
 	public static final int SHOOTER_DEFAULT_SPEED = 3000;
 
 	public static final double LINKAGE_P = 5; // was 3.2

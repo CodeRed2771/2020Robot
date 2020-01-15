@@ -21,6 +21,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+    if (gamepad.startShooter()) {
+      Shooter.StartShooter();
+    }
+    if (gamepad.stopShooter()) {
+      Shooter.StopShooter();
+    }
+
     Shooter.tick();
   }
 

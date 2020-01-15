@@ -12,14 +12,13 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
-import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class Shooter {
     private static Shooter instance;
     private static TalonSRX shooterMotor = new TalonSRX(Wiring.SHOOTER_MOTOR_ID);
+    private static TalonSRX feederMotor = new TalonSRX(Wiring.FEEDER_MOTOR_ID);
     private static boolean isEnabled = false;
     private static double targetSpeed = 0;
    
@@ -61,6 +60,8 @@ public class Shooter {
 		SmartDashboard.putNumber("Shoot D", Calibration.SHOOTER_D);
         SmartDashboard.putNumber("Shoot F", Calibration.SHOOTER_F);
         SmartDashboard.putNumber("Shoot Setpoint", Calibration.SHOOTER_DEFAULT_SPEED );
+
+        feederMotor.setNeutralMode(NeutralMode.Brake);
     }
 
     public static Shooter getInstance() {
@@ -71,16 +72,25 @@ public class Shooter {
 
     public static void tick() {
 
+        if (isEnabled && isAtSpeed()) {
+            feederMotor.set(ControlMode.PercentOutput,1);
+        } else {
+            feederMotor.set(ControlMode.PercentOutput,0);
+        }
+
         if (SmartDashboard.getBoolean("Shooter TUNE", true)) {
-			shooterMotor.config_kF(0, SmartDashboard.getNumber("Shoot F", 1.0), 0);
-			shooterMotor.config_kP(0, SmartDashboard.getNumber("Shoot P", 1.0), 0);
+			shooterMotor.config_kF(0, SmartDashboard.getNumber("Shoot F", 0), 0);
+			shooterMotor.config_kP(0, SmartDashboard.getNumber("Shoot P", 0), 0);
 			shooterMotor.config_kI(0, SmartDashboard.getNumber("Shoot I", 0), 0);
             shooterMotor.config_kD(0, SmartDashboard.getNumber("Shoot D", 0), 0);
+
             if (isEnabled) {
                 shooterMotor.set(ControlMode.Velocity, SmartDashboard.getNumber("Shoot Setpoint", Calibration.SHOOTER_DEFAULT_SPEED));
             }
-		}
+        }
+        
         SmartDashboard.putNumber("Shooter Enc", shooterMotor.getSelectedSensorVelocity());
+        SmartDashboard.putBoolean("Is At Speed", isAtSpeed());
     }
 
     public static void StartShooter() {
@@ -92,6 +102,13 @@ public class Shooter {
         shooterMotor.set(ControlMode.Velocity,0);
     }
 
-    
+    public static double getShooterSpeed() {
+        return shooterMotor.getSelectedSensorVelocity();
+    }
+
+    public static boolean isAtSpeed() {
+        return (getShooterSpeed() > 0 && Math.abs(getShooterSpeed() - targetSpeed) < 100);
+    }
+
 }
 
