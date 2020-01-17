@@ -1,7 +1,6 @@
 package frc.robot;
 
 import java.lang.Math;
-
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
@@ -53,7 +52,7 @@ public class Vision {
     
 	public void flashLED (){
 		table.getEntry("ledMode").forceSetNumber(2);
-    }
+  }
     
   public void setDriverMode () {
 		setLED(false);
