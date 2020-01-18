@@ -12,13 +12,14 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class ShooterSRX {
     private static ShooterSRX instance;
-    private static TalonSRX shooterMotor = new TalonSRX(Wiring.SHOOTER_MOTOR_ID);
-    private static TalonSRX feederMotor = new TalonSRX(Wiring.FEEDER_MOTOR_ID);
+    // private static TalonSRX shooterMotor = new TalonSRX(Wiring.SHOOTER>MOTOR_ID);
+    private static TalonFX shooterMotor = new TalonFX(Wiring.SHOOTER_MOTOR_ID);
     private static boolean isEnabled = false;
     private static double targetSpeed = 0;
    
@@ -53,7 +54,7 @@ public class ShooterSRX {
 		shooterMotor.setSelectedSensorPosition(0, 0, 0);
 
 		// Current limit
-        shooterMotor.configContinuousCurrentLimit(25);
+        // shooterMotor.configContinuousCurrentLimit(25);
         
         SmartDashboard.putNumber("Shoot P", Calibration.SHOOTER_P);
 		SmartDashboard.putNumber("Shoot I", Calibration.SHOOTER_I);
@@ -61,7 +62,7 @@ public class ShooterSRX {
         SmartDashboard.putNumber("Shoot F", Calibration.SHOOTER_F);
         SmartDashboard.putNumber("Shoot Setpoint", Calibration.SHOOTER_DEFAULT_SPEED );
 
-        feederMotor.setNeutralMode(NeutralMode.Brake);
+        // feederMotor.setNeutralMode(NeutralMode.Brake);
     }
 
     public static ShooterSRX getInstance() {
@@ -72,11 +73,11 @@ public class ShooterSRX {
 
     public static void tick() {
 
-        if (isEnabled && isAtSpeed()) {
-            feederMotor.set(ControlMode.PercentOutput,1);
-        } else {
-            feederMotor.set(ControlMode.PercentOutput,0);
-        }
+        // if (isEnabled && isAtSpeed()) {
+        //     feederMotor.set(ControlMode.PercentOutput,1);
+        // } else {
+        //     feederMotor.set(ControlMode.PercentOutput,0);
+        // }
 
         if (SmartDashboard.getBoolean("Shooter TUNE", true)) {
 			shooterMotor.config_kF(0, SmartDashboard.getNumber("Shoot F", 0), 0);
