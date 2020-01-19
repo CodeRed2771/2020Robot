@@ -45,7 +45,7 @@ public class KeyMap {
     // CONTROLLER 2
     private final HID.Button intakeCargo = LogitechF310.DPAD_LEFT;
     private final HID.Button intakeHatch = LogitechF310.DPAD_UP;
-    private final HID.Button stopIntake = LogitechF310.DPAD_RIGHT;
+    // private final HID.Button stopIntake = LogitechF310.DPAD_RIGHT;
     private final HID.Button gamePieceOverride = LogitechF310.DPAD_DOWN;
     private final HID.Axis ejectGamePiece = LogitechF310.TRIGGER_RIGHT_AXIS;
     private final HID.Button fingerUp = LogitechF310.START;
@@ -66,6 +66,12 @@ public class KeyMap {
     // TEST CONTROLLER
     private final HID.Button startShooting = LogitechF310.A;
     private final HID.Button stopShooting = LogitechF310.B;
+    private final HID.Button startIntake = LogitechF310.TRIGGER_RIGHT;
+    private final HID.Button reverseIntake = LogitechF310.TRIGGER_LEFT;
+    private final HID.Button stopIntake = LogitechF310.BUMPER_LEFT;
+    private final HID.Button intakeUp = LogitechF310.DPAD_UP;
+    private final HID.Button intakeDown = LogitechF310.DPAD_DOWN;
+
 
     public HID getHID(int gamepad) {
         if (!singleControllerMode) {
@@ -104,6 +110,25 @@ public class KeyMap {
         return getHID(gamepad2).button(stopShooting);
     }
 
+    public boolean startIntake() {
+        return getHID(gamepad2).button(startIntake);
+    }
+
+    public boolean reverseIntake() {
+        return getHID(gamepad2).button(reverseIntake);
+    }
+
+    public boolean intakeUp() {
+        return getHID(gamepad2).button(intakeUp);
+    }
+
+    public boolean intakeDown() {
+        return getHID(gamepad2).button(intakeDown);
+    }
+
+    public boolean stopIntake() {
+        return getHID(gamepad2).button(stopIntake);
+    }
     
     // old stuff
 
@@ -149,9 +174,9 @@ public class KeyMap {
         return getHID(gamepad2).button(extendLinkage);
     }
 
-    public boolean turnIntakeOff() {
-        return getHID(gamepad2).button(stopIntake);
-    }
+    // public boolean turnIntakeOff() {
+    //     return getHID(gamepad2).button(stopIntake);
+    // }
 
     public boolean gamePieceOverride() {
         return getHID(gamepad2).button(gamePieceOverride);

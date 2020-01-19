@@ -55,6 +55,7 @@ public class ShooterSRX {
 
 		// Current limit
         // shooterMotor.configContinuousCurrentLimit(25);
+        // MAY NEED THAT LATER
         
         SmartDashboard.putNumber("Shoot P", Calibration.SHOOTER_P);
 		SmartDashboard.putNumber("Shoot I", Calibration.SHOOTER_I);
@@ -86,7 +87,8 @@ public class ShooterSRX {
             shooterMotor.config_kD(0, SmartDashboard.getNumber("Shoot D", 0), 0);
 
             if (isEnabled) {
-                shooterMotor.set(ControlMode.Velocity, SmartDashboard.getNumber("Shoot Setpoint", Calibration.SHOOTER_DEFAULT_SPEED));
+                // shooterMotor.set(ControlMode.Velocity, SmartDashboard.getNumber("Shoot Setpoint", Calibration.SHOOTER_DEFAULT_SPEED));
+                shooterMotor.set(ControlMode.PercentOutput,-.6);
             }
         }
         
@@ -100,7 +102,7 @@ public class ShooterSRX {
 
     public static void StopShooter() {
         isEnabled = false;
-        shooterMotor.set(ControlMode.Velocity,0);
+        shooterMotor.set(ControlMode.PercentOutput,0);
     }
 
     public static double getShooterSpeed() {
