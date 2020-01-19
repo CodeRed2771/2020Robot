@@ -13,13 +13,11 @@ import edu.wpi.first.wpilibj.TimedRobot;
 public class Robot extends TimedRobot {
   KeyMap gamepad;
 
-  ShooterSRX Shooter = new ShooterSRX();
- 
   @Override
   public void robotInit() {
     gamepad = new KeyMap();
-    Shooter.getInstance();
-    Shooter.StopShooter();
+    ShooterSRX.getInstance();
+    ShooterSRX.StopShooter();
     Intake.getInstance();
   }
 
@@ -27,10 +25,10 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     if (gamepad.getButtonA(1)) {
       System.out.println("START SHOOTING");
-      Shooter.StartShooter();
+      ShooterSRX.StartShooter();
     }
     if (gamepad.getButtonB(1)) {
-      Shooter.StopShooter();
+      ShooterSRX.StopShooter();
     }
     if (gamepad.intakeDown()) {
       Intake.moveIntakeDown();
@@ -47,7 +45,7 @@ public class Robot extends TimedRobot {
     if (gamepad.stopIntake()) {
       Intake.stopIntake();
     }
-    Shooter.tick();
+    ShooterSRX.tick();
   }
 
   @Override
