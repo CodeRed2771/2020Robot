@@ -22,10 +22,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    if (gamepad.startShooter()) {
+    if (gamepad.getButtonA(1)) {
+      System.out.println("START SHOOTING");
       Shooter.StartShooter();
     }
-    if (gamepad.stopShooter()) {
+    if (gamepad.getButtonB(1)) {
       Shooter.StopShooter();
     }
 

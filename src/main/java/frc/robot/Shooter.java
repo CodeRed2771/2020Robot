@@ -24,12 +24,13 @@ public class Shooter {
 		SmartDashboard.putNumber("Shoot D", Calibration.SHOOTER_D);
         SmartDashboard.putNumber("Shoot F", Calibration.SHOOTER_F);
         SmartDashboard.putNumber("Shoot Setpoint", Calibration.SHOOTER_DEFAULT_SPEED );
+        SmartDashboard.putBoolean("Shooter TUNE", true);
 
         // feederMotor.setNeutralMode(NeutralMode.Brake);
     }
 
     public static Shooter getInstance() {
-        if (instance == null)
+        if (instance == null) 
             instance = new Shooter();
         return instance;
     }
@@ -54,6 +55,7 @@ public class Shooter {
         }
         
         SmartDashboard.putNumber("Shooter Enc", shooterMotor.getEncoder().getVelocity());
+        // SmartDashboard.putNumber("ShootErr", shooterMotor.getPIDController().getFF());
         SmartDashboard.putBoolean("Is At Speed", isAtSpeed());
     }
 
