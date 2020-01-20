@@ -281,6 +281,32 @@ public class KeyMap {
         return getHID(gamePadNumber).button(LogitechF310.Y);
     }
 
+    public boolean getButtonTriggerRight(int gamePadNumber) {
+        return getHID(gamePadNumber).button(LogitechF310.TRIGGER_RIGHT);
+    }
+
+    public boolean getButtonTriggerLeft(int gamePadNumber) {
+        return getHID(gamePadNumber).button(LogitechF310.TRIGGER_LEFT);
+    }
+
+    public boolean getButtonBumperLeft(int gamePadNumber) {
+        return getHID(gamePadNumber).button(LogitechF310.BUMPER_LEFT);
+    }
+
+    public boolean getButtonDpadUp(int gamePadNumber) {
+        return getHID(gamePadNumber).button(LogitechF310.DPAD_UP);
+    }
+
+    public boolean getButtonDpadDown(int gamePadNumber) {
+        return getHID(gamePadNumber).button(LogitechF310.DPAD_DOWN);
+    }
+
+    // private final HID.Button startIntake = LogitechF310.TRIGGER_RIGHT;
+    // private final HID.Button reverseIntake = LogitechF310.TRIGGER_LEFT;
+    // private final HID.Button stopIntake = LogitechF310.BUMPER_LEFT;
+    // private final HID.Button intakeUp = LogitechF310.DPAD_UP;
+    // private final HID.Button intakeDown = LogitechF310.DPAD_DOWN;
+
     // public boolean getStartButton(int gamePadNumber) {
     //     return getHID(gamePadNumber).button(LogitechF310.START);
     // }

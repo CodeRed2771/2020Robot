@@ -30,19 +30,19 @@ public class Robot extends TimedRobot {
     if (gamepad.getButtonB(1)) {
       ShooterSRX.StopShooter();
     }
-    if (gamepad.intakeDown()) {
+    if (gamepad.getButtonDpadDown(1)) {
       Intake.moveIntakeDown();
     }
-    if (gamepad.intakeUp()) {
+    if (gamepad.getButtonDpadUp(1)) {
       Intake.moveIntakeUp();
     }
-    if (gamepad.startIntake()) {
+    if (gamepad.getButtonTriggerRight(1)) {
       Intake.runIntakeForwards();
     }
-    if (gamepad.reverseIntake()) {
+    if (gamepad.getButtonTriggerLeft(1)) {
       Intake.runIntakeBackwards();
     }
-    if (gamepad.stopIntake()) {
+    if (gamepad.getButtonBumperLeft(1)) {
       Intake.stopIntake();
     }
     ShooterSRX.tick();
