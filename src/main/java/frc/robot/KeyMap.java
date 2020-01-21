@@ -110,25 +110,25 @@ public class KeyMap {
         return getHID(gamepad2).button(stopShooting);
     }
 
-    public boolean startIntake() {
-        return getHID(gamepad2).button(startIntake);
-    }
+    // public boolean startIntake() {
+    //     return getHID(gamepad2).button(startIntake);
+    // }
 
-    public boolean reverseIntake() {
-        return getHID(gamepad2).button(reverseIntake);
-    }
+    // public boolean reverseIntake() {
+    //     return getHID(gamepad2).button(reverseIntake);
+    // }
 
-    public boolean intakeUp() {
-        return getHID(gamepad2).button(intakeUp);
-    }
+    // public boolean intakeUp() {
+    //     return getHID(gamepad2).button(intakeUp);
+    // }
 
-    public boolean intakeDown() {
-        return getHID(gamepad2).button(intakeDown);
-    }
+    // public boolean intakeDown() {
+    //     return getHID(gamepad2).button(intakeDown);
+    // }
 
-    public boolean stopIntake() {
-        return getHID(gamepad2).button(stopIntake);
-    }
+    // public boolean stopIntake() {
+    //     return getHID(gamepad2).button(stopIntake);
+    // }
     
     // old stuff
 
@@ -273,33 +273,33 @@ public class KeyMap {
         return getHID(gamePadNumber).button(LogitechF310.B);
     }
 
-    public boolean getButtonX(int gamePadNumber) {
-        return getHID(gamePadNumber).button(LogitechF310.X);
-    }
+    // public boolean getButtonX(int gamePadNumber) {
+    //     return getHID(gamePadNumber).button(LogitechF310.X);
+    // }
 
-    public boolean getButtonY(int gamePadNumber) {
-        return getHID(gamePadNumber).button(LogitechF310.Y);
-    }
+    // public boolean getButtonY(int gamePadNumber) {
+    //     return getHID(gamePadNumber).button(LogitechF310.Y);
+    // }
 
-    public boolean getButtonTriggerRight(int gamePadNumber) {
-        return getHID(gamePadNumber).button(LogitechF310.TRIGGER_RIGHT);
-    }
+    // public boolean getButtonTriggerRight(int gamePadNumber) {
+    //     return getHID(gamePadNumber).button(LogitechF310.TRIGGER_RIGHT);
+    // }
 
-    public boolean getButtonTriggerLeft(int gamePadNumber) {
-        return getHID(gamePadNumber).button(LogitechF310.TRIGGER_LEFT);
-    }
+    // public boolean getButtonTriggerLeft(int gamePadNumber) {
+    //     return getHID(gamePadNumber).button(LogitechF310.TRIGGER_LEFT);
+    // }
 
-    public boolean getButtonBumperLeft(int gamePadNumber) {
-        return getHID(gamePadNumber).button(LogitechF310.BUMPER_LEFT);
-    }
+    // public boolean getButtonBumperLeft(int gamePadNumber) {
+    //     return getHID(gamePadNumber).button(LogitechF310.BUMPER_LEFT);
+    // }
 
-    public boolean getButtonDpadUp(int gamePadNumber) {
-        return getHID(gamePadNumber).button(LogitechF310.DPAD_UP);
-    }
+    // public boolean getButtonDpadUp(int gamePadNumber) {
+    //     return getHID(gamePadNumber).button(LogitechF310.DPAD_UP);
+    // }
 
-    public boolean getButtonDpadDown(int gamePadNumber) {
-        return getHID(gamePadNumber).button(LogitechF310.DPAD_DOWN);
-    }
+    // public boolean getButtonDpadDown(int gamePadNumber) {
+    //     return getHID(gamePadNumber).button(LogitechF310.DPAD_DOWN);
+    // }
 
     // private final HID.Button startIntake = LogitechF310.TRIGGER_RIGHT;
     // private final HID.Button reverseIntake = LogitechF310.TRIGGER_LEFT;
