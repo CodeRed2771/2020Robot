@@ -2,16 +2,22 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.DriverStation;
-
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
 
 public class ColorSensor {
+
+    private final TalonSRX spinMotor = new TalonSRX(Wiring.COLOR_WHEEL_SPINNER);
 
     private final I2C.Port i2cPort = I2C.Port.kOnboard;
     private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
@@ -29,7 +35,24 @@ public class ColorSensor {
     }
 
     public void spinWheelThreeToFiveTimes () {
-
+        // SPINMOTOR NEEDS TO SPIN 131072 TICKS TO SPIN CONTROL PANEL 4 TIMES WITHOUT SLIPPAGE
+        int timeColorPassed = 0;
+        int trackOfColor = 0;
+        Color currentColor = colorSensor.getColor();
+        Color colorRobotOn;
+        switch(timeColorPassed) {
+            case 1:
+                spinMotor.set(ControlMode.PercentOutput, -.5);
+                colorRobotOn = colorSensor.getColor();
+                if (currentColor == colorRobotOn) {
+                    trackOfColor++;
+                    if (trackOfColor == 7) {
+                        spinMotor.set(ControlMode.PercentOutput, 0);
+                    }
+                    timeColorPassed++;
+                }
+            break;
+        }
     }
 
     public void matchColor () {
@@ -90,5 +113,4 @@ public class ColorSensor {
         // NOTHING RECEIVED
         }
     }
-
 }

@@ -13,6 +13,8 @@ public class Wiring {
 
 	public static final int INTAKE_MOTOR_ID = 11;
 
+	public static final int COLOR_WHEEL_SPINNER = 13;
+
 
 	
 	// public static final int CLIMB_MOTOR_ID = 11;
