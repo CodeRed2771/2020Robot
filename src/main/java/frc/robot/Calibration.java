@@ -53,25 +53,25 @@ public class Calibration {
 	public final static double TURN_D = 400;
 	
 	//Physical Module - A
-	public final static int DT_A_DRIVE_TALON_ID = 6;
+	public final static int DT_A_DRIVE_SPARK_ID = 6;
 	public final static int DT_A_TURN_TALON_ID = 5;
 	private static double DT_A_ABS_ZERO = DT_A_ABS_ZERO_INITIAL;
 	public static double GET_DT_A_ABS_ZERO() { return DT_A_ABS_ZERO; }
 	
 	// Physical Module - B
-	public final static int DT_B_DRIVE_TALON_ID = 3;
+	public final static int DT_B_DRIVE_SPARK_ID = 3;
 	public final static int DT_B_TURN_TALON_ID = 4;
 	private static double DT_B_ABS_ZERO = DT_B_ABS_ZERO_INITIAL;
 	public static double GET_DT_B_ABS_ZERO() { return DT_B_ABS_ZERO; }
 	
 	// Physical Module - C
-	public final static int DT_C_DRIVE_TALON_ID = 7;
+	public final static int DT_C_DRIVE_SPARK_ID = 7;
 	public final static int DT_C_TURN_TALON_ID = 8;
 	private static double DT_C_ABS_ZERO = DT_C_ABS_ZERO_INITIAL;
 	public static double GET_DT_C_ABS_ZERO() { return DT_C_ABS_ZERO; }
 	
 	// Physical Module - D
-	public final static int DT_D_DRIVE_TALON_ID = 2;
+	public final static int DT_D_DRIVE_SPARK_ID = 2;
 	public final static int DT_D_TURN_TALON_ID = 1;
 	private static double DT_D_ABS_ZERO = DT_D_ABS_ZERO_INITIAL;
 	public static double GET_DT_D_ABS_ZERO() { return DT_D_ABS_ZERO; }
@@ -96,11 +96,12 @@ public class Calibration {
 	public static final double AUTO_ROT_D = 0.1;  // was 067
 	public static final double AUTO_ROT_F = 0.0;
 
-	public static final double AUTO_DRIVE_P = .03;  // was .5
-	public static final double AUTO_DRIVE_I = 0.0;
-	public static final double AUTO_DRIVE_D = 0.0;  // was 0
+	public static final double AUTO_DRIVE_P = .00005;  // was .5
+	public static final double AUTO_DRIVE_I = 0;
+	public static final double AUTO_DRIVE_D = 0;  // was 0
+	public static final double AUTO_DRIVE_F = 0.000156;
 	public static final int AUTO_DRIVE_IZONE = 50;
-	
+
 	public static final double INTAKE_MAX_CURRENT = 14;
 	
 	public static final double SHOOTER_P = 0.0;
@@ -116,7 +117,7 @@ public class Calibration {
 	public static final int LINKAGE_ACCEL = 500;
 	public static final int LINKAGE_VELOCITY = 1000;
 
-	public static void loadSwerveCalibration() {
+		public static void loadSwerveCalibration() {
 		File calibrationFile = new File("/home/lvuser/swerve.calibration");
 		if (calibrationFile.exists()) {
 			try {
@@ -169,5 +170,27 @@ public class Calibration {
 		
 		File calibrationFile = new File("/home/lvuser/swerve.calibration");
 		calibrationFile.delete();
+	}
+
+	public static void initializeSmartDashboard() {
+		SmartDashboard.putBoolean("Calibrate Swerve", false);
+		SmartDashboard.putBoolean("Reset Swerve Calibration", false);
+	}
+
+	public static boolean shouldCalibrateSwerve() {
+		boolean calibrateSwerve = SmartDashboard.getBoolean("Calibrate Swerve", false);
+		if (calibrateSwerve) {
+			SmartDashboard.putBoolean("Calibrate Swerve", false);
+			return true;
+		}
+		return false;
+	}
+
+	public static void checkIfShouldResetCalibration() {
+		boolean deleteCalibration = SmartDashboard.getBoolean("Reset Swerve Calibration", false);
+		if (deleteCalibration) {
+			SmartDashboard.putBoolean("Reset Swerve Calibration", false);
+			resetSwerveDriveCalibration();
+		}
 	}
 }
