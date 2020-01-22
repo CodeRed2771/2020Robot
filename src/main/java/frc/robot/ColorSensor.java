@@ -39,12 +39,12 @@ public class ColorSensor {
         int timeColorPassed = 0;
         int trackOfColor = 0;
         Color currentColor = colorSensor.getColor();
-        Color colorRobotOn;
-        switch(timeColorPassed) {
-            case 1:
-                spinMotor.set(ControlMode.PercentOutput, -.5);
-                colorRobotOn = colorSensor.getColor();
-                if (currentColor == colorRobotOn) {
+        Color colorRobotIsOn;
+        spinMotor.set(ControlMode.PercentOutput, -.5);
+        switch (timeColorPassed) {
+            case 0:
+                colorRobotIsOn = colorSensor.getColor();
+                if (currentColor == colorRobotIsOn) {
                     trackOfColor++;
                     if (trackOfColor == 7) {
                         spinMotor.set(ControlMode.PercentOutput, 0);
@@ -52,6 +52,7 @@ public class ColorSensor {
                     timeColorPassed++;
                 }
             break;
+
         }
     }
 
@@ -69,7 +70,7 @@ public class ColorSensor {
                     } else if (detectedColor == GreenTarget) {
                         // WRITE CODE FOR HOW MUCH TO TURN MOTOR BASED OFF CURRENT POSITION, SUBTRACT OR ADD TICKS.
                     } else {
-                        // DO NOTHING
+                        // WRITE CODE FOR HOW MUCH TO TURN MOTOR BASED OFF CURRENT POSITION, SUBTRACT OR ADD TICKS.
                     }
                     break;
                 case 'G':
@@ -80,7 +81,7 @@ public class ColorSensor {
                     } else if (detectedColor == YellowTarget) {
                         // WRITE CODE FOR HOW MUCH TO TURN MOTOR BASED OFF CURRENT POSITION, SUBTRACT OR ADD TICKS.
                     } else {
-                        // DO NOTHING
+                        // WRITE CODE FOR HOW MUCH TO TURN MOTOR BASED OFF CURRENT POSITION, SUBTRACT OR ADD TICKS.
                     }
                     break;
                 case 'R':
@@ -91,7 +92,7 @@ public class ColorSensor {
                     } else if (detectedColor == GreenTarget) {
                         // WRITE CODE FOR HOW MUCH TO TURN MOTOR BASED OFF CURRENT POSITION, SUBTRACT OR ADD TICKS.
                     } else {
-                        // DO NOTHING
+                        // WRITE CODE FOR HOW MUCH TO TURN MOTOR BASED OFF CURRENT POSITION, SUBTRACT OR ADD TICKS.
                     }
                     break;
                 case 'Y':
@@ -102,7 +103,7 @@ public class ColorSensor {
                     } else if (detectedColor == RedTarget) {
                         // WRITE CODE FOR HOW MUCH TO TURN MOTOR BASED OFF CURRENT POSITION, SUBTRACT OR ADD TICKS.
                     } else {
-                        // DO NOTHING
+                        // WRITE CODE FOR HOW MUCH TO TURN MOTOR BASED OFF CURRENT POSITION, SUBTRACT OR ADD TICKS.
                     }
                     break;
                 default:
