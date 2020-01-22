@@ -8,6 +8,7 @@ public class Wiring {
 	 */
 
 	public static final int SHOOTER_MOTOR_ID = 9;
+	public static final int SHOOTER1_MOTOR_ID = 12;
 	public static final int FEEDER_MOTOR_ID = 10;
 
 	public static final int INTAKE_MOTOR_ID = 11;

@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.DriverStation;
+
 
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
@@ -31,7 +33,62 @@ public class ColorSensor {
     }
 
     public void matchColor () {
-
+        String gameData;
+        gameData = DriverStation.getInstance().getGameSpecificMessage();
+        Color detectedColor = colorSensor.getColor();
+        if (gameData.length() > 0) {
+            switch (gameData.charAt(0)) {
+                case 'B':
+                    if (detectedColor == RedTarget) {
+                        // WRITE CODE FOR HOW MUCH TO TURN MOTOR BASED OFF CURRENT POSITION, SUBTRACT OR ADD TICKS.
+                    } else if (detectedColor == YellowTarget) {
+                        // WRITE CODE FOR HOW MUCH TO TURN MOTOR BASED OFF CURRENT POSITION, SUBTRACT OR ADD TICKS.
+                    } else if (detectedColor == GreenTarget) {
+                        // WRITE CODE FOR HOW MUCH TO TURN MOTOR BASED OFF CURRENT POSITION, SUBTRACT OR ADD TICKS.
+                    } else {
+                        // DO NOTHING
+                    }
+                    break;
+                case 'G':
+                    if (detectedColor == RedTarget) {
+                        // WRITE CODE FOR HOW MUCH TO TURN MOTOR BASED OFF CURRENT POSITION, SUBTRACT OR ADD TICKS.
+                    } else if (detectedColor == BlueTarget) {
+                        // WRITE CODE FOR HOW MUCH TO TURN MOTOR BASED OFF CURRENT POSITION, SUBTRACT OR ADD TICKS.
+                    } else if (detectedColor == YellowTarget) {
+                        // WRITE CODE FOR HOW MUCH TO TURN MOTOR BASED OFF CURRENT POSITION, SUBTRACT OR ADD TICKS.
+                    } else {
+                        // DO NOTHING
+                    }
+                    break;
+                case 'R':
+                    if (detectedColor == BlueTarget) {
+                        // WRITE CODE FOR HOW MUCH TO TURN MOTOR BASED OFF CURRENT POSITION, SUBTRACT OR ADD TICKS.
+                    } else if (detectedColor == YellowTarget) {
+                        // WRITE CODE FOR HOW MUCH TO TURN MOTOR BASED OFF CURRENT POSITION, SUBTRACT OR ADD TICKS.
+                    } else if (detectedColor == GreenTarget) {
+                        // WRITE CODE FOR HOW MUCH TO TURN MOTOR BASED OFF CURRENT POSITION, SUBTRACT OR ADD TICKS.
+                    } else {
+                        // DO NOTHING
+                    }
+                    break;
+                case 'Y':
+                    if (detectedColor == GreenTarget) {
+                        // WRITE CODE FOR HOW MUCH TO TURN MOTOR BASED OFF CURRENT POSITION, SUBTRACT OR ADD TICKS.
+                    } else if (detectedColor == BlueTarget) {
+                        // WRITE CODE FOR HOW MUCH TO TURN MOTOR BASED OFF CURRENT POSITION, SUBTRACT OR ADD TICKS.
+                    } else if (detectedColor == RedTarget) {
+                        // WRITE CODE FOR HOW MUCH TO TURN MOTOR BASED OFF CURRENT POSITION, SUBTRACT OR ADD TICKS.
+                    } else {
+                        // DO NOTHING
+                    }
+                    break;
+                default:
+                    // DO NOTHING
+                    break;
+            }
+        } else {
+        // NOTHING RECEIVED
+        }
     }
 
 }

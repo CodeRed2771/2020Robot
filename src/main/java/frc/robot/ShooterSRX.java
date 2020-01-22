@@ -20,18 +20,24 @@ public class ShooterSRX {
     private static ShooterSRX instance;
     // private static TalonSRX shooterMotor = new TalonSRX(Wiring.SHOOTER>MOTOR_ID);
     private static TalonFX shooterMotor = new TalonFX(Wiring.SHOOTER_MOTOR_ID);
+    private static TalonFX shooterMotor1 = new TalonFX(Wiring.SHOOTER1_MOTOR_ID);
     private static boolean isEnabled = false;
     private static double targetSpeed = 0;
    
     public ShooterSRX() {
+        // shooterMotor.set(shooterMotor1.follower, Wiring.SHOOTER_MOTOR_ID);
         shooterMotor.configFactoryDefault(10);
+        shooterMotor1.configFactoryDefault(10);
         shooterMotor.setInverted(false);
+        shooterMotor1.setInverted(false);
         /* first choose the sensor */
 		shooterMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-
+        shooterMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		/* set the relevant frame periods to be at least as fast as periodic rate */
 		shooterMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 0);
-		shooterMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0);
+        shooterMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0);
+        shooterMotor1.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 0);
+		shooterMotor1.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0);
 
 		/* set the peak and nominal outputs */
 		shooterMotor.configNominalOutputForward(0, 0);
@@ -42,19 +48,35 @@ public class ShooterSRX {
 
 		shooterMotor.configClosedloopRamp(.25, 0);
 
+        shooterMotor1.configNominalOutputForward(0, 0);
+		shooterMotor1.configNominalOutputReverse(0, 0);
+		shooterMotor1.configPeakOutputForward(1, 0);
+		shooterMotor1.configPeakOutputReverse(-1, 0);
+		shooterMotor1.setNeutralMode(NeutralMode.Coast);
+
+		shooterMotor1.configClosedloopRamp(.25, 0);
+
 		/* set closed loop gains in slot0 - see documentation */
-		shooterMotor.selectProfileSlot(0, 0);
+        shooterMotor.selectProfileSlot(0, 0);
+        shooterMotor1.selectProfileSlot(0, 0);
+
 
 		shooterMotor.config_kP(0, Calibration.SHOOTER_P, 0);
 		shooterMotor.config_kI(0, Calibration.SHOOTER_I, 0);
 		shooterMotor.config_kD(0, Calibration.SHOOTER_D, 0);
-		shooterMotor.config_kF(0, Calibration.SHOOTER_F, 0);
+        shooterMotor.config_kF(0, Calibration.SHOOTER_F, 0);
+        shooterMotor1.config_kP(0, Calibration.SHOOTER_P, 0);
+		shooterMotor1.config_kI(0, Calibration.SHOOTER_I, 0);
+		shooterMotor1.config_kD(0, Calibration.SHOOTER_D, 0);
+		shooterMotor1.config_kF(0, Calibration.SHOOTER_F, 0);
 
 		/* zero the sensor */
-		shooterMotor.setSelectedSensorPosition(0, 0, 0);
+        shooterMotor.setSelectedSensorPosition(0, 0, 0);
+        shooterMotor1.setSelectedSensorPosition(0, 0, 0);
 
 		// Current limit
         // shooterMotor.configContinuousCurrentLimit(25);
+        // shooterMotor1.configContinuousCurrentLimit(25);
         // MAY NEED THAT LATER
         
         SmartDashboard.putNumber("Shoot P", Calibration.SHOOTER_P);
@@ -85,10 +107,15 @@ public class ShooterSRX {
 			shooterMotor.config_kP(0, SmartDashboard.getNumber("Shoot P", 0), 0);
 			shooterMotor.config_kI(0, SmartDashboard.getNumber("Shoot I", 0), 0);
             shooterMotor.config_kD(0, SmartDashboard.getNumber("Shoot D", 0), 0);
+            shooterMotor1.config_kF(0, SmartDashboard.getNumber("Shoot F", 0), 0);
+			shooterMotor1.config_kP(0, SmartDashboard.getNumber("Shoot P", 0), 0);
+			shooterMotor1.config_kI(0, SmartDashboard.getNumber("Shoot I", 0), 0);
+            shooterMotor1.config_kD(0, SmartDashboard.getNumber("Shoot D", 0), 0);
 
             if (isEnabled) {
-                // shooterMotor.set(ControlMode.Velocity, SmartDashboard.getNumber("Shoot Setpoint", Calibration.SHOOTER_DEFAULT_SPEED));
-                shooterMotor.set(ControlMode.PercentOutput,-.6);
+                shooterMotor.set(ControlMode.Velocity, SmartDashboard.getNumber("Shoot Setpoint", Calibration.SHOOTER_DEFAULT_SPEED));
+                shooterMotor1.set(ControlMode.Velocity, SmartDashboard.getNumber("Shoot Setpoint", Calibration.SHOOTER_DEFAULT_SPEED));
+                // shooterMotor.set(ControlMode.PercentOutput,-.6);
             }
         }
         
@@ -103,6 +130,7 @@ public class ShooterSRX {
     public static void StopShooter() {
         isEnabled = false;
         shooterMotor.set(ControlMode.PercentOutput,0);
+        shooterMotor1.set(ControlMode.PercentOutput,0);
     }
 
     public static double getShooterSpeed() {
