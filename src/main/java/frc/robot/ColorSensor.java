@@ -26,9 +26,11 @@ public class ColorSensor {
     private final Color GreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);  // NEED TO BE CALIBRATED
     private final Color RedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);    // NEED TO BE CALIBRATED
     private final Color YellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113); // NEED TO BE CALIBRATED
-
-    // Fixed all of Ishan's mistakes
-
+    private boolean isSpinning = false;
+    int timesColorPassed = 0;
+    Color lastColorSeen = BlueTarget;
+    boolean spinningCompleted = false;
+   
     public ColorSensor () {
         colorMatcher.addColorMatch(BlueTarget);
         colorMatcher.addColorMatch(GreenTarget);
@@ -36,26 +38,37 @@ public class ColorSensor {
         colorMatcher.addColorMatch(YellowTarget);
     }
 
-    public void spinWheelThreeToFiveTimes () {
-        // SPINMOTOR NEEDS TO SPIN 131072 TICKS TO SPIN CONTROL PANEL 4 TIMES WITHOUT SLIPPAGE
-        int timeColorPassed = 0;
-        int trackOfColor = 0;
-        Color currentColor = colorSensor.getColor();
-        Color colorRobotIsOn;
+    public void startSpinning() {
+        isSpinning = true;
+        timesColorPassed = 0;
         spinMotor.set(ControlMode.PercentOutput, -.5);
-        switch (timeColorPassed) {
-            case 0:
-                colorRobotIsOn = colorSensor.getColor();
-                if (currentColor == colorRobotIsOn) {
-                    trackOfColor++;
-                    if (trackOfColor == 7) {
-                        spinMotor.set(ControlMode.PercentOutput, 0);
-                    }
-                    timeColorPassed++;
-                }
-            break;
+        lastColorSeen = colorSensor.getColor();
+        spinningCompleted = false;
+    }
 
+    public void tick () {
+        // SPINMOTOR NEEDS TO SPIN 131072 TICKS TO SPIN CONTROL PANEL 4 TIMES WITHOUT SLIPPAGE
+        Color currentColor = colorSensor.getColor();
+        if (currentColor == RedTarget && lastColorSeen != RedTarget) {
+            timesColorPassed++;
+            lastColorSeen = currentColor;
         }
+
+        lastColorSeen = currentColor;
+
+        if (timesColorPassed >= 7) {
+            spinMotor.set(ControlMode.PercentOutput, 0);
+            currentColor = null;
+            spinningCompleted = true;
+        }
+    }
+
+    public boolean isSpinningCompleted() {
+        return spinningCompleted;
+    }
+
+    public void stopSpinning () {
+        spinMotor.set(ControlMode.PercentOutput, 0);
     }
 
     public void matchColor () {
