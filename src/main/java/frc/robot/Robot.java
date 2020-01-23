@@ -51,18 +51,18 @@ public class Robot extends TimedRobot {
     }
     if (gamepad.getButtonB(1)) {
       ShooterSRX.StopShooter();
-    }
+	}
+	if (gamepad.startIntakeForwards()){
+		Intake.runIntakeForwards();
+	}
+	if (gamepad.startIntakeBackwards()){
+		Intake.runIntakeBackwards();
+	}
     // if (gamepad.getButtonDpadDown(1)) {
     //   Intake.moveIntakeDown();
     // }
     // if (gamepad.getButtonDpadUp(1)) {
     //   Intake.moveIntakeUp();
-    // }
-    // if (gamepad.getButtonTriggerRight(1)) {
-    //   Intake.runIntakeForwards();
-    // }
-    // if (gamepad.getButtonTriggerLeft(1)) {
-    //   Intake.runIntakeBackwards();
     // }
     // if (gamepad.getButtonBumperLeft(1)) {
     //   Intake.stopIntake();

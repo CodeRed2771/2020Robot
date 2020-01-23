@@ -20,9 +20,9 @@ public class KeyMap {
     private final HID.Axis swerveYAxis = LogitechExtreme3D.STICK_Y;
     private final HID.Axis swerveRotAxis = LogitechExtreme3D.STICK_ROT;
     private final HID.Button switchToRobotCentric = LogitechExtreme3D.Thumb;
-    private final HID.Button autoAlignToTarget = LogitechExtreme3D.Button7;
-    private final HID.Button turnToBackTarget = LogitechExtreme3D.Button5;
-    private final HID.Button autoPlaceHatch = LogitechExtreme3D.Button7;
+    //private final HID.Button autoAlignToTarget = LogitechExtreme3D.Button7;
+    //private final HID.Button turnToBackTarget = LogitechExtreme3D.Button5;
+    //private final HID.Button autoPlaceHatch = LogitechExtreme3D.Button7;
     
 
     private final HID.Button zeroGyro = LogitechExtreme3D.Button8;
@@ -43,12 +43,12 @@ public class KeyMap {
     private final HID.Button findFeedStation = LogitechExtreme3D.Button6;
 
     // CONTROLLER 2
-    private final HID.Button intakeCargo = LogitechF310.DPAD_LEFT;
-    private final HID.Button intakeHatch = LogitechF310.DPAD_UP;
-    // private final HID.Button stopIntake = LogitechF310.DPAD_RIGHT;
+    private final HID.Button intakeForwards = LogitechF310.DPAD_RIGHT;
+    private final HID.Button intakeBackwards= LogitechF310.DPAD_LEFT;
+    private final HID.Button stopIntake = LogitechF310.DPAD_DOWN;
     private final HID.Button gamePieceOverride = LogitechF310.DPAD_DOWN;
     private final HID.Axis ejectGamePiece = LogitechF310.TRIGGER_RIGHT_AXIS;
-    private final HID.Button fingerUp = LogitechF310.START;
+    //private final HID.Button fingerUp = LogitechF310.START;
     private final HID.Button extendLinkage = LogitechF310.BACK;
 
     // Hatch Placement
@@ -68,7 +68,7 @@ public class KeyMap {
     private final HID.Button stopShooting = LogitechF310.B;
     private final HID.Button startIntake = LogitechF310.TRIGGER_RIGHT;
     private final HID.Button reverseIntake = LogitechF310.TRIGGER_LEFT;
-    private final HID.Button stopIntake = LogitechF310.BUMPER_LEFT;
+    //private final HID.Button stopIntake = LogitechF310.DPAD_DOWN;
     private final HID.Button intakeUp = LogitechF310.DPAD_UP;
     private final HID.Button intakeDown = LogitechF310.DPAD_DOWN;
 
@@ -132,9 +132,9 @@ public class KeyMap {
     
     // old stuff
 
-    public boolean getAutoPlaceHatch() {
-        return getHID(gamepad1).button(autoPlaceHatch);
-    }
+    //public boolean getAutoPlaceHatch() {
+        //return getHID(gamepad1).button(autoPlaceHatch);
+    //}
 
     public boolean getZeroGyro() {
         return getHID(gamepad1).button(zeroGyro);
@@ -148,21 +148,15 @@ public class KeyMap {
         return getHID(gamepad1).button(autoEpicStartButton);
     }
 
-    public boolean activateCargoIntake() {
-        return getHID(gamepad2).button(intakeCargo) && !getHID(gamepad2).button(modifier) && !getHID(gamepad2).button(intakeHatch);
+    public boolean startIntakeForwards() {
+        return getHID(gamepad2).button(intakeForwards);
     }
-
-    public boolean activateCargoFeedIntake() {
-        return getHID(gamepad2).button(intakeCargo) && getHID(gamepad2).button(modifier) && !getHID(gamepad2).button(intakeHatch);
+    public boolean startIntakeBackwards() {
+        return getHID(gamepad2).button(intakeBackwards);
     }
-
-    public boolean activateHatchIntake() {
-        return getHID(gamepad2).button(intakeHatch) && !getHID(gamepad2).button(intakeCargo);
+    public boolean stopIntake() {
+        return getHID(gamepad2).button(stopIntake);
     }
-
-    // public boolean activateHatchIntakeAuto() {
-    //     return getHID(gamepad2).button(intakeHatch) && getHID(gamepad2).button(modifier);
-    // }
 
 
 
@@ -237,9 +231,9 @@ public class KeyMap {
         return getHID(gamepad2).axis(manualClimbDrive);
     }
 
-    public boolean getFingerUp() {
-        return getHID(gamepad2).button(fingerUp);
-    }
+    //public boolean getFingerUp() {
+        //return getHID(gamepad2).button(fingerUp);
+    //}
 
     // public boolean getHatchOverride() {
     //     return getHID(gamepad2).button(intakeHatch) && getHID(gamepad2).button(modifier);
