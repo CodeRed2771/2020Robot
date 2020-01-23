@@ -11,7 +11,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -94,7 +93,7 @@ public class ShooterSRX {
             }
         }
         
-        SmartDashboard.putNumber("Shooter Enc", shooterMotor.getSelectedSensorVelocity());
+        SmartDashboard.putNumber("Shooter Enc", shooterMotor.getSelectedSensorVelocity(0));
         SmartDashboard.putBoolean("Is At Speed", isAtSpeed());
     }
 
