@@ -32,7 +32,7 @@ public class ShooterSRX {
 		shooterMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		/* set the relevant frame periods to be at least as fast as periodic rate */
 		shooterMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 0);
-        shooterMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0);
+        // shooterMotor.setStatusFramePeriod(StatusFrameEnhanced., 10, 0);
 
 		/* set the peak and nominal outputs */
 		shooterMotor.configNominalOutputForward(0, 0);
@@ -93,7 +93,7 @@ public class ShooterSRX {
             }
         }
         
-        SmartDashboard.putNumber("Shooter Enc", shooterMotor.getSelectedSensorVelocity(0));
+        SmartDashboard.putNumber("Shoot Enc", shooterMotor.getSensorCollection().getIntegratedSensorVelocity());
         SmartDashboard.putBoolean("Is At Speed", isAtSpeed());
     }
 
@@ -107,7 +107,7 @@ public class ShooterSRX {
     }
 
     public static double getShooterSpeed() {
-        return shooterMotor.getSelectedSensorVelocity();
+        return shooterMotor.getSensorCollection().getIntegratedSensorVelocity();
     }
 
     public static boolean isAtSpeed() {
