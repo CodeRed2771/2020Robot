@@ -22,16 +22,18 @@ public class ShooterSRX {
     private static TalonFX shooterMotor1 = new TalonFX(Wiring.SHOOTER1_MOTOR_ID);
     private static boolean isEnabled = false;
     private static double targetSpeed = 0;
-   
+    private static final int kPIDLoopIdx = 0;
+
     public ShooterSRX() {
         // shooterMotor.set(shooterMotor1.follower, Wiring.SHOOTER_MOTOR_ID);
         shooterMotor1.follow(shooterMotor);
         shooterMotor.configFactoryDefault(10);
-        shooterMotor.setInverted(false);
+        shooterMotor.setInverted(true);
+        shooterMotor.setSensorPhase(false);
         /* first choose the sensor */
-		shooterMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		shooterMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, kPIDLoopIdx, 0);
 		/* set the relevant frame periods to be at least as fast as periodic rate */
-		shooterMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 0);
+		// shooterMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 0);
         // shooterMotor.setStatusFramePeriod(StatusFrameEnhanced., 10, 0);
 
 		/* set the peak and nominal outputs */
@@ -40,6 +42,7 @@ public class ShooterSRX {
 		shooterMotor.configPeakOutputForward(1, 0);
 		shooterMotor.configPeakOutputReverse(-1, 0);
 		shooterMotor.setNeutralMode(NeutralMode.Coast);
+        shooterMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, kPIDLoopIdx, 0);
 
 		shooterMotor.configClosedloopRamp(.25, 0);
 		/* set closed loop gains in slot0 - see documentation */
@@ -51,8 +54,8 @@ public class ShooterSRX {
 		shooterMotor.config_kD(0, Calibration.SHOOTER_D, 0);
         shooterMotor.config_kF(0, Calibration.SHOOTER_F, 0);
 		/* zero the sensor */
-        shooterMotor.setSelectedSensorPosition(0, 0, 0);
-
+        shooterMotor.setSelectedSensorPosition(0, kPIDLoopIdx, 0);
+ 	
 		// Current limit
         // shooterMotor.configContinuousCurrentLimit(25);
         // shooterMotor1.configContinuousCurrentLimit(25);
@@ -82,18 +85,19 @@ public class ShooterSRX {
         // }
 
         if (SmartDashboard.getBoolean("Shooter TUNE", true)) {
-			shooterMotor.config_kF(0, SmartDashboard.getNumber("Shoot F", 0), 0);
-			shooterMotor.config_kP(0, SmartDashboard.getNumber("Shoot P", 0), 0);
-			shooterMotor.config_kI(0, SmartDashboard.getNumber("Shoot I", 0), 0);
-            shooterMotor.config_kD(0, SmartDashboard.getNumber("Shoot D", 0), 0);
+			shooterMotor.config_kF(kPIDLoopIdx, SmartDashboard.getNumber("Shoot F", 0), 0);
+			shooterMotor.config_kP(kPIDLoopIdx, SmartDashboard.getNumber("Shoot P", 0), 0);
+			shooterMotor.config_kI(kPIDLoopIdx, SmartDashboard.getNumber("Shoot I", 0), 0);
+            shooterMotor.config_kD(kPIDLoopIdx, SmartDashboard.getNumber("Shoot D", 0), 0);
 
             if (isEnabled) {
-                shooterMotor.set(ControlMode.Velocity, SmartDashboard.getNumber("Shoot Setpoint", Calibration.SHOOTER_DEFAULT_SPEED));
+                shooterMotor.set(ControlMode.Velocity, SmartDashboard.getNumber("Shoot Setpoint", Calibration.SHOOTER_DEFAULT_SPEED));              
                 // shooterMotor.set(ControlMode.PercentOutput,-.6);
             }
         }
         
         SmartDashboard.putNumber("Shoot Enc", shooterMotor.getSensorCollection().getIntegratedSensorVelocity());
+        SmartDashboard.putNumber("Shoot Err", shooterMotor.getClosedLoopError());
         SmartDashboard.putBoolean("Is At Speed", isAtSpeed());
     }
 
