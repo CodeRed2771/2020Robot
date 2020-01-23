@@ -27,6 +27,8 @@ public class ColorSensor {
     private final Color RedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);    // NEED TO BE CALIBRATED
     private final Color YellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113); // NEED TO BE CALIBRATED
 
+    // Fixed all of Ishan's mistakes
+
     public ColorSensor () {
         colorMatcher.addColorMatch(BlueTarget);
         colorMatcher.addColorMatch(GreenTarget);
