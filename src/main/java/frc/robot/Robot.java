@@ -16,7 +16,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
   KeyMap gamepad;
-
+  AutoBaseClass mAutoProgram;
+  
   @Override
   public void robotInit() {
     gamepad = new KeyMap();
@@ -79,25 +80,30 @@ public class Robot extends TimedRobot {
 			DriveTrain.setAllTurnOrientation(0, false);
 		}
 
-    // DRIVER CONTROL MODE
-		// Issue the drive command using the parameters from
-		// above that have been tweaked as needed
-		double driveRotAmount;
-		double driveFWDAmount = gamepad.getSwerveYAxis();
-		double driveStrafeAmount = -gamepad.getSwerveXAxis();
-		boolean normalDrive = !gamepad.getDriveModifier();
+		// DRIVE
+		if (mAutoProgram.isRunning()) {
+			mAutoProgram.tick();
+		} else {
+			// DRIVER CONTROL MODE
+			// Issue the drive command using the parameters from
+			// above that have been tweaked as needed
+			double driveRotAmount;
+			double driveFWDAmount = gamepad.getSwerveYAxis();
+			double driveStrafeAmount = -gamepad.getSwerveXAxis();
+			boolean normalDrive = !gamepad.getDriveModifier();
 
-		if (Math.abs(driveFWDAmount) <= .2 || !normalDrive) // strafe adjust if not driving forward
-			driveStrafeAmount = strafeAdjust(driveStrafeAmount, normalDrive);
+			if (Math.abs(driveFWDAmount) <= .2 || !normalDrive) // strafe adjust if not driving forward
+				driveStrafeAmount = strafeAdjust(driveStrafeAmount, normalDrive);
 
-		driveRotAmount = rotationalAdjust(gamepad.getSwerveRotAxis());
+			driveRotAmount = rotationalAdjust(gamepad.getSwerveRotAxis());
 
-		driveFWDAmount = forwardAdjust(driveFWDAmount, normalDrive);
+			driveFWDAmount = forwardAdjust(driveFWDAmount, normalDrive);
 
-		if (gamepad.getRobotCentricModifier())
-			DriveTrain.humanDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
-		else
-			DriveTrain.fieldCentricDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
+			if (gamepad.getRobotCentricModifier())
+				DriveTrain.humanDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
+			else
+				DriveTrain.fieldCentricDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
+		}
 
 		showDashboardInfo();
   }
