@@ -25,7 +25,7 @@ public class Vision {
   }
 
   public static double getAngleOffset(){
-    return angleOffTarget;
+    return table.getEntry("tx").getDouble(0);
   }
   public static boolean seesTarget(){
     return table.getEntry("tv").getDouble(0) >0;
@@ -74,7 +74,7 @@ public class Vision {
 		table.getEntry("camMode").forceSetNumber(1);
 	}
 
-	private void setVisionTrackingMode () {
+	public static void setVisionTrackingMode () {
 		table.getEntry("camMode").forceSetNumber(0);
   }
 

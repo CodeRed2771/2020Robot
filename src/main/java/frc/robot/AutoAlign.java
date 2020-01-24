@@ -12,6 +12,7 @@ private double angleOffset = 0;
     public void start(){
         super.start();
         Vision.getInstance();
+        Vision.setVisionTrackingMode();
     }
     public void stop(){
         super.stop();
@@ -20,31 +21,36 @@ private double angleOffset = 0;
     @Override
     public void tick() {
         if (isRunning()){
+        DriveAuto.tick();
+        SmartDashboard.putNumber("Auto Step", getCurrentStep());
+
             switch (getCurrentStep()){
-                case 1:
+                case 0:
                     angleOffset = Vision.getAngleOffset();
                     if (Vision.seesTarget())
                         advanceStep();
                     break;
                 
-                case 2:
+                case 1:
                     DriveAuto.turnDegrees(-angleOffset, .3);
                     setTimerAndAdvanceStep(1000);
                     break;
 
-                case 3:
+                case 2:
                     if (DriveAuto.turnCompleted()){
                         advanceStep();
                     }
                     break;
-                case 4:
+                case 3:
                     angleOffset = Vision.getAngleOffset();
+                    SmartDashboard.putNumber("Angle Offset", angleOffset);
+                    SmartDashboard.putBoolean("Sees Target", Vision.seesTarget());
                     if (Vision.seesTarget() && (Math.abs(angleOffset) <= 1)){
                         System.out.println("On Target!");
                         stop();
                     }
                     else {
-                        setStep(1);
+                        setStep(0);
                     }
 
 
