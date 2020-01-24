@@ -10,10 +10,25 @@ public class Vision {
   private static float TargetHeight = 92; // NEED TO BE MORE ACCURATE
   private static float CameraAngle = 30;  // NEED TO BE MORE ACCURATE
   private static double LIMELIGHT_Y_AXIS_FOV = 45.7;
-  private NetworkTable table = null;
+  private static NetworkTable table = null;
+  private static double angleOffTarget = 0;
+  public static Vision instance;
 
+  public static Vision getInstance(){
+    if (instance == null)
+        instance = new Vision();
+      return instance;
+  }
+  
   public Vision () {
     table = NetworkTableInstance.getDefault().getTable("limelight");
+  }
+
+  public static double getAngleOffset(){
+    return angleOffTarget;
+  }
+  public static boolean seesTarget(){
+    return table.getEntry("tv").getDouble(0) >0;
   }
 
   public VisionData getDistanceAndAngleOffTarget (VisionData data) {
@@ -22,7 +37,7 @@ public class Vision {
     double ty;
     double degreesTargetOffGround;
     double distance;
-    double angleOffTarget;
+    //double angleOffTarget;
 
     setVisionTrackingMode();
     setLED(true);
