@@ -30,8 +30,7 @@ public class ShooterSRX {
         shooterMotor.configFactoryDefault(10);
         shooterMotor.setInverted(true);
         shooterMotor.setSensorPhase(false);
-        /* first choose the sensor */
-		shooterMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, kPIDLoopIdx, 0);
+       
 		/* set the relevant frame periods to be at least as fast as periodic rate */
 		// shooterMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 0);
         // shooterMotor.setStatusFramePeriod(StatusFrameEnhanced., 10, 0);
