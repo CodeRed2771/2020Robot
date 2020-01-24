@@ -18,8 +18,8 @@ public class Vision {
 
   public VisionData getDistanceAndAngleOffTarget (VisionData data) {
 
-    double degrees;
-    double ty0;
+    // double degrees;
+    double ty;
     double degreesTargetOffGround;
     double distance;
     double angleOffTarget;
@@ -27,9 +27,9 @@ public class Vision {
     setVisionTrackingMode();
     setLED(true);
     
-    ty0 = table.getEntry("ty0").getDouble(0);
-    degrees = ty0 *(LIMELIGHT_Y_AXIS_FOV/2);
-    degreesTargetOffGround = CameraAngle - degrees;
+    ty = table.getEntry("ty").getDouble(0);
+    // degrees = ty0 *(LIMELIGHT_Y_AXIS_FOV/2);
+    degreesTargetOffGround = CameraAngle + ty; // change it to '-' if it doesnt report positive angle above what it currently is
     distance = (TargetHeight - CameraHeight) / Math.tan(Math.toRadians(degreesTargetOffGround));
     angleOffTarget = table.getEntry("tx").getDouble(0);
 
@@ -61,7 +61,7 @@ public class Vision {
 
 	private void setVisionTrackingMode () {
 		table.getEntry("camMode").forceSetNumber(0);
-    }
+  }
 
   public void setVisionToActiveTrackingMode () {
     table.getEntry("snapshot").forceSetNumber(1);
@@ -70,5 +70,4 @@ public class Vision {
   public void stopActiveVisionMode () {
     table.getEntry("snapshot").forceSetNumber(0);
   }
-
 }

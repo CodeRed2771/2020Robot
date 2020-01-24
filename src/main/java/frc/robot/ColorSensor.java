@@ -17,7 +17,7 @@ import com.revrobotics.ColorMatch;
 
 public class ColorSensor {
 
-    private final TalonSRX spinMotor = new TalonSRX(Wiring.COLOR_WHEEL_SPINNER);
+    private final TalonSRX spinMotor = new TalonSRX(Wiring.COLOR_WHEEL_SPINNER_AND_TRAVERSER);
 
     private final I2C.Port i2cPort = I2C.Port.kOnboard;
     private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);

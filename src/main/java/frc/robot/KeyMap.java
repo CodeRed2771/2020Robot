@@ -151,9 +151,11 @@ public class KeyMap {
     public boolean startIntakeForwards() {
         return getHID(gamepad2).button(intakeForwards);
     }
+    
     public boolean startIntakeBackwards() {
         return getHID(gamepad2).button(intakeBackwards);
     }
+    
     public boolean stopIntake() {
         return getHID(gamepad2).button(stopIntake);
     }
