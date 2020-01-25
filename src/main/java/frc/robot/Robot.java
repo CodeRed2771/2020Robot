@@ -52,18 +52,18 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-	if (gamepad.getButtonA(1) && !isAutoRunning) {
-		DriveAuto.driveInches(60, 0, 1);
-		isAutoRunning = true;
-	} else
-	if (gamepad.getButtonB(1) && !isAutoRunning) {
-		DriveAuto.driveInches(-60, 0, 1);
-		isAutoRunning = true;
-	} else {
-		if (!gamepad.getButtonA(1) && !gamepad.getButtonB(1)) {
-			isAutoRunning = false;
-		}
-	}
+	// if (gamepad.getButtonA(1) && !isAutoRunning) {
+	// 	DriveAuto.driveInches(60, 0, 1);
+	// 	isAutoRunning = true;
+	// } else
+	// if (gamepad.getButtonB(1) && !isAutoRunning) {
+	// 	DriveAuto.driveInches(-60, 0, 1);
+	// 	isAutoRunning = true;
+	// } else {
+	// 	if (!gamepad.getButtonA(1) && !gamepad.getButtonB(1)) {
+	// 		isAutoRunning = false;
+	// 	}
+	// }
 
     if (gamepad.getButtonA(1)) {
       System.out.println("START SHOOTING");
@@ -132,12 +132,12 @@ public class Robot extends TimedRobot {
 				isAutoRunning = false;
 			}
 
-			// if (!isAutoRunning) {
-			// 	if (gamepad.getRobotCentricModifier())
-			// 		DriveTrain.humanDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
-		  	// 	else
-			// 		DriveTrain.fieldCentricDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
-			// }
+			if (!isAutoRunning) {
+				if (gamepad.getRobotCentricModifier())
+					DriveTrain.humanDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
+		  		else
+					DriveTrain.fieldCentricDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
+			}
 			
 		}
 
