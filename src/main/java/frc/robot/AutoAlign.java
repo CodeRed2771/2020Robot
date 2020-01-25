@@ -48,7 +48,7 @@ private double angleOffset = 0;
                     angleOffset = Vision.getAngleOffset();
                     SmartDashboard.putNumber("Angle Offset", angleOffset);
                     SmartDashboard.putBoolean("Sees Target", Vision.seesTarget());
-                    if (Vision.seesTarget() && (Math.abs(angleOffset) <= 5)){
+                    if (Vision.onTarget()){
                         System.out.println("On Target!");
                         stop();
                     }

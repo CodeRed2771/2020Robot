@@ -162,7 +162,7 @@ public class DriveAuto {
 	}
 
 	public static void turnDegrees(double degrees, double turnSpeedFactor) {
-		// Turns using the Gyro, relative to the current position
+		// Turns by driving with the modules turned.
 		// Use "turnCompleted" method to determine when the turn is done
 		// The PID controller for this sends a rotational value to the
 		// standard swerve drive method to make the bot rotate
@@ -184,7 +184,9 @@ public class DriveAuto {
 
 		DriveTrain.setDriveMMVelocity((int) (Calibration.DT_MM_VELOCITY * turnSpeedFactor));
 
-		DriveTrain.addToAllDrivePositions(convertToTicks(degreesToInches(degrees)));
+		double turnInches = degreesToInches(degrees);
+		SmartDashboard.putNumber("Turn Inches", turnInches);
+		DriveTrain.addToAllDrivePositions(convertToTicks(turnInches));
 	}
 
 	// public static void continuousTurn(double degrees, double maxPower) {
