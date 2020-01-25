@@ -35,7 +35,7 @@ public class Vision {
     return table.getEntry("tv").getDouble(0) >0;
   }
 
-  public double getDistanceFromTarget () {
+  public static double getDistanceFromTarget () {
     ty = table.getEntry("ty").getDouble(0);
     degreesTargetOffGround = CameraAngle + ty;
     distance = (TargetHeight - CameraHeight) / Math.tan(Math.toRadians(degreesTargetOffGround));

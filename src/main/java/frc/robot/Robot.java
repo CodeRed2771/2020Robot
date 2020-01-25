@@ -27,6 +27,9 @@ public class Robot extends TimedRobot {
     RobotGyro.getInstance();
 	DriveTrain.getInstance();
 	DriveAuto.getInstance();
+
+	mAutoProgram = new AutoDoNothing();
+	
 	
 	Calibration.loadSwerveCalibration();
 
@@ -59,6 +62,12 @@ public class Robot extends TimedRobot {
 	if (gamepad.startIntakeBackwards()){
 		Intake.runIntakeBackwards();
 	}
+	if (gamepad.turnPositiveDegrees() && DriveAuto.hasArrived()) {
+		DriveAuto.turnDegrees(90, 1);
+	}
+	if (gamepad.turnNegativeDegrees() && DriveAuto.hasArrived()) {
+		DriveAuto.turnDegrees(-90, 1);
+	}
     // if (gamepad.getButtonDpadDown(1)) {
     //   Intake.moveIntakeDown();
     // }
@@ -68,7 +77,8 @@ public class Robot extends TimedRobot {
     // if (gamepad.getButtonBumperLeft(1)) {
     //   Intake.stopIntake();
     // }
-    ShooterSRX.tick();
+	ShooterSRX.tick();
+	DriveAuto.tick();
 
     // --------------------------------------------------
 		// RESET - allow manual reset of systems by pressing Start
@@ -99,10 +109,10 @@ public class Robot extends TimedRobot {
 
 			driveFWDAmount = forwardAdjust(driveFWDAmount, normalDrive);
 
-			if (gamepad.getRobotCentricModifier())
-				DriveTrain.humanDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
-			else
-				DriveTrain.fieldCentricDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
+			// if (gamepad.getRobotCentricModifier())
+			// 	DriveTrain.humanDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
+			// else
+			// 	DriveTrain.fieldCentricDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
 		}
 
 		showDashboardInfo();

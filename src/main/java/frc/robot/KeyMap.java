@@ -71,6 +71,8 @@ public class KeyMap {
     //private final HID.Button stopIntake = LogitechF310.DPAD_DOWN;
     private final HID.Button intakeUp = LogitechF310.DPAD_UP;
     private final HID.Button intakeDown = LogitechF310.DPAD_DOWN;
+    private final HID.Button turnPositiveDegrees = LogitechF310.X;
+    private final HID.Button turnNegativeDegrees = LogitechF310.Y;
 
 
     public HID getHID(int gamepad) {
@@ -109,6 +111,15 @@ public class KeyMap {
     public boolean stopShooter() {
         return getHID(gamepad2).button(stopShooting);
     }
+
+    public boolean turnPositiveDegrees () {
+        return getHID(gamepad2).button(turnPositiveDegrees);
+    }
+
+    public boolean turnNegativeDegrees () {
+        return getHID(gamepad2).button(turnNegativeDegrees);
+    }
+
 
     // public boolean startIntake() {
     //     return getHID(gamepad2).button(startIntake);
@@ -269,13 +280,13 @@ public class KeyMap {
         return getHID(gamePadNumber).button(LogitechF310.B);
     }
 
-    // public boolean getButtonX(int gamePadNumber) {
-    //     return getHID(gamePadNumber).button(LogitechF310.X);
-    // }
+    public boolean getButtonX(int gamePadNumber) {
+        return getHID(gamePadNumber).button(LogitechF310.X);
+    }
 
-    // public boolean getButtonY(int gamePadNumber) {
-    //     return getHID(gamePadNumber).button(LogitechF310.Y);
-    // }
+    public boolean getButtonY(int gamePadNumber) {
+        return getHID(gamePadNumber).button(LogitechF310.Y);
+    }
 
     // public boolean getButtonTriggerRight(int gamePadNumber) {
     //     return getHID(gamePadNumber).button(LogitechF310.TRIGGER_RIGHT);
