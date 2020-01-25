@@ -44,7 +44,6 @@ private double angleOffset = 0;
                     }
                     break;
                 case 3:
-                
                     angleOffset = Vision.getAngleOffset();
                     SmartDashboard.putNumber("Angle Offset", angleOffset);
                     SmartDashboard.putBoolean("Sees Target", Vision.seesTarget());
@@ -52,9 +51,9 @@ private double angleOffset = 0;
                         System.out.println("On Target!");
                         stop();
                     }
-                    // else {
-                    //     setStep(0);
-                    // }
+                    else {
+                        setStep(0);
+                    }
                     break;
                 case 10:
                     turnDegrees(60, 1);

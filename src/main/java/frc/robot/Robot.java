@@ -17,7 +17,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
   KeyMap gamepad;
   AutoBaseClass mAutoProgram;
-  
+  boolean isAutoRunning = false;
+
   @Override
   public void robotInit() {
     gamepad = new KeyMap();
@@ -50,6 +51,20 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+
+	if (gamepad.getButtonA(1) && !isAutoRunning) {
+		DriveAuto.driveInches(60, 0, 1);
+		isAutoRunning = true;
+	} else
+	if (gamepad.getButtonB(1) && !isAutoRunning) {
+		DriveAuto.driveInches(-60, 0, 1);
+		isAutoRunning = true;
+	} else {
+		if (!gamepad.getButtonA(1) && !gamepad.getButtonB(1)) {
+			isAutoRunning = false;
+		}
+	}
+
     if (gamepad.getButtonA(1)) {
       System.out.println("START SHOOTING");
       ShooterSRX.StartShooter();
@@ -65,9 +80,11 @@ public class Robot extends TimedRobot {
 	}
 	if (gamepad.turnPositiveDegrees() && DriveAuto.hasArrived()) {
 		DriveAuto.turnDegrees(90, 1);
+		isAutoRunning = true;
 	}
 	if (gamepad.turnNegativeDegrees() && DriveAuto.hasArrived()) {
 		DriveAuto.turnDegrees(-90, 1);
+		isAutoRunning = true;
 	}
     // if (gamepad.getButtonDpadDown(1)) {
     //   Intake.moveIntakeDown();
@@ -111,10 +128,17 @@ public class Robot extends TimedRobot {
 
 			driveFWDAmount = forwardAdjust(driveFWDAmount, normalDrive);
 
-			// if (gamepad.getRobotCentricModifier())
-			// 	DriveTrain.humanDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
-			// else
-			// 	DriveTrain.fieldCentricDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
+			if (Math.abs(driveFWDAmount)>.5) {
+				isAutoRunning = false;
+			}
+
+			// if (!isAutoRunning) {
+			// 	if (gamepad.getRobotCentricModifier())
+			// 		DriveTrain.humanDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
+		  	// 	else
+			// 		DriveTrain.fieldCentricDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
+			// }
+			
 		}
 
 		showDashboardInfo();

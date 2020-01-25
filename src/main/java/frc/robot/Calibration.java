@@ -82,11 +82,11 @@ public class Calibration {
 	public final static double DT_ROT_PID_D= .000;
 	public final static double DT_ROT_PID_IZONE = 18;
 
-	public final static int DT_MM_ACCEL = 300;
-	public final static int DT_MM_VELOCITY = 450;
-	
+	public final static int DT_MM_ACCEL = 4000;
+	public final static int DT_MM_VELOCITY = 10000;
+		
 	// COMPETIION AND PRACTICE
-	public static final double DRIVE_DISTANCE_TICKS_PER_INCH = .5; 
+	public static final double DRIVE_DISTANCE_TICKS_PER_INCH = .47; 
 	
 	// TEST BOT2
 	// public static final double DRIVE_DISTANCE_TICKS_PER_INCH = 32.900; 
