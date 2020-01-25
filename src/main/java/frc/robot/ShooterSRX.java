@@ -26,7 +26,7 @@ public class ShooterSRX {
 
     public ShooterSRX() {
         // shooterMotor.set(shooterMotor1.follower, Wiring.SHOOTER_MOTOR_ID);
-        shooterMotor1.follow(shooterMotor);
+        // shooterMotor1.follow(shooterMotor);
         shooterMotor.configFactoryDefault(10);
         shooterMotor.setInverted(true);
         shooterMotor.setSensorPhase(false);

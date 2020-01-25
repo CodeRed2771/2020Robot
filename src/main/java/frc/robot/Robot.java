@@ -27,6 +27,7 @@ public class Robot extends TimedRobot {
     RobotGyro.getInstance();
 	DriveTrain.getInstance();
 	DriveAuto.getInstance();
+	ColorSensor.getInstance();
 
 	mAutoProgram = new AutoDoNothing();
 	
@@ -79,6 +80,7 @@ public class Robot extends TimedRobot {
     // }
 	ShooterSRX.tick();
 	DriveAuto.tick();
+	ColorSensor.tick();
 
     // --------------------------------------------------
 		// RESET - allow manual reset of systems by pressing Start
