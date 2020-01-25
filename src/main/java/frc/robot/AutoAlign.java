@@ -33,7 +33,7 @@ private double angleOffset = 0;
                     }
                     break;
                 
-                case 1:
+                case 1: //thought: one potential issue that could be happening is if the camera was picking up a target that wasn't actually the target... ~AR 
                     DriveAuto.turnDegrees(angleOffset, .3);
                     setTimerAndAdvanceStep(1000);
                     break;
@@ -48,7 +48,6 @@ private double angleOffset = 0;
                     angleOffset = Vision.getAngleOffset();
                     SmartDashboard.putNumber("Angle Offset", angleOffset);
                     SmartDashboard.putBoolean("Sees Target", Vision.seesTarget());
-                    stop();
                     if (Vision.seesTarget() && (Math.abs(angleOffset) <= 1)){
                         System.out.println("On Target!");
                         stop();
