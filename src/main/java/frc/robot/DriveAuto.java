@@ -330,8 +330,8 @@ public class DriveAuto {
 		// setPIDstate(false);
 	}
 
-	private static int convertToTicks(double inches) {
-		return (int) (inches * Calibration.DRIVE_DISTANCE_TICKS_PER_INCH);
+	private static double convertToTicks(double inches) {
+		return (double) (inches * Calibration.DRIVE_DISTANCE_TICKS_PER_INCH);
 	}
 
 	private static double convertTicksToInches(double ticks) {
