@@ -34,6 +34,10 @@ public class Vision {
   public static boolean seesTarget(){
     return table.getEntry("tv").getDouble(0) >0;
   }
+  
+  public static boolean onTarget() {
+    return (seesTarget() && (Math.abs(getAngleOffset()) <= 1));
+  }
 
   public static double getDistanceFromTarget () {
     ty = table.getEntry("ty").getDouble(0);
