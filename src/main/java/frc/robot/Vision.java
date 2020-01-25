@@ -31,35 +31,45 @@ public class Vision {
     return table.getEntry("tv").getDouble(0) >0;
   }
 
-  public VisionData getDistanceAndAngleOffTarget (VisionData data) {
-
-    // double degrees;
+  public double getDistanceFromTarget () {
     double ty;
     double degreesTargetOffGround;
     double distance;
-    //double angleOffTarget;
-
-    setVisionTrackingMode();
-    setLED(true);
-    
     ty = table.getEntry("ty").getDouble(0);
-    // degrees = ty0 *(LIMELIGHT_Y_AXIS_FOV/2);
-    degreesTargetOffGround = CameraAngle + ty; // change it to '-' if it doesnt report positive angle above what it currently is
+    degreesTargetOffGround = CameraAngle + ty;
     distance = (TargetHeight - CameraHeight) / Math.tan(Math.toRadians(degreesTargetOffGround));
-    angleOffTarget = table.getEntry("tx").getDouble(0);
-
-    System.out.println("distance from target:" + distance);
-    System.out.println("angle off center target:" + angleOffTarget);
-        
-    data.setAngleOffTarget((float)angleOffTarget);
-    data.setDistanceAwayFromTarget((float)distance);
-    
-    setLED(false);
-    stopActiveVisionMode();
-    setDriverMode();
-
-    return data;
+    return distance;
   }
+
+  // public VisionData getDistanceAndAngleOffTarget (VisionData data) {
+
+  //   // double degrees;
+  //   double ty;
+  //   double degreesTargetOffGround;
+  //   double distance;
+  //   //double angleOffTarget;
+
+  //   setVisionTrackingMode();
+  //   setLED(true);
+    
+  //   ty = table.getEntry("ty").getDouble(0);
+  //   // degrees = ty0 *(LIMELIGHT_Y_AXIS_FOV/2);
+  //   degreesTargetOffGround = CameraAngle + ty; // change it to '-' if it doesnt report positive angle above what it currently is
+  //   distance = (TargetHeight - CameraHeight) / Math.tan(Math.toRadians(degreesTargetOffGround));
+  //   angleOffTarget = table.getEntry("tx").getDouble(0);
+
+  //   System.out.println("distance from target:" + distance);
+  //   System.out.println("angle off center target:" + angleOffTarget);
+        
+  //   data.setAngleOffTarget((float)angleOffTarget);
+  //   data.setDistanceAwayFromTarget((float)distance);
+    
+  //   setLED(false);
+  //   stopActiveVisionMode();
+  //   setDriverMode();
+
+  //   return data;
+  // }
 
   public void setLED (boolean turnOn) {
 		table.getEntry("ledMode").forceSetNumber(turnOn ? 3 : 1); // 3 - on, 1 = off, 2 - blink
