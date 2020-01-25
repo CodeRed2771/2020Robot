@@ -26,11 +26,10 @@ private double angleOffset = 0;
             switch (getCurrentStep()){
                 case 0:
                     angleOffset = Vision.getAngleOffset();
-                    if (Vision.seesTarget()) {
+                    if (Vision.seesTarget() == true) {
                         advanceStep();
-                    } else {
-                        setTimer(2000);
-                        turnDegrees(10, 1);
+                    } else if (Vision.seesTarget() == false) {
+                        setStep(10);
                     }
                     break;
                 
@@ -59,6 +58,17 @@ private double angleOffset = 0;
                     // }
                     break;
 
+                case 10:
+                    turnDegrees(60, 1);
+                    setTimer(6000);
+                    advanceStep();
+                    break;
+                case 11:
+                    if (Vision.seesTarget() == true) {
+                        setStep(0);
+                    } else if (Vision.seesTarget() == false) {
+                        setStep(10);
+                    }
 
 
 
