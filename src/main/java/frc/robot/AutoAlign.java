@@ -2,7 +2,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-//THIS WAS WRITTEN BY ANNALISE AKA CODE MENACE
 //The purpose of this class is to turn the robot until we are on target.
 
 public class AutoAlign extends AutoBaseClass{
@@ -32,7 +31,7 @@ private double angleOffset = 0;
                     break;
                 
                 case 1:
-                    DriveAuto.turnDegrees(-angleOffset, .3);
+                    DriveAuto.turnDegrees(angleOffset, .3);
                     setTimerAndAdvanceStep(1000);
                     break;
 
@@ -45,13 +44,15 @@ private double angleOffset = 0;
                     angleOffset = Vision.getAngleOffset();
                     SmartDashboard.putNumber("Angle Offset", angleOffset);
                     SmartDashboard.putBoolean("Sees Target", Vision.seesTarget());
+                    stop();
                     if (Vision.seesTarget() && (Math.abs(angleOffset) <= 1)){
                         System.out.println("On Target!");
                         stop();
                     }
-                    else {
-                        setStep(0);
-                    }
+                    // else {
+                    //     setStep(0);
+                    // }
+                    break;
 
 
 

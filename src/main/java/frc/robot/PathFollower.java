@@ -7,13 +7,7 @@
 
 package frc.robot;
 
-/** 
- *  
- *  @author Ishan
- * 
- *  -- HAS EQUATION AND DRIVEDATA CLASSES WITH IT 
- * 
- */
+// HAS DriveData AND Equation CLASSES ALONG WITH IT
 
 public class PathFollower {
 	

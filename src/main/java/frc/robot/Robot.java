@@ -25,17 +25,17 @@ public class Robot extends TimedRobot {
     ShooterSRX.StopShooter();
     Intake.getInstance();
     RobotGyro.getInstance();
-		DriveTrain.getInstance();
-		DriveAuto.getInstance();
+	DriveTrain.getInstance();
+	DriveAuto.getInstance();
 	
-		Calibration.loadSwerveCalibration();
+	Calibration.loadSwerveCalibration();
 
-		RobotGyro.reset();
+	RobotGyro.reset();
 
-		DriveTrain.allowTurnEncoderReset();
-		DriveTrain.resetTurnEncoders(); // sets encoders based on absolute encoder positions
+	DriveTrain.allowTurnEncoderReset();
+	DriveTrain.resetTurnEncoders(); // sets encoders based on absolute encoder positions
 
-		SmartDashboard.putBoolean("Show Encoders", true);
+	SmartDashboard.putBoolean("Show Encoders", true);
   }
 
   @Override

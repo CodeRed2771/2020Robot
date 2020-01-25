@@ -8,10 +8,14 @@ public class Vision {
 
   private static float CameraHeight = 36; // NEED TO BE MORE ACCURATE
   private static float TargetHeight = 92; // NEED TO BE MORE ACCURATE
-  private static float CameraAngle = 30;  // NEED TO BE MORE ACCURATE
+  public static float CameraAngle = 30;  // NEED TO BE MORE ACCURATE
   private static double LIMELIGHT_Y_AXIS_FOV = 45.7;
   private static NetworkTable table = null;
   private static double angleOffTarget = 0;
+  private static double ty = 0;
+  private static double degreesTargetOffGround = 0;
+  private static double distance = 0;
+    
   public static Vision instance;
 
   public static Vision getInstance(){
@@ -32,9 +36,6 @@ public class Vision {
   }
 
   public double getDistanceFromTarget () {
-    double ty;
-    double degreesTargetOffGround;
-    double distance;
     ty = table.getEntry("ty").getDouble(0);
     degreesTargetOffGround = CameraAngle + ty;
     distance = (TargetHeight - CameraHeight) / Math.tan(Math.toRadians(degreesTargetOffGround));
@@ -49,8 +50,8 @@ public class Vision {
   //   double distance;
   //   //double angleOffTarget;
 
-  //   setVisionTrackingMode();
-  //   setLED(true);
+    // setVisionTrackingMode();
+    // setLED(true);
     
   //   ty = table.getEntry("ty").getDouble(0);
   //   // degrees = ty0 *(LIMELIGHT_Y_AXIS_FOV/2);
