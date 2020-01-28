@@ -22,7 +22,6 @@ private double angleOffset = 0;
         if (isRunning()){
         DriveAuto.tick();
         SmartDashboard.putNumber("Auto Step", getCurrentStep());
-
             switch (getCurrentStep()){
                 case 0:
                     angleOffset = Vision.getAngleOffset();
@@ -60,9 +59,7 @@ private double angleOffset = 0;
                     if (Vision.seesTarget() == true) {
                         setStep(0);
                     }
-
-
-
+                    break;
             }
         }
 

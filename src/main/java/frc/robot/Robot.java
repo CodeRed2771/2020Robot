@@ -32,7 +32,6 @@ public class Robot extends TimedRobot {
 
 	mAutoProgram = new AutoDoNothing();
 	
-	
 	Calibration.loadSwerveCalibration();
 
 	RobotGyro.reset();
@@ -78,14 +77,23 @@ public class Robot extends TimedRobot {
 	if (gamepad.startIntakeBackwards()){
 		Intake.runIntakeBackwards();
 	}
-	if (gamepad.turnPositiveDegrees() && DriveAuto.hasArrived()) {
-		DriveAuto.turnDegrees(90, 1);
-		isAutoRunning = true;
+	if (gamepad.stopIntake()) {
+		Intake.stopIntake();
 	}
-	if (gamepad.turnNegativeDegrees() && DriveAuto.hasArrived()) {
-		DriveAuto.turnDegrees(-90, 1);
-		isAutoRunning = true;
+	if (gamepad.spinWheel()) {
+		ColorSensor.start3To5TimesSpinning();
 	}
+	if (gamepad.matchColor()) {
+		ColorSensor.startMatchColorSpinning();
+	}
+	// if (gamepad.turnPositiveDegrees() && DriveAuto.hasArrived()) {
+	// 	DriveAuto.turnDegrees(90, 1);
+	// 	isAutoRunning = true;
+	// }
+	// if (gamepad.turnNegativeDegrees() && DriveAuto.hasArrived()) {
+	// 	DriveAuto.turnDegrees(-90, 1);
+	// 	isAutoRunning = true;
+	// }
     // if (gamepad.getButtonDpadDown(1)) {
     //   Intake.moveIntakeDown();
     // }
@@ -98,6 +106,7 @@ public class Robot extends TimedRobot {
 	ShooterSRX.tick();
 	DriveAuto.tick();
 	ColorSensor.tick();
+	// ColorSensor.matchColor();
 
     // --------------------------------------------------
 		// RESET - allow manual reset of systems by pressing Start
