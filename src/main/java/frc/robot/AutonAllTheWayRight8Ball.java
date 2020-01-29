@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutonAllTheWayRight8Ball extends AutoBaseClass{
 
+    private AutoAlign mAutoAlign = new AutoAlign();
+
     public void start(){
         super.start();
     }
@@ -21,91 +23,94 @@ public class AutonAllTheWayRight8Ball extends AutoBaseClass{
     
     @Override
     public void tick() {
-        if (isRunning() == true) {
+        if (isRunning()) {
             DriveAuto.tick();
             SmartDashboard.putNumber("Auto Step", getCurrentStep());
             switch (getCurrentStep()) {
                 case 0:
-                    // Start Vision
+                    mAutoAlign.start();
                     advanceStep();
                     break;
                 case 1:
                     if (Vision.onTarget() == true) {
                         advanceStep();
-                    } else {
-                        setStep(0);
                     }
                     break;
                 case 2:
                     ShooterSRX.StartShooter();
-                    setTimer(3000);
+                    setTimer(2000);
                     advanceStep();
                     break;
                 case 3:
-                    turnDegrees(90 + RobotGyro.getAngle(), 1);
                     advanceStep();
                     break;
                 case 4:
+                    turnDegrees(90 + RobotGyro.getAngle(), 1);
+                    setTimerAndAdvanceStep(2000);
+                    break;
+                case 5:
                     if (turnCompleted() == true) {
                         advanceStep();
                     }
                     break;
-                case 5:
+                case 6:
                     Intake.moveIntakeDown();
                     advanceStep();
                     break;
-                case 6:
+                case 7:
                     Intake.runIntakeForwards();
                     advanceStep();
                     break;
-                case 7:
-                    driveInches(265, 180, 1);
-                    advanceStep();
-                    break;
                 case 8:
+                    driveInches(265, 180, 1);
+                    setTimerAndAdvanceStep(5000);
+                    break;
+                case 9:
                     if (driveCompleted() == true) {
                         advanceStep();
                     }
                     break;
-                case 9:
+                case 10:
                     setTimer(1000);
                     Intake.stopIntake();
                     advanceStep();
                     break;
-                case 10:
-                    turnDegrees(-90, 1);
-                    advanceStep();
-                    break;
                 case 11:
+                    turnDegrees(-90, 1);
+                    setTimerAndAdvanceStep(2000);
+                    break;
+                case 12:
                     if (turnCompleted() == true) {
                         advanceStep();
                     }
                     break;
-                case 12:
-                    driveInches(45, 0, 1);
-                    advanceStep();
-                    break;
                 case 13:
+                    driveInches(45, 0, 1);
+                    setTimerAndAdvanceStep(2000);
+                    break;
+                case 14:
                     if (driveCompleted() == true) {
                         advanceStep();
                     }
                     break;
-                case 14:
-                    // Vision Lines Up
+                case 15:
+                    mAutoAlign.start();
                     advanceStep();
                     break;
-                case 15: 
+                case 16: 
                     if (Vision.onTarget() == true) {
                         advanceStep();
-                    } else {
-                        setStep(14);
                     }
-                case 16:
+                    break;
+                case 17:
                     ShooterSRX.StartShooter();
                     setTimer(2000);
                     advanceStep();
                     break;
-                case 17:
+                case 18:
+                    advanceStep();
+                    break;
+                case 19:
                     ShooterSRX.StopShooter();
                     stop();
                     break;

@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutonMiddle3Balls extends AutoBaseClass{
 
+    private AutoAlign mAutoAlign = new AutoAlign();
+
     public void start(){
         super.start();
     }
@@ -21,13 +23,13 @@ public class AutonMiddle3Balls extends AutoBaseClass{
     
     @Override
     public void tick() {
-        if (isRunning() == true) {
+        if (isRunning()) {
             DriveAuto.tick();
             SmartDashboard.putNumber("Auto Step", getCurrentStep());
             switch (getCurrentStep()) {
                 case 0:
                     turnDegrees(45, 1);
-                    advanceStep();
+                    setTimerAndAdvanceStep(1500);
                     break;
                 case 1:
                     if (turnCompleted() == true) {
@@ -35,38 +37,40 @@ public class AutonMiddle3Balls extends AutoBaseClass{
                     }
                     break;
                 case 2:
-                    // Vision Read
+                    mAutoAlign.start();
                     advanceStep();
                     break;
                 case 3:
                     if (Vision.onTarget() == true) {
                         advanceStep();
-                    } else {
-                        setStep(2);
-                    }
+                    } 
+                    break;
                 case 4:
                     ShooterSRX.StartShooter();
                     setTimer(2000);
                     advanceStep();
                     break;
                 case 5:
-                    ShooterSRX.StopShooter();
                     advanceStep();
                     break;
                 case 6:
+                    ShooterSRX.StopShooter();
+                    advanceStep();
+                    break;
+                case 7:
                     Intake.moveIntakeDown();
                     advanceStep();
                     break;
-                case 7: 
+                case 8: 
                     driveInches(36, 180, 1);
-                    advanceStep();
+                    setTimerAndAdvanceStep(3000);
                     break;
-                case 8:
+                case 9:
                     if (driveCompleted() == true) {
                         advanceStep();
                     }
                     break;
-                case 9:
+                case 10:
                     stop();
                     break;
             }

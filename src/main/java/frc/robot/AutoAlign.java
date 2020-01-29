@@ -30,8 +30,7 @@ private double angleOffset = 0;
                     } else if (Vision.seesTarget() == false) {
                         setStep(10);
                     }
-                    break;
-                
+                    break;           
                 case 1: //thought: one potential issue that could be happening is if the camera was picking up a target that wasn't actually the target... ~AR 
                     DriveAuto.turnDegrees(angleOffset, .6);
                     setTimerAndAdvanceStep(2000);

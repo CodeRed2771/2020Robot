@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutonLeftAlongLine3Ball extends AutoBaseClass {
 
+    private AutoAlign mAutoAlign = new AutoAlign();
+
     public void start(){
         super.start();
     }
@@ -27,7 +29,7 @@ public class AutonLeftAlongLine3Ball extends AutoBaseClass {
             switch (getCurrentStep()) {
                 case 0:
                     driveInches(176, 90, 1);
-                    advanceStep();
+                    setTimerAndAdvanceStep(4000);
                     break;
                 case 1:
                     if (driveCompleted()) {
@@ -35,14 +37,12 @@ public class AutonLeftAlongLine3Ball extends AutoBaseClass {
                     }
                     break;
                 case 2:
-                    // VISION LINES UP
+                    mAutoAlign.start();
                     advanceStep();
                     break;
                 case 3:
                     if (Vision.onTarget() == true) {
                         advanceStep();
-                    } else {
-                        setStep(2);
                     }
                     break;
                 case 4:
@@ -51,19 +51,22 @@ public class AutonLeftAlongLine3Ball extends AutoBaseClass {
                     advanceStep();
                     break;
                 case 5:
-                    ShooterSRX.StopShooter();
                     advanceStep();
                     break;
                 case 6:
-                    driveInches(190.5, 247.473, 1);
+                    ShooterSRX.StopShooter();
                     advanceStep();
                     break;
                 case 7:
+                    driveInches(190.5, 247.473, 1);
+                    setTimerAndAdvanceStep(4000);
+                    break;
+                case 8:
                     if (driveCompleted() == true) {
                         advanceStep();
                     }
                     break;
-                case 8:
+                case 9:
                     stop();
                     break;
                     
