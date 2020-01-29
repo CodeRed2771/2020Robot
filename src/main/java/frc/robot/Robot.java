@@ -26,14 +26,15 @@ public class Robot extends TimedRobot {
     ShooterSRX.StopShooter();
     Intake.getInstance();
     RobotGyro.getInstance();
+	
+	Calibration.loadSwerveCalibration();
 	DriveTrain.getInstance();
 	DriveAuto.getInstance();
 	ColorSensor.getInstance();
+	Vision.getInstance();
 
 	mAutoProgram = new AutoDoNothing();
 	
-	Calibration.loadSwerveCalibration();
-
 	RobotGyro.reset();
 
 	DriveTrain.allowTurnEncoderReset();
@@ -51,19 +52,28 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-	// if (gamepad.getButtonA(1) && !isAutoRunning) {
-	// 	DriveAuto.driveInches(60, 0, 1);
+	SmartDashboard.putNumber("DIST", Vision.getDistanceFromTarget());
+	SmartDashboard.updateValues();
+	if (gamepad.getButtonA(1) && !isAutoRunning) {
+		DriveAuto.driveInches(60, 0, 1);
+		isAutoRunning = true;
+	} else
+	if (gamepad.getButtonB(1) && !isAutoRunning) {
+		DriveAuto.driveInches(-60, 0, 1);
+		isAutoRunning = true;
+	} else {
+		if (!gamepad.getButtonA(1) && !gamepad.getButtonB(1)) {
+			isAutoRunning = false;
+		}
+	}
+	// if (gamepad.getButtonA(1) && DriveAuto.hasArrived()) {
+	// 	DriveAuto.turnDegrees(180, 1);
 	// 	isAutoRunning = true;
-	// } else
-	// if (gamepad.getButtonB(1) && !isAutoRunning) {
-	// 	DriveAuto.driveInches(-60, 0, 1);
-	// 	isAutoRunning = true;
-	// } else {
-	// 	if (!gamepad.getButtonA(1) && !gamepad.getButtonB(1)) {
-	// 		isAutoRunning = false;
-	// 	}
 	// }
-
+	// if (gamepad.getButtonB(1) && DriveAuto.hasArrived()) {
+	// 	DriveAuto.turnDegrees(-180, 1);
+	// 	isAutoRunning = true;
+	// }
     if (gamepad.getButtonA(1)) {
       System.out.println("START SHOOTING");
       ShooterSRX.StartShooter();
@@ -86,14 +96,7 @@ public class Robot extends TimedRobot {
 	if (gamepad.matchColor()) {
 		ColorSensor.startMatchColorSpinning();
 	}
-	// if (gamepad.turnPositiveDegrees() && DriveAuto.hasArrived()) {
-	// 	DriveAuto.turnDegrees(90, 1);
-	// 	isAutoRunning = true;
-	// }
-	// if (gamepad.turnNegativeDegrees() && DriveAuto.hasArrived()) {
-	// 	DriveAuto.turnDegrees(-90, 1);
-	// 	isAutoRunning = true;
-	// }
+
     // if (gamepad.getButtonDpadDown(1)) {
     //   Intake.moveIntakeDown();
     // }
@@ -210,7 +213,7 @@ public class Robot extends TimedRobot {
 		// more controlled movement
 		double adjustedAmt = 0;
 
-		if (Math.abs(rotateAmt) < .1) {
+		if (Math.abs(rotateAmt) < .2) {
 			adjustedAmt = 0;
 		} else {
 			if (Math.abs(rotateAmt) < .6) {
