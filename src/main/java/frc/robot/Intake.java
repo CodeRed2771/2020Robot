@@ -11,13 +11,16 @@ import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.libs.CurrentBreaker;
 
 public class Intake {
 
     private static Intake instance;
     private static CANSparkMax intakeMotor = new CANSparkMax(Wiring.INTAKE_MOTOR_ID, MotorType.kBrushless);
     private static DoubleSolenoid pistonArm;
-	private static Compressor compressor;
+    private static Compressor compressor;
+    private static int BallCount = 0;
+    public static CurrentBreaker currentBreaker;
 
     public Intake () {
         // pistonArm1 = new DoubleSolenoid(forwardChannel, reverseChannel);
@@ -50,5 +53,18 @@ public class Intake {
 
     public static void runIntakeBackwards () {
         intakeMotor.set(.7);
+    }
+
+    
+        // new CurrentBreaker(Wiring.Intake_PDP_PORT, Callibration.INTAKE_MAX_CURRENT, 250);
+        // CurrentBreaker = new CurrentBreaker(Wiring.Intake_PDP_PORT, Callibration.INTAKE_MAX_CURRENT);
+        // return (currentBreaker.tripped());
+        // currentBreaker.reset();
+    
+        public static boolean intakeStalled() {
+            return (currentBreaker.tripped());
+        }
+
+    public static void ballCount (){
     }
 }
