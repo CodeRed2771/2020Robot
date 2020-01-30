@@ -185,7 +185,7 @@ public class DriveTrain {
 	// 			moduleD.getDriveEncoder() + ((moduleD.getIsModuleReversed() ? -1 : 1) * ticks));
 	// }
 
-	public static void addToAllDrivePositions(int ticks) {
+	public static void addToAllDrivePositions(double ticks) {
 		if (getInstance() == null)
 			return;
 

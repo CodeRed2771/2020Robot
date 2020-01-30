@@ -22,55 +22,43 @@ private double angleOffset = 0;
         if (isRunning()){
         DriveAuto.tick();
         SmartDashboard.putNumber("Auto Step", getCurrentStep());
-
             switch (getCurrentStep()){
                 case 0:
-                    angleOffset = Vision.getAngleOffset();
+                    angleOffset = Vision.getDistanceAdjustedAngle();
                     if (Vision.seesTarget() == true) {
                         advanceStep();
                     } else if (Vision.seesTarget() == false) {
                         setStep(10);
                     }
-                    break;
-                
+                    break;           
                 case 1: //thought: one potential issue that could be happening is if the camera was picking up a target that wasn't actually the target... ~AR 
-                    DriveAuto.turnDegrees(angleOffset, .3);
-                    setTimerAndAdvanceStep(1000);
+                    DriveAuto.turnDegrees(angleOffset, .6);
+                    setTimerAndAdvanceStep(2000);
                     break;
 
                 case 2:
-                    if (DriveAuto.turnCompleted()){
+                    if (DriveAuto.hasArrived()){
                         advanceStep();
                     }
                     break;
                 case 3:
-                
-                    angleOffset = Vision.getAngleOffset();
+                    angleOffset = Vision.getDistanceAdjustedAngle();
                     SmartDashboard.putNumber("Angle Offset", angleOffset);
                     SmartDashboard.putBoolean("Sees Target", Vision.seesTarget());
-                    if (Vision.seesTarget() && (Math.abs(angleOffset) <= 1)){
+                    if (Vision.onTarget()){
                         System.out.println("On Target!");
                         stop();
                     }
-                    // else {
-                    //     setStep(0);
-                    // }
+                    else {
+                        setStep(0);
+                    }
                     break;
-
                 case 10:
                     turnDegrees(60, 1);
-                    setTimer(6000);
-                    advanceStep();
-                    break;
-                case 11:
                     if (Vision.seesTarget() == true) {
                         setStep(0);
-                    } else if (Vision.seesTarget() == false) {
-                        setStep(10);
                     }
-
-
-
+                    break;
             }
         }
 

@@ -6,9 +6,9 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Vision {
 
-  private static float CameraHeight = 36; // NEED TO BE MORE ACCURATE
-  private static float TargetHeight = 92; // NEED TO BE MORE ACCURATE
-  public static float CameraAngle = 30;  // NEED TO BE MORE ACCURATE
+  private static double CameraHeight = 9; // NEED TO BE MORE ACCURATE
+  private static double TargetHeight = 92; // NEED TO BE MORE ACCURATE
+  public static double CameraAngle = 26.4;  // NEED TO BE MORE ACCURATE
   private static double LIMELIGHT_Y_AXIS_FOV = 45.7;
   private static NetworkTable table = null;
   private static double angleOffTarget = 0;
@@ -31,17 +31,42 @@ public class Vision {
   public static double getAngleOffset(){
     return table.getEntry("tx").getDouble(0);
   }
+
+  public static double getDistanceAdjustedAngle() {
+
+    return (getAngleOffset()+(-(getDistanceFromTarget()-180)/360));
+
+    // if (getDistanceFromTarget() < 180) {  // 15 feet
+    //     return getAngleOffset() + ((180 - getDistanceFromTarget()) * .01);
+    // } else {
+    //     return getAngleOffset() - ((getDistanceFromTarget() - 180) * .01);
+    // }
+
+  }
+
   public static boolean seesTarget(){
     return table.getEntry("tv").getDouble(0) >0;
   }
+  
+  public static boolean onTarget() {
+    return (seesTarget() && (Math.abs(getAngleOffset()) <= 1));
+  }
 
-  public double getDistanceFromTarget () {
+  public static double getDistanceFromTarget () {
     ty = table.getEntry("ty").getDouble(0);
     degreesTargetOffGround = CameraAngle + ty;
     distance = (TargetHeight - CameraHeight) / Math.tan(Math.toRadians(degreesTargetOffGround));
     return distance;
   }
 
+  // public static double getDistanceFromTargetUsingSize() {
+   //wrong way
+    //f(x)=0.0006944545333631x^2-0.52707766317073x+132.33464946437
+    // if (seesTarget()) {
+    //   return 0.0006944545333631 * (thor) ^2- 0.52707766317073 * (thor) +132.33464946437
+    // } else
+    // return 0;
+  // }
   // public VisionData getDistanceAndAngleOffTarget (VisionData data) {
 
   //   // double degrees;
