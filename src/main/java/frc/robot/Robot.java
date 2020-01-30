@@ -163,7 +163,7 @@ public class Robot extends TimedRobot {
  
   @Override
   public void autonomousInit() {
-	  mAutoProgram = new AutoAlign();
+	  mAutoProgram = new AutonMiddle3Balls();
 	  mAutoProgram.start();
   }
 
