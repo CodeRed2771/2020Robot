@@ -32,6 +32,7 @@ public class AutonAllTheWayRight8Ball extends AutoBaseClass{
                     advanceStep();
                     break;
                 case 1:
+                    mAutoAlign.tick();
                     if (Vision.onTarget() == true) {
                         advanceStep();
                     }
@@ -98,6 +99,7 @@ public class AutonAllTheWayRight8Ball extends AutoBaseClass{
                     advanceStep();
                     break;
                 case 16: 
+                    mAutoAlign.tick();
                     if (Vision.onTarget() == true) {
                         advanceStep();
                     }

@@ -41,6 +41,7 @@ public class AutonMiddle3Balls extends AutoBaseClass{
                     advanceStep();
                     break;
                 case 3:
+                    mAutoAlign.tick();
                     if (Vision.onTarget() == true) {
                         advanceStep();
                     } 
