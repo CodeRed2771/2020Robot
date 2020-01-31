@@ -9,7 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class AutonLeftAlongLine3Ball extends AutoBaseClass {
+public class AutonMiddleLeftAlongLine3Balls extends AutoBaseClass {
 
     private AutoAlign mAutoAlign = new AutoAlign();
 
@@ -28,7 +28,7 @@ public class AutonLeftAlongLine3Ball extends AutoBaseClass {
             SmartDashboard.putNumber("Auto Step", getCurrentStep());
             switch (getCurrentStep()) {
                 case 0:
-                    driveInches(176, 90, 1);
+                    driveInches(130, 90, 1);
                     setTimerAndAdvanceStep(4000);
                     break;
                 case 1:
@@ -62,7 +62,7 @@ public class AutonLeftAlongLine3Ball extends AutoBaseClass {
                     advanceStep();
                     break;
                 case 8:
-                    driveInches(80, 255, 1);
+                    driveInches(60, 240, 1);
                     setTimerAndAdvanceStep(4000);
                     break;
                 case 9:
@@ -77,3 +77,4 @@ public class AutonLeftAlongLine3Ball extends AutoBaseClass {
         }
     }
 }
+

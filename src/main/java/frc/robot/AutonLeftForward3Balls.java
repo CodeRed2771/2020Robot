@@ -9,7 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class AutonLeftAlongLine3Ball extends AutoBaseClass {
+public class AutonLeftForward3Balls extends AutoBaseClass{
 
     private AutoAlign mAutoAlign = new AutoAlign();
 
@@ -20,7 +20,7 @@ public class AutonLeftAlongLine3Ball extends AutoBaseClass {
     public void stop(){
         super.stop();
     }
-    
+
     @Override
     public void tick() {
         if (isRunning()) {
@@ -28,51 +28,41 @@ public class AutonLeftAlongLine3Ball extends AutoBaseClass {
             SmartDashboard.putNumber("Auto Step", getCurrentStep());
             switch (getCurrentStep()) {
                 case 0:
-                    driveInches(176, 90, 1);
-                    setTimerAndAdvanceStep(4000);
+                    driveInches(100, 45, 1);
+                    advanceStep();
                     break;
                 case 1:
                     if (driveCompleted()) {
                         advanceStep();
                     }
                     break;
-                case 2:
-                    mAutoAlign.start();
-                    setTimerAndAdvanceStep(3000);
-                    break;
-                case 3:
+                case 2: 
+                    driveInches(100, 90, 1);
                     advanceStep();
+                    break;
+                case 3: 
+                    if (driveCompleted()) {
+                        advanceStep();
+                    }
                     break;
                 case 4:
+                    mAutoAlign.start();
+                    advanceStep();
+                    break;
+                case 5: 
                     mAutoAlign.tick();
-                    if (Vision.onTarget() == true) {
+                    if (Vision.onTarget()) {
                         advanceStep();
                     }
-                    break;
-                case 5:
-                    ShooterSRX.StartShooter();
-                    setTimer(2000);
-                    advanceStep();
                     break;
                 case 6:
-                    advanceStep();
+                    ShooterSRX.StartShooter();
+                    setTimerAndAdvanceStep(3000);
                     break;
-                case 7:
+                case 7: 
                     ShooterSRX.StopShooter();
-                    advanceStep();
-                    break;
-                case 8:
-                    driveInches(80, 255, 1);
-                    setTimerAndAdvanceStep(4000);
-                    break;
-                case 9:
-                    if (driveCompleted() == true) {
-                        advanceStep();
-                    }
-                    break;
-                case 10:
                     stop();
-                    break;               
+                    break;
             }
         }
     }

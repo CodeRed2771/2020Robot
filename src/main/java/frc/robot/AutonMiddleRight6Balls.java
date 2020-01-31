@@ -1,14 +1,116 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
-/**
- * Add your docs here.
- */
-public class AutonMiddleRight6Balls {
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+public class AutonMiddleRight6Balls extends AutoBaseClass{
+
+    private AutoAlign mAutoAlign = new AutoAlign();
+
+    public void start(){
+        super.start();
+    }
+
+    public void stop(){
+        super.stop();
+    }
+
+    @Override
+    public void tick() {
+        if (isRunning()) {
+            DriveAuto.tick();
+            SmartDashboard.putNumber("Auto Step", getCurrentStep());
+            switch (getCurrentStep()) {
+                case 0:
+                    mAutoAlign.start();
+                    advanceStep();
+                    break;
+                case 1:
+                    mAutoAlign.tick();
+                    if (Vision.onTarget()) {
+                        advanceStep();
+                    }
+                    break;
+                case 2:
+                    ShooterSRX.StartShooter();
+                    setTimerAndAdvanceStep(2000);
+                    break;
+                case 3:
+                    advanceStep();
+                    break;
+                case 4:
+                    ShooterSRX.StopShooter();
+                    advanceStep();
+                    break;
+                case 5:
+                    turnDegrees(-45 + (-(RobotGyro.getRelativeAngle())), 1);
+                    setTimerAndAdvanceStep(2000);
+                    break;
+                case 6:
+                    if (turnCompleted()) {
+                        advanceStep();
+                    }
+                    break;
+                case 7:
+                    driveInches(100, 180, 1);
+                    setTimerAndAdvanceStep(2000);
+                    break;
+                case 8:
+                    if (driveCompleted()) {
+                        advanceStep();
+                    }
+                    break;
+                case 9: 
+                    Intake.moveIntakeDown();
+                    advanceStep();
+                    break;
+                case 10:
+                    Intake.runIntakeForwards();
+                    advanceStep();
+                    break;
+                case 11:
+                    driveInches(22.5, 270, .5);
+                    setTimerAndAdvanceStep(1000);
+                    break;
+                case 12:
+                    if (driveCompleted()) {
+                        advanceStep();
+                    }
+                    break;
+                case 13:
+                    driveInches(85, 156, 0.6);
+                    setTimerAndAdvanceStep(3000);
+                    break;
+                case 14:
+                    if (driveCompleted()) {
+                        advanceStep();
+                    }
+                    break;
+                case 15:
+                    Intake.stopIntake();
+                    mAutoAlign.start();
+                    advanceStep();
+                    break;
+                case 16:
+                    mAutoAlign.tick();
+                    if (Vision.onTarget()) {
+                        advanceStep();
+                    }
+                    break;
+                case 17:
+                    ShooterSRX.StartShooter();
+                    setTimerAndAdvanceStep(3000);
+                    break;
+                case 18:
+                    advanceStep();
+                    break;
+                case 19:
+                    ShooterSRX.StopShooter();
+                    advanceStep();
+                    break;
+                case 20:
+                    stop();
+                    break;
+            }
+        }
+    }
 }
