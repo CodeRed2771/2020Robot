@@ -47,7 +47,7 @@ public class AutonMiddle3Balls extends AutoBaseClass{
                     } 
                     break;
                 case 4:
-                    ShooterSRX.StartShooter();
+                    // ShooterSRX.StartShooter();
                     setTimer(2000);
                     advanceStep();
                     break;
@@ -55,11 +55,11 @@ public class AutonMiddle3Balls extends AutoBaseClass{
                     advanceStep();
                     break;
                 case 6:
-                    ShooterSRX.StopShooter();
+                    // ShooterSRX.StopShooter();
                     advanceStep();
                     break;
                 case 7:
-                    Intake.moveIntakeDown();
+                    // Intake.moveIntakeDown();
                     advanceStep();
                     break;
                 case 8: 

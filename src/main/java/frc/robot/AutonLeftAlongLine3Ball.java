@@ -39,20 +39,18 @@ public class AutonLeftAlongLine3Ball extends AutoBaseClass {
                 case 2:
                     mAutoAlign.start();
                     setTimerAndAdvanceStep(3000);
-                    advanceStep();
                     break;
                 case 3:
                     advanceStep();
                     break;
                 case 4:
+                    mAutoAlign.tick();
                     if (Vision.onTarget() == true) {
                         advanceStep();
-                    } else {
-                        setStep(2);
                     }
                     break;
                 case 5:
-                    ShooterSRX.StartShooter();
+                    // ShooterSRX.StartShooter();
                     setTimer(2000);
                     advanceStep();
                     break;
@@ -60,7 +58,7 @@ public class AutonLeftAlongLine3Ball extends AutoBaseClass {
                     advanceStep();
                     break;
                 case 7:
-                    ShooterSRX.StopShooter();
+                    // ShooterSRX.StopShooter();
                     advanceStep();
                     break;
                 case 8:
@@ -74,12 +72,8 @@ public class AutonLeftAlongLine3Ball extends AutoBaseClass {
                     break;
                 case 10:
                     stop();
-                    break;
-                    
-                    
+                    break;               
             }
         }
-
     }
-
 }
