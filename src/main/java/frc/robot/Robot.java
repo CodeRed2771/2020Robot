@@ -12,12 +12,20 @@ import java.math.RoundingMode;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 
 public class Robot extends TimedRobot {
-  KeyMap gamepad;
-  AutoBaseClass mAutoProgram;
-  boolean isAutoRunning = false;
+
+	SendableChooser<String> autoChooser;
+	SendableChooser<String> positionChooser;
+	String autoSelected;
+	KeyMap gamepad;
+  	AutoBaseClass mAutoProgram;
+	boolean isAutoRunning = false;
+
+	final String threeBasicBalls = "3 Basic Balls";
+
 
   @Override
   public void robotInit() {
@@ -33,6 +41,7 @@ public class Robot extends TimedRobot {
 	ColorSensor.getInstance();
 	Vision.getInstance();
 
+	setupAutoChoices();
 	mAutoProgram = new AutoDoNothing();
 	
 	RobotGyro.reset();
@@ -163,9 +172,38 @@ public class Robot extends TimedRobot {
  
   @Override
   public void autonomousInit() {
-	  mAutoProgram = new AutonLeftAlongLine3Ball();
-	  mAutoProgram.start();
+	mAutoProgram.stop();
+	String selectedPos = positionChooser.getSelected();
+	SmartDashboard.putString("Position Chooser Selected", selectedPos);
+	char robotPosition = selectedPos.toCharArray()[0];
+	System.out.println("Robot position: " + robotPosition);
+
+	autoSelected = (String) autoChooser.getSelected();
+	SmartDashboard.putString("Auto Selected: ", autoSelected);
+
+	mAutoProgram = new AutoDoNothing();
+
+	switch (autoSelected) {
+		case threeBasicBalls:
+			mAutoProgram = new AutonBasic3BallOffLine();
+			mAutoProgram.start(robotPosition);
+			break;	
+	}
+
   }
+
+  private void setupAutoChoices() {
+	// Position Chooser
+	positionChooser = new SendableChooser<String>();
+	positionChooser.addOption("Left", "L");
+	positionChooser.setDefaultOption("Center", "C");
+	positionChooser.addOption("Right", "R");
+	SmartDashboard.putData("Position", positionChooser);
+	
+	autoChooser = new SendableChooser<String>();
+	autoChooser.setDefaultOption(threeBasicBalls, threeBasicBalls);
+	SmartDashboard.putData("Auto Chose:", autoChooser);
+}
 
   /**
    * This function is called periodically during autonomous.
@@ -175,7 +213,6 @@ public class Robot extends TimedRobot {
 	if (mAutoProgram.isRunning()) {
 		mAutoProgram.tick();
 	}
-   
   }
 
 	public void disabledInit() {

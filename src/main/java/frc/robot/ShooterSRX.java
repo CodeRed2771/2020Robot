@@ -19,7 +19,7 @@ public class ShooterSRX {
     private static ShooterSRX instance;
     // private static TalonSRX shooterMotor = new TalonSRX(Wiring.SHOOTER>MOTOR_ID);
     private static TalonFX shooterMotor = new TalonFX(Wiring.SHOOTER_MOTOR_ID);
-    private static TalonFX shooterMotor1 = new TalonFX(Wiring.SHOOTER1_MOTOR_ID);
+    // private static TalonFX shooterMotor1 = new TalonFX(Wiring.SHOOTER1_MOTOR_ID);
     private static boolean isEnabled = false;
     private static double targetSpeed = 0;
     private static final int kPIDLoopIdx = 0;

@@ -97,28 +97,29 @@ public class Vision {
   //   return data;
   // }
 
-  public void setLED (boolean turnOn) {
+  public static void setLED (boolean turnOn) {
 		table.getEntry("ledMode").forceSetNumber(turnOn ? 3 : 1); // 3 - on, 1 = off, 2 - blink
   }
     
-	public void flashLED (){
+	public static void flashLED (){
 		table.getEntry("ledMode").forceSetNumber(2);
   }
     
-  public void setDriverMode () {
+  public static void setDriverMode () {
 		setLED(false);
 		table.getEntry("camMode").forceSetNumber(1);
 	}
 
 	public static void setVisionTrackingMode () {
+    setLED(true);
 		table.getEntry("camMode").forceSetNumber(0);
   }
 
-  public void setVisionToActiveTrackingMode () {
+  public static void setVisionToActiveTrackingMode () {
     table.getEntry("snapshot").forceSetNumber(1);
   }
 
-  public void stopActiveVisionMode () {
+  public static void stopActiveVisionMode () {
     table.getEntry("snapshot").forceSetNumber(0);
   }
 }
