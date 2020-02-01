@@ -12,6 +12,7 @@ public class HID {
     Joystick joystick;
     public static Button UNMAPPED = new Button(-1);
     public static Axis UNMAPPED_AXIS = new Axis(-1);
+
     /**
      *
      * @param port
@@ -39,9 +40,9 @@ public class HID {
         }
         return joystick.getRawButton(button.button);
     }
-    
+
     public boolean getRawButton(int button) {
-    	return joystick.getRawButton(button);
+        return joystick.getRawButton(button);
     }
 
     public double axis(Axis axis) {
@@ -51,7 +52,8 @@ public class HID {
         if (axis instanceof POVAxis) {
             POVAxis pov = (POVAxis) axis;
             double povDirection = joystick.getPOV(pov.pov);
-            if (povDirection == -1) return 0;
+            if (povDirection == -1)
+                return 0;
             return pov.isX ? Math.sin(Math.toRadians(povDirection)) : Math.cos(Math.toRadians(povDirection));
         }
         double result = joystick.getRawAxis(axis.axis);
@@ -80,10 +82,7 @@ public class HID {
         return result;
     }
 
-    public boolean buttonToggled(
-            Button button,
-            ButtonState pressState,
-            ButtonState toggleState) {
+    public boolean buttonToggled(Button button, ButtonState pressState, ButtonState toggleState) {
         if (buttonPressed(button, pressState)) {
             toggleState.state = !toggleState.state;
         }
@@ -93,7 +92,7 @@ public class HID {
     public static ButtonState newButtonState() {
         return new ButtonState();
     }
-    
+
     public void setRumble(Joystick.RumbleType r, float value) {
         joystick.setRumble(r, value);
     }
@@ -121,8 +120,8 @@ public class HID {
             this.axis = axis;
             this.deadZone = deadZone;
         }
-        
-        Axis (int axis, double deadZone, double multiplier) {
+
+        Axis(int axis, double deadZone, double multiplier) {
             this.axis = axis;
             this.deadZone = deadZone;
             this.multiplier = multiplier;
@@ -142,17 +141,17 @@ public class HID {
     }
 
     public static class POVAxis extends Axis {
-                
+
         private int pov = 0;
         private boolean isX = false;
-        
+
         POVAxis(int pov, boolean isX) {
             super(-1);
             this.pov = pov;
             this.isX = isX;
         }
     }
-    
+
     public static class ButtonState {
 
         private boolean state = false;

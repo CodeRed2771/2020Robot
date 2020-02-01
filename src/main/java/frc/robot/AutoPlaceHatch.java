@@ -1,12 +1,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.*;
-
-import frc.robot.libs.CurrentBreaker;
 
 public class AutoPlaceHatch extends AutoBaseClass {
 
@@ -30,11 +24,11 @@ public class AutoPlaceHatch extends AutoBaseClass {
 
     public static void setLiftHeight(LiftHeight liftHeightParameter) {
         liftHeight = liftHeightParameter;
-    }  
+    }
 
     public void start() {
         super.start();
-    
+
         // Vision.setTargetTrackingMode();
     }
 
@@ -50,19 +44,19 @@ public class AutoPlaceHatch extends AutoBaseClass {
     public void setDrivingAllowed(boolean isDrivingAllowed) {
         drivingAllowed = isDrivingAllowed;
     }
-    
-	public AutoPlaceHatch() {
-		super();
+
+    public AutoPlaceHatch() {
+        super();
     }
 
-	public void tick() {
-		if (isRunning()) {
+    public void tick() {
+        if (isRunning()) {
 
-			DriveAuto.tick();
+            DriveAuto.tick();
 
-			SmartDashboard.putNumber("Auto Step", getCurrentStep());
-			switch (getCurrentStep()) {
-                case 0:
+            SmartDashboard.putNumber("Auto Step", getCurrentStep());
+            switch (getCurrentStep()) {
+            case 0:
                 // keep scanning for a distance reading
                 // distanceToTarget = Vision.getDistanceFromTarget();
                 if (distanceToTarget > 0) {
@@ -72,7 +66,8 @@ public class AutoPlaceHatch extends AutoBaseClass {
             case 2:
                 setActionMode(actionMode.PLACE_HATCH);
                 advanceStep();
-                // DriveAuto.turnDegrees(Vision.offsetFromTarget(), 1); // We commented this out because we thought it might be
+                // DriveAuto.turnDegrees(Vision.offsetFromTarget(), 1); // We commented this out
+                // because we thought it might be
                 // a problem so we are testing it once we have a robot.
                 // setTimerAndAdvanceStep(500); // changed from 1000 4.15.19
                 break;
@@ -86,7 +81,7 @@ public class AutoPlaceHatch extends AutoBaseClass {
                 */
 
             case 3:
-               
+
                 // targetAngle = TargetInfo.targetAngle(frc.robot.TargetInfo.TargetType.ROCKET_TARGET);
                 angleDiff = RobotGyro.getClosestTurn(targetAngle);
                 // angleDiff = targetAngle - RobotGyro.getRelativeAngle();
@@ -103,7 +98,7 @@ public class AutoPlaceHatch extends AutoBaseClass {
                 SmartDashboard.putNumber("Slide Dist", slideDistance);
                 driveInches(slideDistance, 90, 1, false);
 
-             if (actionMode == ActionMode.PLACE_HATCH) {
+                if (actionMode == ActionMode.PLACE_HATCH) {
                     DriveAuto.resetDriveCurrentBreaker();
                 }
 
@@ -125,16 +120,16 @@ public class AutoPlaceHatch extends AutoBaseClass {
                 advanceStep();
                 break;
             case 9:
-            //We added this - Who is we? - Me
-                driveInches(distanceToTarget + 12, 0, 1, true); 
+                // We added this - Who is we? - Me
+                driveInches(distanceToTarget + 12, 0, 1, true);
                 setTimerAndAdvanceStep(4000);
                 break;
             case 10:
                 if (DriveAuto.isAgainstWall() || DriveAuto.hasArrived()) {
-                    //System.out.println("CURRENT TRIPPED!!!!!"); ~Code Menace
+                    // System.out.println("CURRENT TRIPPED!!!!!"); ~Code Menace
                     advanceStep();
                 }
-               
+
                 break;
             }
         }

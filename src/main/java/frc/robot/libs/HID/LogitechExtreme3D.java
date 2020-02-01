@@ -21,14 +21,16 @@ public class LogitechExtreme3D extends HID {
     public static final Button Button10 = new Button(10);
     public static final Button Button11 = new Button(11);
     public static final Button Button12 = new Button(12);
-//we also need to account for the button on the top of the joystick that moves up and down, side to side, and diagonally. 
-//I don't know how to do this--would we just take the x and y values and not account for the diagonal movement at all?
-//Is accounting for this button at all even helpful in any way? ~Annalise
+    // we also need to account for the button on the top of the joystick that moves
+    // up and down, side to side, and diagonally.
+    // I don't know how to do this--would we just take the x and y values and not
+    // account for the diagonal movement at all?
+    // Is accounting for this button at all even helpful in any way? ~Annalise
 
     /**
      *
-     * @param port The port (1-4) that the controller is connected to in the
-     * Driver Station.
+     * @param port The port (1-4) that the controller is connected to in the Driver
+     *             Station.
      */
     public LogitechExtreme3D(int port) {
         super(port);

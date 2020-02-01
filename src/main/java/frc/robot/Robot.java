@@ -14,309 +14,264 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
-
 public class Robot extends TimedRobot {
 
-	SendableChooser<String> autoChooser;
-	SendableChooser<String> positionChooser;
-	String autoSelected;
-	KeyMap gamepad;
-  	AutoBaseClass mAutoProgram;
-	boolean isAutoRunning = false;
+    SendableChooser<String> autoChooser;
+    SendableChooser<String> positionChooser;
+    String autoSelected;
+    KeyMap gamepad;
+    AutoBaseClass mAutoProgram;
+    boolean isAutoRunning = false;
 
-	final String threeBasicBalls = "3 Basic Balls";
+    final String threeBasicBalls = "3 Basic Balls";
 
+    @Override
+    public void robotInit() {
+        gamepad = new KeyMap();
+        Shooter.getInstance();
+        Shooter.StopShooter();
+        Intake.getInstance();
+        RobotGyro.getInstance();
 
-  @Override
-  public void robotInit() {
-    gamepad = new KeyMap();
-    ShooterSRX.getInstance();
-    ShooterSRX.StopShooter();
-    Intake.getInstance();
-    RobotGyro.getInstance();
-	
-	Calibration.loadSwerveCalibration();
-	DriveTrain.getInstance();
-	DriveAuto.getInstance();
-	ColorSensor.getInstance();
-	Vision.getInstance();
+        Calibration.loadSwerveCalibration();
+        DriveTrain.getInstance();
+        DriveAuto.getInstance();
+        ColorSensor.getInstance();
+        Vision.getInstance();
 
-	setupAutoChoices();
-	mAutoProgram = new AutoDoNothing();
-	
-	RobotGyro.reset();
+        setupAutoChoices();
+        mAutoProgram = new AutoDoNothing();
 
-	DriveTrain.allowTurnEncoderReset();
-	DriveTrain.resetTurnEncoders(); // sets encoders based on absolute encoder positions
+        RobotGyro.reset();
 
-	SmartDashboard.putBoolean("Show Encoders", true);
-  }
+        DriveTrain.allowTurnEncoderReset();
+        DriveTrain.resetTurnEncoders(); // sets encoders based on absolute encoder positions
 
-  @Override
-	public void teleopInit() {
-		DriveTrain.stopDriveAndTurnMotors();
-		DriveTrain.setAllTurnOrientation(0, false); // sets them back to calibrated zero position
-	}
-
-  @Override
-  public void teleopPeriodic() {
-
-	SmartDashboard.putNumber("DIST", Vision.getDistanceFromTarget());
-	SmartDashboard.updateValues();
-	if (gamepad.getButtonA(1) && !isAutoRunning) {
-		DriveAuto.driveInches(60, 0, 1);
-		isAutoRunning = true;
-	} else
-	if (gamepad.getButtonB(1) && !isAutoRunning) {
-		DriveAuto.driveInches(-60, 0, 1);
-		isAutoRunning = true;
-	} else {
-		if (!gamepad.getButtonA(1) && !gamepad.getButtonB(1)) {
-			isAutoRunning = false;
-		}
-	}
-	// if (gamepad.getButtonA(1) && DriveAuto.hasArrived()) {
-	// 	DriveAuto.turnDegrees(180, 1);
-	// 	isAutoRunning = true;
-	// }
-	// if (gamepad.getButtonB(1) && DriveAuto.hasArrived()) {
-	// 	DriveAuto.turnDegrees(-180, 1);
-	// 	isAutoRunning = true;
-	// }
-    if (gamepad.getButtonA(1)) {
-      System.out.println("START SHOOTING");
-      ShooterSRX.StartShooter();
+        SmartDashboard.putBoolean("Show Encoders", true);
     }
-    if (gamepad.getButtonB(1)) {
-      ShooterSRX.StopShooter();
-	}
-	if (gamepad.startIntakeForwards()){
-		Intake.runIntakeForwards();
-	}
-	if (gamepad.startIntakeBackwards()){
-		Intake.runIntakeBackwards();
-	}
-	if (gamepad.stopIntake()) {
-		Intake.stopIntake();
-	}
-	if (gamepad.spinWheel()) {
-		ColorSensor.start3To5TimesSpinning();
-	}
-	if (gamepad.matchColor()) {
-		ColorSensor.startMatchColorSpinning();
-	}
 
-    // if (gamepad.getButtonDpadDown(1)) {
-    //   Intake.moveIntakeDown();
-    // }
-    // if (gamepad.getButtonDpadUp(1)) {
-    //   Intake.moveIntakeUp();
-    // }
-    // if (gamepad.getButtonBumperLeft(1)) {
-    //   Intake.stopIntake();
-    // }
-	ShooterSRX.tick();
-	DriveAuto.tick();
-	ColorSensor.tick();
-	// ColorSensor.matchColor();
+    @Override
+    public void teleopInit() {
+        DriveTrain.stopDriveAndTurnMotors();
+        DriveTrain.setAllTurnOrientation(0, false); // sets them back to calibrated zero position
+    }
 
-    // --------------------------------------------------
-		// RESET - allow manual reset of systems by pressing Start
-		// --------------------------------------------------
-		if (gamepad.getZeroGyro()) {
-			RobotGyro.reset();
-			DriveTrain.allowTurnEncoderReset();
-			DriveTrain.resetTurnEncoders(); // sets encoders based on absolute encoder positions
-			DriveTrain.setAllTurnOrientation(0, false);
-		}
+    @Override
+    public void teleopPeriodic() {
 
-		// DRIVE
-		if (mAutoProgram.isRunning()) {
-			mAutoProgram.tick();
-		} else {
-			// DRIVER CONTROL MODE
-			// Issue the drive command using the parameters from
-			// above that have been tweaked as needed
-			double driveRotAmount;
-			double driveFWDAmount = gamepad.getSwerveYAxis();
-			double driveStrafeAmount = -gamepad.getSwerveXAxis();
-			boolean normalDrive = !gamepad.getDriveModifier();
+        SmartDashboard.putNumber("DIST", Vision.getDistanceFromTarget());
+        SmartDashboard.updateValues();
+        if (gamepad.getButtonA(1) && !isAutoRunning) {
+            DriveAuto.driveInches(60, 0, 1);
+            isAutoRunning = true;
+        } else if (gamepad.getButtonB(1) && !isAutoRunning) {
+            DriveAuto.driveInches(-60, 0, 1);
+            isAutoRunning = true;
+        } else {
+            if (!gamepad.getButtonA(1) && !gamepad.getButtonB(1)) {
+                isAutoRunning = false;
+            }
+        }
 
-			if (Math.abs(driveFWDAmount) <= .2 || !normalDrive) // strafe adjust if not driving forward
-				driveStrafeAmount = strafeAdjust(driveStrafeAmount, normalDrive);
+        if (gamepad.getButtonA(1)) {
+            System.out.println("START SHOOTING");
+            Shooter.StartShooter();
+        }
+        if (gamepad.getButtonB(1)) {
+            Shooter.StopShooter();
+        }
+        if (gamepad.startIntakeForwards()) {
+            Intake.runIntakeForwards();
+        }
+        if (gamepad.startIntakeBackwards()) {
+            Intake.runIntakeBackwards();
+        }
+        if (gamepad.stopIntake()) {
+            Intake.stopIntake();
+        }
+        if (gamepad.spinWheel()) {
+            ColorSensor.start3To5TimesSpinning();
+        }
+        if (gamepad.matchColor()) {
+            ColorSensor.startMatchColorSpinning();
+        }
 
-			driveRotAmount = rotationalAdjust(gamepad.getSwerveRotAxis());
+        Shooter.tick();
+        DriveAuto.tick();
+        ColorSensor.tick();
+        // ColorSensor.matchColor();
 
-			driveFWDAmount = forwardAdjust(driveFWDAmount, normalDrive);
+        // --------------------------------------------------
+        // RESET - allow manual reset of systems by pressing Start
+        // --------------------------------------------------
+        if (gamepad.getZeroGyro()) {
+            RobotGyro.reset();
+            DriveTrain.allowTurnEncoderReset();
+            DriveTrain.resetTurnEncoders(); // sets encoders based on absolute encoder positions
+            DriveTrain.setAllTurnOrientation(0, false);
+        }
 
-			if (Math.abs(driveFWDAmount)>.5) {
-				isAutoRunning = false;
-			}
+        // DRIVE
+        if (mAutoProgram.isRunning()) {
+            mAutoProgram.tick();
+        } else {
+            // DRIVER CONTROL MODE
+            // Issue the drive command using the parameters from
+            // above that have been tweaked as needed
+            double driveRotAmount;
+            double driveFWDAmount = gamepad.getSwerveYAxis();
+            double driveStrafeAmount = -gamepad.getSwerveXAxis();
+            boolean normalDrive = !gamepad.getDriveModifier();
 
-			if (!isAutoRunning) {
-				if (gamepad.getRobotCentricModifier())
-					DriveTrain.humanDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
-		  		else
-					DriveTrain.fieldCentricDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
-			}
-			
-		}
+            if (Math.abs(driveFWDAmount) <= .2 || !normalDrive) // strafe adjust if not driving forward
+                driveStrafeAmount = strafeAdjust(driveStrafeAmount, normalDrive);
 
-		showDashboardInfo();
-  }
+            driveRotAmount = rotationalAdjust(gamepad.getSwerveRotAxis());
+            driveFWDAmount = forwardAdjust(driveFWDAmount, normalDrive);
 
-  @Override
-  public void robotPeriodic() {
-  }
+            if (Math.abs(driveFWDAmount) > .5) {
+                isAutoRunning = false;
+            }
 
- 
-  @Override
-  public void autonomousInit() {
-	mAutoProgram.stop();
-	String selectedPos = positionChooser.getSelected();
-	SmartDashboard.putString("Position Chooser Selected", selectedPos);
-	char robotPosition = selectedPos.toCharArray()[0];
-	System.out.println("Robot position: " + robotPosition);
+            if (!isAutoRunning) {
+                if (gamepad.getRobotCentricModifier()) {
+                    DriveTrain.humanDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
+                } else {
+                    DriveTrain.fieldCentricDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
+                }
+            }
+        }
 
-	autoSelected = (String) autoChooser.getSelected();
-	SmartDashboard.putString("Auto Selected: ", autoSelected);
+        showDashboardInfo();
+    }
 
-	mAutoProgram = new AutoDoNothing();
+    @Override
+    public void robotPeriodic() {
+    }
 
-	switch (autoSelected) {
-		case threeBasicBalls:
-			mAutoProgram = new AutonBasic3BallOffLine();
-			mAutoProgram.start(robotPosition);
-			break;	
-	}
+    @Override
+    public void autonomousInit() {
+        mAutoProgram.stop();
+        String selectedPos = positionChooser.getSelected();
+        SmartDashboard.putString("Position Chooser Selected", selectedPos);
+        char robotPosition = selectedPos.toCharArray()[0];
+        System.out.println("Robot position: " + robotPosition);
 
-  }
+        autoSelected = (String) autoChooser.getSelected();
+        SmartDashboard.putString("Auto Selected: ", autoSelected);
 
-  private void setupAutoChoices() {
-	// Position Chooser
-	positionChooser = new SendableChooser<String>();
-	positionChooser.addOption("Left", "L");
-	positionChooser.setDefaultOption("Center", "C");
-	positionChooser.addOption("Right", "R");
-	SmartDashboard.putData("Position", positionChooser);
-	
-	autoChooser = new SendableChooser<String>();
-	autoChooser.setDefaultOption(threeBasicBalls, threeBasicBalls);
-	SmartDashboard.putData("Auto Chose:", autoChooser);
-}
+        mAutoProgram = new AutoDoNothing();
 
-  /**
-   * This function is called periodically during autonomous.
-   */
-  @Override
-  public void autonomousPeriodic() {
-	if (mAutoProgram.isRunning()) {
-		mAutoProgram.tick();
-	}
-  }
+        switch (autoSelected) {
+        case threeBasicBalls:
+            mAutoProgram = new AutonBasic3BallOffLine();
+            mAutoProgram.start(robotPosition);
+            break;
+        }
 
-	public void disabledInit() {
-		DriveTrain.allowTurnEncoderReset(); // allows the turn encoders to be
-											// reset once during disabled
-											// periodic
-		DriveTrain.resetDriveEncoders();
+    }
 
-		// DriveTrain.disablePID();
+    private void setupAutoChoices() {
+        // Position Chooser
+        positionChooser = new SendableChooser<String>();
+        positionChooser.addOption("Left", "L");
+        positionChooser.setDefaultOption("Center", "C");
+        positionChooser.addOption("Right", "R");
+        SmartDashboard.putData("Position", positionChooser);
 
-		Calibration.initializeSmartDashboard();
-	}
+        autoChooser = new SendableChooser<String>();
+        autoChooser.setDefaultOption(threeBasicBalls, threeBasicBalls);
+        SmartDashboard.putData("Auto Chose:", autoChooser);
+    }
 
-	public void disabledPeriodic() {
-		DriveTrain.resetTurnEncoders(); // happens only once because a flag
-										// prevents multiple calls
-		showDashboardInfo();
+    /**
+     * This function is called periodically during autonomous.
+     */
+    @Override
+    public void autonomousPeriodic() {
+        if (mAutoProgram.isRunning()) {
+            mAutoProgram.tick();
+        }
+    }
 
-		if (Calibration.shouldCalibrateSwerve()) {
-			double[] pos = DriveTrain.getAllAbsoluteTurnOrientations();
-			Calibration.saveSwerveCalibration(pos[0], pos[1], pos[2], pos[3]);
-		}
+    public void disabledInit() {
+        // allows the turn encoders to be reset once during disabled periodic
+        DriveTrain.allowTurnEncoderReset();
+        DriveTrain.resetDriveEncoders();
+        DriveTrain.resetTurnEncoders();
 
-		Calibration.checkIfShouldResetCalibration();
-	}
-  /**
-   * This function is called periodically during test mode.
-   */
-  @Override
-  public void testPeriodic() {
-  }
+        Calibration.initializeSmartDashboard();
+    }
 
-  private double rotationalAdjust(double rotateAmt) {
-		// put some rotational power restrictions in place to make it
-		// more controlled movement
-		double adjustedAmt = 0;
+    public void disabledPeriodic() {
+        showDashboardInfo();
 
-		if (Math.abs(rotateAmt) < .2) {
-			adjustedAmt = 0;
-		} else {
-			if (Math.abs(rotateAmt) < .6) {
-				adjustedAmt = .10 * Math.signum(rotateAmt); // take 10% of the input
-			} else {
-				if (Math.abs(rotateAmt) < .8) {
-					adjustedAmt = .30 * Math.signum(rotateAmt); // take 30% of input
-				} else {
-					if (Math.abs(rotateAmt) < .95) {
-						adjustedAmt = .45 * Math.signum(rotateAmt); // take 45%
-					} else {
-						adjustedAmt = rotateAmt * .85;    // take 85% 
-					}
-				}
-			}
-		}
-		return adjustedAmt;
-	}
+        if (Calibration.shouldCalibrateSwerve()) {
+            double[] pos = DriveTrain.getAllAbsoluteTurnOrientations();
+            Calibration.saveSwerveCalibration(pos[0], pos[1], pos[2], pos[3]);
+        }
 
-	private double forwardAdjust(double fwd, boolean normalDrive) {
-		if (normalDrive) {
-			return fwd;
-		} else {
-			return fwd * .45;
-		}
-	}
+        Calibration.checkIfShouldResetCalibration();
+    }
 
-	private double strafeAdjust(double strafeAmt, boolean normalDrive) {
-		// put some power restrictions in place to make it
-		// more controlled
-		return strafeAmt;
+    /**
+     * This function is called periodically during test mode.
+     */
+    @Override
+    public void testPeriodic() {
+    }
 
-		// double adjustedAmt = 0;
+    private double rotationalAdjust(double rotateAmt) {
+        // put some rotational power restrictions in place to make it
+        // more controlled movement
+        double adjustedAmt = 0;
 
-		// if (Math.abs(strafeAmt) < .1) {
-		// 	adjustedAmt = 0;
-		// } else {
-		// 	if (normalDrive) { // do normal adjustments
-		// 		if (Math.abs(strafeAmt) < .7) {
-		// 			adjustedAmt = .3 * strafeAmt; // .2 * Math.signum(strafeAmt);
-		// 		} else {
-		// 			if (Math.abs(strafeAmt) < .98) {
-		// 				adjustedAmt = .50 * strafeAmt; // .4 * Math.signum(strafeAmt);
-		// 			} else {
-		// 				adjustedAmt = strafeAmt;
-		// 			}
-		// 		}
-		// 	} else { // lift is up, so do more drastic adjustments
-		// 		adjustedAmt = strafeAmt * .35;
-		// 	}
-		// }
-		// return adjustedAmt;
-  }
-  
-  private void showDashboardInfo() {
-		SmartDashboard.putNumber("Gyro Relative", round2(RobotGyro.getRelativeAngle()));
-		SmartDashboard.putNumber("Gyro Raw", round2(RobotGyro.getAngle()));
+        if (Math.abs(rotateAmt) < .2) {
+            adjustedAmt = 0;
+        } else {
+            if (Math.abs(rotateAmt) < .6) {
+                adjustedAmt = .10 * Math.signum(rotateAmt); // take 10% of the input
+            } else {
+                if (Math.abs(rotateAmt) < .8) {
+                    adjustedAmt = .30 * Math.signum(rotateAmt); // take 30% of input
+                } else {
+                    if (Math.abs(rotateAmt) < .95) {
+                        adjustedAmt = .45 * Math.signum(rotateAmt); // take 45%
+                    } else {
+                        adjustedAmt = rotateAmt * .85; // take 85%
+                    }
+                }
+            }
+        }
+        return adjustedAmt;
+    }
 
-		if (SmartDashboard.getBoolean("Show Encoders", false)) {
-			DriveTrain.showTurnEncodersOnDash();
-			DriveTrain.showDriveEncodersOnDash();
-		}
-  }
-  
-  private static Double round2(Double val) {
-		// added this back in on 1/15/18
-		return new BigDecimal(val.toString()).setScale(2, RoundingMode.HALF_UP).doubleValue();
-	}
+    private double forwardAdjust(double fwd, boolean normalDrive) {
+        if (normalDrive) {
+            return fwd;
+        } else {
+            return fwd * .45;
+        }
+    }
+
+    private double strafeAdjust(double strafeAmt, boolean normalDrive) {
+        // put some power restrictions in place to make it
+        // more controlled
+        return strafeAmt;
+    }
+
+    private void showDashboardInfo() {
+        SmartDashboard.putNumber("Gyro Relative", round2(RobotGyro.getRelativeAngle()));
+        SmartDashboard.putNumber("Gyro Raw", round2(RobotGyro.getAngle()));
+
+        if (SmartDashboard.getBoolean("Show Encoders", false)) {
+            DriveTrain.showTurnEncodersOnDash();
+            DriveTrain.showDriveEncodersOnDash();
+        }
+    }
+
+    private static Double round2(Double val) {
+        // added this back in on 1/15/18
+        return new BigDecimal(val.toString()).setScale(2, RoundingMode.HALF_UP).doubleValue();
+    }
 }

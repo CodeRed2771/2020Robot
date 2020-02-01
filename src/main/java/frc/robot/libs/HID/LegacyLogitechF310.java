@@ -1,4 +1,4 @@
-package frc.robot.libs.HID; 
+package frc.robot.libs.HID;
 
 /**
  *
@@ -11,8 +11,8 @@ public class LegacyLogitechF310 extends HID {
     public static final Axis TRIGGERS = new Axis(3);
     public static final Axis STICK_RIGHT_X = new Axis(4, 0.02);
     public static final Axis STICK_RIGHT_Y = new Axis(5, 0.02);
-    public static final Axis DPAD_X = new Axis(6, 0.02); //the mode button is why
-    public static final Axis DPAD_Y = new Axis(7, 0.02); //we need a deadzone
+    public static final Axis DPAD_X = new Axis(6, 0.02); // the mode button is why
+    public static final Axis DPAD_Y = new Axis(7, 0.02); // we need a deadzone
     public static final Button STICK_LEFT_LEFT = new AxisButton(STICK_LEFT_X, true);
     public static final Button STICK_LEFT_RIGHT = new AxisButton(STICK_LEFT_X, false);
     public static final Button STICK_LEFT_UP = new AxisButton(STICK_LEFT_Y, true);
@@ -40,13 +40,12 @@ public class LegacyLogitechF310 extends HID {
 
     /**
      * The <code>LogitechF310</code> represents a model of gamepad, and stores
-     * constants that corresponds to inputs (such as an axis or button) to be
-     * passed into the HID object. This object should <b>not</b> be initialized
-     * if you are using a <code>KeyMap</code> object along with the
-     * <code>HID</code> object.
+     * constants that corresponds to inputs (such as an axis or button) to be passed
+     * into the HID object. This object should <b>not</b> be initialized if you are
+     * using a <code>KeyMap</code> object along with the <code>HID</code> object.
      *
-     * @param port The port (1-4) that the controller is connected to in the
-     * Driver Station.
+     * @param port The port (1-4) that the controller is connected to in the Driver
+     *             Station.
      */
     public LegacyLogitechF310(int port) {
         super(port);
