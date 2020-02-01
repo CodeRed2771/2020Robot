@@ -2,7 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class AutonMiddleRight6Balls extends AutoBaseClass{
+public class AutonMiddleRight5Balls extends AutoBaseClass{
 
     private AutoAlign mAutoAlign = new AutoAlign();
 
