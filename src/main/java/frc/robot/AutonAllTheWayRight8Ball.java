@@ -72,7 +72,7 @@ public class AutonAllTheWayRight8Ball extends AutoBaseClass {
                 advanceStep();
                 break;
             case 10:
-                driveInches(265, 180, 1);
+                driveInches(265, 180, 1, false, true);
                 setTimerAndAdvanceStep(5000);
                 break;
             case 11:
@@ -90,12 +90,12 @@ public class AutonAllTheWayRight8Ball extends AutoBaseClass {
                 setTimerAndAdvanceStep(2000);
                 break;
             case 14:
-                if (turnCompleted()) {
+                if (driveCompleted()) {
                     advanceStep();
                 }
                 break;
             case 15:
-                driveInches(45, 0, 1);
+                driveInches(45, 0, 1, false, false);
                 setTimerAndAdvanceStep(2000);
                 break;
             case 16:

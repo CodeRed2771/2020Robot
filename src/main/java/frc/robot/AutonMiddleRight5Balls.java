@@ -51,7 +51,7 @@ public class AutonMiddleRight5Balls extends AutoBaseClass {
                 }
                 break;
             case 7:
-                driveInches(100, 180, 1);
+                driveInches(100, 180, 1, false, true);
                 setTimerAndAdvanceStep(2000);
                 break;
             case 8:
@@ -68,7 +68,7 @@ public class AutonMiddleRight5Balls extends AutoBaseClass {
                 advanceStep();
                 break;
             case 11:
-                driveInches(22.5, 270, .5);
+                driveInches(22.5, 270, .5, false, true);
                 setTimerAndAdvanceStep(1000);
                 break;
             case 12:
@@ -77,7 +77,7 @@ public class AutonMiddleRight5Balls extends AutoBaseClass {
                 }
                 break;
             case 13:
-                driveInches(85, 156, 0.6);
+                driveInches(85, 156, 0.6, false, true);
                 setTimerAndAdvanceStep(3000);
                 break;
             case 14:
