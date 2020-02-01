@@ -15,7 +15,8 @@ public class DriveAuto {
     private static boolean followingTarget = false;
 
     private static double heading = 0; // keeps track of intended heading - used for driving "straight"
-    private static double strafeAngle = 0;
+	private static double strafeAngle = 0;
+	private static double GyroAngle = 0;
     private static double strafeAngleOriginal = 0;
 
     private static CurrentBreaker driveCurrentBreaker;
@@ -72,13 +73,28 @@ public class DriveAuto {
 
     public static void driveInches(double inches, double angle, double speedFactor, boolean followTarget, boolean fieldCentric) {
 
+
         followingTarget = followTarget;
 
         SmartDashboard.putNumber("DRIVE INCHES", inches);
 
-        strafeAngle = -angle;
-        strafeAngleOriginal = strafeAngle;
+		if (fieldCentric) {
+			GyroAngle = RobotGyro.getRelativeAngle();
+			strafeAngle = -angle;
+			strafeAngleOriginal = strafeAngle;
 
+			if (GyroAngle > 0 && GyroAngle < 180) {
+				strafeAngle = strafeAngle + GyroAngle;
+			} else if (GyroAngle > 180 && GyroAngle < 360) {
+				GyroAngle = 360 - GyroAngle;
+				strafeAngle = strafeAngle - GyroAngle;
+			}
+
+		} else {
+			strafeAngle = -angle;
+			strafeAngleOriginal = strafeAngle;
+		}
+		
         stopTurning();
 
         isDriving = true;
@@ -86,15 +102,10 @@ public class DriveAuto {
         DriveTrain.setDriveMMVelocity((int) (Calibration.DT_MM_VELOCITY * speedFactor));
 
         // angle at which the wheel modules should be turned
-		if (fieldCentric) {
-			
-		} else {
-			strafeAngle = -angle;
-			strafeAngleOriginal = strafeAngle;
-		}
 
         // didnt help - DriveTrain.unReverseModules(); // make sure all "reversed" flags
         // are reset.
+        SmartDashboard.putNumber("Strafe Angle:", strafeAngle);
         DriveTrain.setAllTurnOrientation(DriveTrain.angleToPosition(strafeAngle), true);
 
         // give it just a little time to get the modules turned to position

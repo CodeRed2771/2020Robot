@@ -151,6 +151,9 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
+
+		RobotGyro.reset();
+
 		mAutoProgram.stop();
 		String selectedPos = positionChooser.getSelected();
 		SmartDashboard.putString("Position Chooser Selected", selectedPos);

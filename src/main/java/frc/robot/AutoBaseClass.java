@@ -90,8 +90,8 @@ public abstract class AutoBaseClass {
         DriveAuto.driveInches(distance, angle, maxPower, false);
     }
 
-    public void driveInches(double distance, double angle, double maxPower, boolean followTarget) {
-        DriveAuto.driveInches(distance, angle, maxPower, followTarget);
+    public void driveInches(double distance, double angle, double maxPower, boolean followTarget, boolean fieldCentric) {
+        DriveAuto.driveInches(distance, angle, maxPower, followTarget, fieldCentric);
     }
 
     public void turnToHeading(double desiredHeading, double turnSpeedFactor) {
