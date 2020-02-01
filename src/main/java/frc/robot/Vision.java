@@ -8,7 +8,7 @@ public class Vision {
 
   private static double CameraHeight = 9; // NEED TO BE MORE ACCURATE
   private static double TargetHeight = 92; // NEED TO BE MORE ACCURATE
-  public static double CameraAngle = 26.4;  // NEED TO BE MORE ACCURATE
+  public static double CameraAngle = 18;  // NEED TO BE MORE ACCURATE
   private static double LIMELIGHT_Y_AXIS_FOV = 45.7;
   private static NetworkTable table = null;
   private static double angleOffTarget = 0;

@@ -64,9 +64,13 @@ public class DriveAuto {
 
         System.out.println("END OF DRIVEAUTO CONSTRUCTOR");
 
-    }
+	}
+	
+	public static void driveInches(double inches, double angle, double speedFactor, boolean followTarget) {
+		driveInches(inches, angle, speedFactor, followTarget, false);
+	}
 
-    public static void driveInches(double inches, double angle, double speedFactor, boolean followTarget) {
+    public static void driveInches(double inches, double angle, double speedFactor, boolean followTarget, boolean fieldCentric) {
 
         followingTarget = followTarget;
 
@@ -82,6 +86,12 @@ public class DriveAuto {
         DriveTrain.setDriveMMVelocity((int) (Calibration.DT_MM_VELOCITY * speedFactor));
 
         // angle at which the wheel modules should be turned
+		if (fieldCentric) {
+			
+		} else {
+			strafeAngle = -angle;
+			strafeAngleOriginal = strafeAngle;
+		}
 
         // didnt help - DriveTrain.unReverseModules(); // make sure all "reversed" flags
         // are reset.
