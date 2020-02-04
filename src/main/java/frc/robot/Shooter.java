@@ -22,6 +22,7 @@ public class Shooter {
     private static boolean isEnabled = false;
     private static double targetSpeed = 0;
     private static final int kPIDLoopIdx = 0;
+    private static double adjustmentFactor = 1;
 
     public Shooter() {
         // shooterMotor.set(shooterMotor1.follower, Wiring.SHOOTER_MOTOR_ID);
@@ -63,7 +64,8 @@ public class Shooter {
 		SmartDashboard.putNumber("Shoot I", Calibration.SHOOTER_I);
 		SmartDashboard.putNumber("Shoot D", Calibration.SHOOTER_D);
         SmartDashboard.putNumber("Shoot F", Calibration.SHOOTER_F);
-        SmartDashboard.putNumber("Shoot Setpoint", Calibration.SHOOTER_DEFAULT_SPEED );
+        SmartDashboard.putNumber("Shoot Setpoint", Calibration.SHOOTER_DEFAULT_SPEED);
+        SmartDashboard.putNumber("Adjustment Factor", adjustmentFactor);
 
         // feederMotor.setNeutralMode(NeutralMode.Brake);
     }
@@ -89,7 +91,7 @@ public class Shooter {
             shooterMotor.config_kD(kPIDLoopIdx, SmartDashboard.getNumber("Shoot D", 0), 0);
 
             if (isEnabled) {
-                shooterMotor.set(ControlMode.Velocity, SmartDashboard.getNumber("Shoot Setpoint", Calibration.SHOOTER_DEFAULT_SPEED));              
+                shooterMotor.set(ControlMode.Velocity, SmartDashboard.getNumber("Shoot Setpoint", Calibration.SHOOTER_DEFAULT_SPEED) * adjustmentFactor);              
                 // shooterMotor.set(ControlMode.PercentOutput,-.6);
             }
         }
@@ -107,6 +109,16 @@ public class Shooter {
         isEnabled = false;
         shooterMotor.set(ControlMode.PercentOutput,0);
     }
+
+    public static void setAdjustmentFactor (double adjustmentFactor) {
+        adjustmentFactor = adjustmentFactor + 1;
+        adjustmentFactor = adjustmentFactor/2;
+        adjustmentFactor = adjustmentFactor + 2;
+        adjustmentFactor = adjustmentFactor * .4;
+        Shooter.adjustmentFactor = adjustmentFactor;
+        System.out.println(Shooter.adjustmentFactor
+        );
+    } 
 
     public static double getShooterSpeed() {
         return shooterMotor.getSensorCollection().getIntegratedSensorVelocity();

@@ -51,6 +51,7 @@ public class AutoAlign extends AutoBaseClass {
                 SmartDashboard.putBoolean("Sees Target", Vision.seesTarget());
                 if (Vision.onTarget()) {
                     System.out.println("On Target!");
+                    Vision.setDriverMode();
                     stop();
                 } else {
                     setStep(0);
@@ -58,7 +59,7 @@ public class AutoAlign extends AutoBaseClass {
                 break;
             case 10:
                 turnDegrees(60, 1);
-                if (Vision.seesTarget() == true) {
+                if (Vision.seesTarget()) {
                     setStep(0);
                 }
                 break;

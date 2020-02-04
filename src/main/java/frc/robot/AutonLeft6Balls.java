@@ -27,7 +27,46 @@ public class AutonLeft6Balls extends AutoBaseClass{
             DriveAuto.tick();
             SmartDashboard.putNumber("Auto Step", getCurrentStep());
             switch (getCurrentStep()) {
+                case 0:
+                    turnDegrees(35, 1);
+                    setTimerAndAdvanceStep(1000);
+                    break;
+                case 1:
+                    if (driveCompleted()) {
+                        advanceStep();
+                    }
+                case 2:
+                    mAutoAlign.start();
+                    advanceStep();
+                    break;
+                case 3:
+                    mAutoAlign.tick();
+                    if (Vision.onTarget()) {
+                        advanceStep();
+                    }
+                    break;
+                case 4:
+                    Shooter.StartShooter();
+                    setTimerAndAdvanceStep(3000);
+                    break;
+                case 5:
+                    Shooter.tick();
+                    break;
+                case 6:
+                    Shooter.StopShooter();
+                    Intake.moveIntakeDown();
+                    Intake.runIntakeForwards();
+                    advanceStep();
+                    break;
+                case 7:
+                    turnDegrees(-90, 1);
+
             }
         }
     }
+
+    public static double getSecondTurnAngle () {
+        return 0;
+    }
+
 }

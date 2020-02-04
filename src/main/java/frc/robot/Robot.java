@@ -12,12 +12,14 @@ import java.math.RoundingMode;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.libs.HID.HID;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 public class Robot extends TimedRobot {
 
 	SendableChooser<String> autoChooser;
 	SendableChooser<String> positionChooser;
+	SendableChooser<String> driveChooser;
 	String autoSelected;
 	KeyMap gamepad;
 	AutoBaseClass mAutoProgram;
@@ -59,6 +61,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 
+		
+
 		SmartDashboard.putNumber("DIST", Vision.getDistanceFromTarget());
 		SmartDashboard.updateValues();
 		if (gamepad.getButtonA(1) && !isAutoRunning) {
@@ -95,6 +99,7 @@ public class Robot extends TimedRobot {
 		if (gamepad.matchColor()) {
 			ColorSensor.startMatchColorSpinning();
 		}
+		Shooter.setAdjustmentFactor(gamepad.getShooterAdjustment());
 
 		Shooter.tick();
 		DriveAuto.tick();

@@ -38,10 +38,11 @@ public class AutonBasic3BallOffLine extends AutoBaseClass{
                         System.out.println("AUTON NOT RUNNING");
                         stop();
                     }
-                    setTimerAndAdvanceStep(2000);
+                    setTimerAndAdvanceStep(4000);
                     break;
                 case 1:
                     if (driveCompleted()) {
+                        Vision.setTargetForShooting();
                         advanceStep();
                     }
                     break;
@@ -57,7 +58,10 @@ public class AutonBasic3BallOffLine extends AutoBaseClass{
                     break;
                 case 4:
                     Shooter.StartShooter();
+                    Vision.setLED(false);
                     setTimerAndAdvanceStep(2000);
+                    break;
+                case 5:
                     break;
                 case 6:
                     Shooter.StopShooter();
@@ -77,6 +81,7 @@ public class AutonBasic3BallOffLine extends AutoBaseClass{
                     }
                     break;
                 case 10:
+                    Vision.setLED(true);
                     stop();
                     break;
             }

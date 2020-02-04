@@ -16,6 +16,7 @@ public class KeyMap extends DirectAccessKeyMap {
     // CONTROLLER 1
     private final HID.Axis swerveXAxis = LogitechExtreme3D.STICK_X;
     private final HID.Axis swerveYAxis = LogitechExtreme3D.STICK_Y;
+    private final HID.Axis shooterAdjuster = LogitechExtreme3D.SLIDER;
     private final HID.Axis swerveRotAxis = LogitechExtreme3D.STICK_ROT;
     private final HID.Button switchToRobotCentric = LogitechExtreme3D.Thumb;
 
@@ -68,6 +69,10 @@ public class KeyMap extends DirectAccessKeyMap {
         return getHID(gamepad2).button(stopShooting);
     }
 
+    public double getShooterAdjustment () {
+        return getHID(gamepad1).axis(shooterAdjuster);
+    }
+
     public boolean startIntake() {
         return getHID(gamepad2).button(intakeForwards);
     }
@@ -102,22 +107,6 @@ public class KeyMap extends DirectAccessKeyMap {
 
     public boolean startIntakeBackwards() {
         return getHID(gamepad2).button(intakeBackwards);
-    }
-
-    public boolean shipMoveLeft() {
-        return false;
-    }
-
-    public boolean shipMoveRight() {
-        return false;
-    }
-
-    public boolean getAutoAlignToTarget() {
-        return false;
-    }
-
-    public boolean getTurnToBackTarget() {
-        return false;
     }
 
     public boolean getDriveModifier() {
