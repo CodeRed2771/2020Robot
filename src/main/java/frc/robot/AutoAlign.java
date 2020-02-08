@@ -8,6 +8,10 @@ public class AutoAlign extends AutoBaseClass {
 
     private double angleOffset = 0;
 
+    public AutoAlign () {
+
+    }
+
     public void start() {
         super.start();
         Vision.getInstance();

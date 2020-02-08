@@ -19,6 +19,7 @@ public class KeyMap extends DirectAccessKeyMap {
     private final HID.Axis shooterAdjuster = LogitechExtreme3D.SLIDER;
     private final HID.Axis swerveRotAxis = LogitechExtreme3D.STICK_ROT;
     private final HID.Button switchToRobotCentric = LogitechExtreme3D.Thumb;
+    private final HID.Button startVision = LogitechExtreme3D.Button7;
 
     private final HID.Button zeroGyro = LogitechExtreme3D.Button8;
 
@@ -30,9 +31,9 @@ public class KeyMap extends DirectAccessKeyMap {
     private final HID.Button stopShooting = LogitechF310.B;
     private final HID.Button spinWheel3To5Times = LogitechF310.X;
     private final HID.Button matchColor = LogitechF310.Y;
-    private final HID.Button intakeForwards = LogitechF310.DPAD_RIGHT;
-    private final HID.Button intakeBackwards = LogitechF310.DPAD_LEFT;
-    private final HID.Button stopIntake = LogitechF310.DPAD_DOWN;
+    private final HID.Button intakeForwards = LogitechF310.TRIGGER_LEFT;
+    private final HID.Button intakeBackwards = LogitechF310.TRIGGER_RIGHT;
+    private final HID.Button stopIntake = LogitechF310.BUMPER_LEFT;
 
     public HID getHID(int gamepad) {
         if (!singleControllerMode) {
@@ -59,6 +60,10 @@ public class KeyMap extends DirectAccessKeyMap {
 
     public boolean getRobotCentricModifier() {
         return getHID(gamepad1).button(switchToRobotCentric);
+    }
+
+    public boolean startVision () {
+        return getHID(gamepad1).button(startVision);
     }
 
     public boolean startShooter() {

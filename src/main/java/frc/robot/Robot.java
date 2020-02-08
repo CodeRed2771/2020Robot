@@ -24,6 +24,7 @@ public class Robot extends TimedRobot {
 	KeyMap gamepad;
 	AutoBaseClass mAutoProgram;
 	boolean isAutoRunning = false;
+	AutoAlign mAutoAlign = new AutoAlign();
 
 	final String threeBasicBalls = "3 Basic Balls";
 
@@ -34,12 +35,14 @@ public class Robot extends TimedRobot {
 		Shooter.StopShooter();
 		Intake.getInstance();
 		RobotGyro.getInstance();
+		DistanceSensor.getInstance();
 
 		Calibration.loadSwerveCalibration();
 		DriveTrain.getInstance();
 		DriveAuto.getInstance();
-		ColorSensor.getInstance();
+		// ColorSensorAndClimber.getInstance();
 		Vision.getInstance();
+	
 
 		setupAutoChoices();
 		mAutoProgram = new AutoDoNothing();
@@ -60,9 +63,6 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopPeriodic() {
-
-		
-
 		SmartDashboard.putNumber("DIST", Vision.getDistanceFromTarget());
 		SmartDashboard.updateValues();
 		if (gamepad.getButtonA(1) && !isAutoRunning) {
@@ -77,12 +77,18 @@ public class Robot extends TimedRobot {
 			}
 		}
 
+		if (gamepad.startVision()) {
+			mAutoAlign.start();
+		}
+
 		if (gamepad.getButtonA(1)) {
 			System.out.println("START SHOOTING");
 			Shooter.StartShooter();
+			Queuer.startQueuer();
 		}
 		if (gamepad.getButtonB(1)) {
 			Shooter.StopShooter();
+			Queuer.stopQueuer();
 		}
 		if (gamepad.startIntakeForwards()) {
 			Intake.runIntakeForwards();
@@ -94,18 +100,19 @@ public class Robot extends TimedRobot {
 			Intake.stopIntake();
 		}
 		if (gamepad.spinWheel()) {
-			ColorSensor.start3To5TimesSpinning();
+			// ColorSensorAndClimber.start3To5TimesSpinning();
 		}
 		if (gamepad.matchColor()) {
-			ColorSensor.startMatchColorSpinning();
+			// ColorSensorAndClimber.startMatchColorSpinning();
 		}
 		Shooter.setAdjustmentFactor(gamepad.getShooterAdjustment());
 
 		Shooter.tick();
 		DriveAuto.tick();
-		ColorSensor.tick();
-		// ColorSensor.matchColor();
-
+		// ColorSensorAndClimber.tick();
+		// ColorSensorAndClimber.matchColor();
+		mAutoAlign.tick();
+		DistanceSensor.tick();
 		// --------------------------------------------------
 		// RESET - allow manual reset of systems by pressing Start
 		// --------------------------------------------------
