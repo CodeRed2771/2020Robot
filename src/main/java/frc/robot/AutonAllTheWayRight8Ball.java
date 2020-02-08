@@ -24,6 +24,7 @@ public class AutonAllTheWayRight8Ball extends AutoBaseClass {
     @Override
     public void tick() {
         if (isRunning()) {
+            Vision.setTargetForShooting();
             DriveAuto.tick(); // Find if DriveAuto is Ticked somewhere else
             SmartDashboard.putNumber("Auto Step", getCurrentStep());
             switch (getCurrentStep()) {

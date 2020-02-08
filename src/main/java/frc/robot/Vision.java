@@ -68,7 +68,7 @@ public class Vision {
     }
 
     public static void setDriverMode() {
-        setLED(false);
+        // setLED(false);
         table.getEntry("camMode").forceSetNumber(1);
     }
 

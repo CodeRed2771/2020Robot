@@ -26,6 +26,7 @@ public class AutoAlign extends AutoBaseClass {
             SmartDashboard.putNumber("Auto Step", getCurrentStep());
             switch (getCurrentStep()) {
             case 0:
+                Vision.setLED(true);
                 angleOffset = Vision.getDistanceAdjustedAngle();
                 if (Vision.seesTarget() == true) {
                     advanceStep();
@@ -34,8 +35,7 @@ public class AutoAlign extends AutoBaseClass {
                 }
                 break;
 
-            case 1: // thought: one potential issue that could be happening is if the camera was
-                    // picking up a target that wasn't actually the target... ~AR
+            case 1:
                 DriveAuto.turnDegrees(angleOffset, .6);
                 setTimerAndAdvanceStep(2000);
                 break;
@@ -52,6 +52,7 @@ public class AutoAlign extends AutoBaseClass {
                 if (Vision.onTarget()) {
                     System.out.println("On Target!");
                     Vision.setDriverMode();
+                    Vision.setLED(false);
                     stop();
                 } else {
                     setStep(0);
@@ -65,7 +66,5 @@ public class AutoAlign extends AutoBaseClass {
                 break;
             }
         }
-
     }
-
 }

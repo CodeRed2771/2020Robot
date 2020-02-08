@@ -24,6 +24,7 @@ public class AutonLeft6Balls extends AutoBaseClass{
     @Override
     public void tick() {
         if (isRunning()) {
+            Vision.setTargetForShooting();
             DriveAuto.tick();
             SmartDashboard.putNumber("Auto Step", getCurrentStep());
             switch (getCurrentStep()) {

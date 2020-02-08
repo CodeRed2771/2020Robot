@@ -24,6 +24,7 @@ public class AutonBasic3BallOffLine extends AutoBaseClass{
     @Override
     public void tick() {
         if (isRunning()) {
+            Vision.setTargetForShooting();
             DriveAuto.tick();
             SmartDashboard.putNumber("Auto Step", getCurrentStep());
             switch (getCurrentStep()) {
@@ -42,7 +43,6 @@ public class AutonBasic3BallOffLine extends AutoBaseClass{
                     break;
                 case 1:
                     if (driveCompleted()) {
-                        Vision.setTargetForShooting();
                         advanceStep();
                     }
                     break;
@@ -58,7 +58,6 @@ public class AutonBasic3BallOffLine extends AutoBaseClass{
                     break;
                 case 4:
                     Shooter.StartShooter();
-                    Vision.setLED(false);
                     setTimerAndAdvanceStep(2000);
                     break;
                 case 5:
@@ -81,7 +80,6 @@ public class AutonBasic3BallOffLine extends AutoBaseClass{
                     }
                     break;
                 case 10:
-                    Vision.setLED(true);
                     stop();
                     break;
             }
