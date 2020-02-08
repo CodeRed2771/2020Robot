@@ -13,7 +13,9 @@ public class Wiring {
 
 	public static final int INTAKE_MOTOR_ID = 11;
 
-	public static final int COLOR_WHEEL_SPINNER_AND_TRAVERSER = 13;
+	public static final int COLOR_WHEEL_SPINNER_AND_TRAVERSER_ID = 13;
+
+	public static final int QUEUER_MOTOR_ID = 14;
 
 
 	
