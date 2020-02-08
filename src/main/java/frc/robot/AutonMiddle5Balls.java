@@ -2,7 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class AutonMiddleRight5Balls extends AutoBaseClass {
+public class AutonMiddle5Balls extends AutoBaseClass {
 
     private AutoAlign mAutoAlign = new AutoAlign();
 
@@ -17,6 +17,7 @@ public class AutonMiddleRight5Balls extends AutoBaseClass {
     @Override
     public void tick() {
         if (isRunning()) {
+            Vision.setTargetForShooting();
             DriveAuto.tick();
             SmartDashboard.putNumber("Auto Step", getCurrentStep());
             switch (getCurrentStep()) {
