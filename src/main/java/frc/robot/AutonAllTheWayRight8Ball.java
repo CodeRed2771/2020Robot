@@ -96,7 +96,7 @@ public class AutonAllTheWayRight8Ball extends AutoBaseClass {
                 }
                 break;
             case 15:
-                driveInches(45, 0, 1, false, false);
+                driveInches(45, 0, 1, false, true);
                 setTimerAndAdvanceStep(2000);
                 break;
             case 16:

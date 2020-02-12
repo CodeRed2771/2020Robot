@@ -27,6 +27,9 @@ public class Robot extends TimedRobot {
 	AutoAlign mAutoAlign = new AutoAlign();
 
 	final String threeBasicBalls = "3 Basic Balls";
+	final String eightBallRight = "8 Balls Right";
+	final String fiveBallsMiddle = "5 Balls Middle";
+	final String sixBallsLeft = "6 Balls Left";
 
 	@Override
 	public void robotInit() {
@@ -182,7 +185,20 @@ public class Robot extends TimedRobot {
 			mAutoProgram = new AutonBasic3BallOffLine();
 			mAutoProgram.start(robotPosition);
 			break;
+		case eightBallRight:
+			mAutoProgram = new AutonAllTheWayRight8Ball();
+			mAutoProgram.start(robotPosition);
+			break;
+		case fiveBallsMiddle:
+			mAutoProgram = new AutonMiddle5Balls();
+			mAutoProgram.start(robotPosition);
+			break;
+		case sixBallsLeft:
+			mAutoProgram = new AutonLeft6Balls();
+			mAutoProgram.start(robotPosition);
+			break;
 		}
+
 
 	}
 
@@ -196,6 +212,9 @@ public class Robot extends TimedRobot {
 
 		autoChooser = new SendableChooser<String>();
 		autoChooser.setDefaultOption(threeBasicBalls, threeBasicBalls);
+		autoChooser.addOption(eightBallRight, eightBallRight);
+		autoChooser.addOption(fiveBallsMiddle, fiveBallsMiddle);
+		autoChooser.addOption(sixBallsLeft, sixBallsLeft);
 		SmartDashboard.putData("Auto Chose:", autoChooser);
 	}
 
