@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Vision {
 
-    private static double CameraHeight = 8; // NEED TO BE MORE ACCURATE
-    private static double TargetHeight = 92; // NEED TO BE MORE ACCURATE
-    public static double CameraAngle = 31; // NEED TO BE MORE ACCURATE
+    private static double CameraHeight = 9; // NEED TO BE MORE ACCURATE
+    private static double TargetHeight = 87; // NEED TO BE MORE ACCURATE
+    public static double CameraAngle = 32; // NEED TO BE MORE ACCURATE
     private static double LIMELIGHT_Y_AXIS_FOV = 45.7;
     private static NetworkTable table = null;
     private static double angleOffTarget = 0;
@@ -50,7 +50,7 @@ public class Vision {
     }
 
     public static boolean onTarget() {
-        return (seesTarget() && (Math.abs(getAngleOffset()) <= 1));
+        return (seesTarget() && (Math.abs(getAngleOffset()) <= 2));
     }
 
     public static double getDistanceFromTarget() {

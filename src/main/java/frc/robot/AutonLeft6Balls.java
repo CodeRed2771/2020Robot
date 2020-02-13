@@ -30,7 +30,7 @@ public class AutonLeft6Balls extends AutoBaseClass{
             SmartDashboard.putNumber("Auto Step", getCurrentStep());
             switch (getCurrentStep()) {
                 case 0:
-                    turnDegrees(35, 1);
+                    turnDegrees(23.5, 1);
                     setTimerAndAdvanceStep(1000);
                     break;
                 case 1:
@@ -74,40 +74,42 @@ public class AutonLeft6Balls extends AutoBaseClass{
                 case 10:
                     break;
                 case 11:
-                    driveInches(72, 180, 0.6, false, true);
+                    driveInches(65, 180, 1, false, true);
                     setTimerAndAdvanceStep(2000);
                     break;
                 case 12:
                     break;
                 case 13:
-                    driveInches(60, 67.5, 0.5, false, true);
-                    setTimerAndAdvanceStep(1000);
+                    driveInches(140, 67.5, 1, false, true);
+                    setTimerAndAdvanceStep(3000);
                     break;
                 case 14:
-                    Intake.moveIntakeUp();
-                    Intake.stopIntake();
+                    // Intake.moveIntakeUp();
+                    // Intake.stopIntake();
                     break;
                 case 15:
-                    turnDegrees(-130, 0.8);
-                    setTimerAndAdvanceStep(1000);
+                    turnDegrees(-150, 1);
+                    setTimerAndAdvanceStep(3000);
                     break;
                 case 16:
-                    mAutoAlign.start();
-                    mAutoAlign.tick();
-                    advanceStep();
                     break;
                 case 17:
+                    mAutoAlign.start();
+                    advanceStep();
+                    break;
+                case 18:
+                    mAutoAlign.tick();
                     if (Vision.onTarget()) {
                         advanceStep();
                     }
                     break;
-                case 18: 
+                case 19:
                     Shooter.StartShooter();
                     setTimerAndAdvanceStep(4000);
                     break;
-                case 19:
-                    break;
                 case 20:
+                    break;
+                case 21:
                     Shooter.StopShooter();
                     stop();
                     break;
