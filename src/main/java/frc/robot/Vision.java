@@ -4,11 +4,12 @@ import java.lang.Math;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import java.util.*;
 
 public class Vision {
 
-    private static double CameraHeight = 9; // NEED TO BE MORE ACCURATE
-    private static double TargetHeight = 87; // NEED TO BE MORE ACCURATE
+    private static double CameraHeight = 9.0625; // NEED TO BE MORE ACCURATE
+    private static double TargetHeight = 89; // NEED TO BE MORE ACCURATE
     public static double CameraAngle = 32; // NEED TO BE MORE ACCURATE
     private static double LIMELIGHT_Y_AXIS_FOV = 45.7;
     private static NetworkTable table = null;
@@ -16,8 +17,9 @@ public class Vision {
     private static double ty = 0;
     private static double degreesTargetOffGround = 0;
     private static double distance = 0;
-
     public static Vision instance;
+    private static double[] mArray = {1,1,1,1,1,1,1,1  }; // Adjustment factors -- starts at 0 feet
+
 
     public static Vision getInstance() {
         if (instance == null)
@@ -27,6 +29,7 @@ public class Vision {
 
     public Vision() {
         table = NetworkTableInstance.getDefault().getTable("limelight");
+        SmartDashboard.putNumber("Adjust Val:", 1);
     }
 
     public static double getAngleOffset() {
@@ -35,7 +38,24 @@ public class Vision {
 
     public static double getDistanceAdjustedAngle() {
 
-        return (getAngleOffset() + (-(getDistanceFromTarget() - 180) / 360));
+        return getAngleOffset()*SmartDashboard.getNumber("Adjust Val:", 1);
+                                                                                                                        /*
+        double distance = getDistanceFromTarget();
+        double upperVal = 0;
+        double adjustFactorOne = 1;                                                              Actual Code We Are Using to get the adjustment Factor
+        double adjustFactorTwo = 1;                                                              The Code Above is Used For Testing Purposes - IS
+        double averageAdjustFactorPerInch = 0;
+        double finalAdjustedFactor = 1;
+
+        distance = Math.floor(distance/12);
+        upperVal = distance + 1;
+        adjustFactorOne = mArray[(int)distance];
+        adjustFactorTwo = mArray[(int)upperVal];
+        averageAdjustFactorPerInch = (adjustFactorTwo - adjustFactorOne) / 12;
+        finalAdjustedFactor = (averageAdjustFactorPerInch * distance) + adjustFactorOne;
+        return finalAdjustedFactor * getAngleOffset();
+                                                                                                                    */
+        // return (getAngleOffset() + (-(getDistanceFromTarget() - 180) / 360));
 
         // if (getDistanceFromTarget() < 180) { // 15 feet
         // return getAngleOffset() + ((180 - getDistanceFromTarget()) * .01);
@@ -50,7 +70,7 @@ public class Vision {
     }
 
     public static boolean onTarget() {
-        return (seesTarget() && (Math.abs(getAngleOffset()) <= 2));
+        return (seesTarget() && (Math.abs(getAngleOffset()) <= 1));
     }
 
     public static double getDistanceFromTarget() {

@@ -170,34 +170,35 @@ public class Robot extends TimedRobot {
 		RobotGyro.reset();
 
 		mAutoProgram.stop();
-		String selectedPos = positionChooser.getSelected();
-		SmartDashboard.putString("Position Chooser Selected", selectedPos);
-		char robotPosition = selectedPos.toCharArray()[0];
-		System.out.println("Robot position: " + robotPosition);
+		// String selectedPos = positionChooser.getSelected();
+		// SmartDashboard.putString("Position Chooser Selected", selectedPos);
+		// char robotPosition = selectedPos.toCharArray()[0];
+		// System.out.println("Robot position: " + robotPosition);
 
-		autoSelected = (String) autoChooser.getSelected();
-		SmartDashboard.putString("Auto Selected: ", autoSelected);
+		// autoSelected = (String) autoChooser.getSelected();
+		// SmartDashboard.putString("Auto Selected: ", autoSelected);
 
-		mAutoProgram = new AutoDoNothing();
+		mAutoProgram = mAutoAlign;
+		mAutoAlign.start();
 
-		switch (autoSelected) {
-		case threeBasicBalls:
-			mAutoProgram = new AutonBasic3BallOffLine();
-			mAutoProgram.start(robotPosition);
-			break;
-		case eightBallRight:
-			mAutoProgram = new AutonAllTheWayRight8Ball();
-			mAutoProgram.start(robotPosition);
-			break;
-		case fiveBallsMiddle:
-			mAutoProgram = new AutonMiddle5Balls();
-			mAutoProgram.start(robotPosition);
-			break;
-		case sixBallsLeft:
-			mAutoProgram = new AutonLeft6Balls();
-			mAutoProgram.start(robotPosition);
-			break;
-		}
+		// switch (autoSelected) {
+		// case threeBasicBalls:
+		// 	mAutoProgram = new AutonBasic3BallOffLine();
+		// 	mAutoProgram.start(robotPosition);
+		// 	break;
+		// case eightBallRight:
+		// 	mAutoProgram = new AutonAllTheWayRight8Ball();
+		// 	mAutoProgram.start(robotPosition);
+		// 	break;
+		// case fiveBallsMiddle:
+		// 	mAutoProgram = new AutonMiddle5Balls();
+		// 	mAutoProgram.start(robotPosition);
+		// 	break;
+		// case sixBallsLeft:
+		// 	mAutoProgram = new AutonLeft6Balls();
+		// 	mAutoProgram.start(robotPosition);
+		// 	break;
+		// }
 
 
 	}
@@ -240,6 +241,7 @@ public class Robot extends TimedRobot {
 
 	public void disabledPeriodic() {
 		showDashboardInfo();
+		SmartDashboard.putNumber("DIST", Vision.getDistanceFromTarget());
 
 		if (Calibration.shouldCalibrateSwerve()) {
 			double[] pos = DriveTrain.getAllAbsoluteTurnOrientations();

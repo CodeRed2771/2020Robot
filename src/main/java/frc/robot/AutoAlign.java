@@ -30,7 +30,8 @@ public class AutoAlign extends AutoBaseClass {
             SmartDashboard.putNumber("Auto Step", getCurrentStep());
             switch (getCurrentStep()) {
             case 0:
-                Vision.setLED(true);
+                Vision.setTargetForShooting();
+                // Vision.setLED(true);
                 angleOffset = Vision.getDistanceAdjustedAngle();
                 if (Vision.seesTarget() == true) {
                     advanceStep();
@@ -55,8 +56,8 @@ public class AutoAlign extends AutoBaseClass {
                 SmartDashboard.putBoolean("Sees Target", Vision.seesTarget());
                 if (Vision.onTarget()) {
                     System.out.println("On Target!");
-                    Vision.setDriverMode();
-                    Vision.setLED(false);
+                    // Vision.setDriverMode();
+                    // Vision.setLED(false);
                     stop();
                 } else {
                     setStep(0);
