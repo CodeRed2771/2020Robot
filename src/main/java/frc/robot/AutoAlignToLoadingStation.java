@@ -15,6 +15,7 @@ public class AutoAlignToLoadingStation extends AutoBaseClass {
     private double robotCurrentAngle = 0;
     private double distance = 0;
 
+    // NEW PIPELINE NEEDED FOR THIS CLASS - IS
 
     public AutoAlignToLoadingStation () {
 
@@ -39,13 +40,13 @@ public class AutoAlignToLoadingStation extends AutoBaseClass {
             switch (getCurrentStep()) {
                 case 0:
                     Vision.setTargetForShooting();
-                    distance = Vision.getDistanceAdjustedAngle();
-                    angleOffset = Vision.getDistanceAdjustedAngle() * Vision.getAngleOffset();
+                    distance = Vision.getDistanceFromTarget();
+                    angleOffset = Vision.getDistanceAdjustedAngle();
                     robotCurrentAngle = RobotGyro.getRelativeAngle();
                     advanceStep();
                     break;
                 case 1:
-                    turnDegrees(-90 - robotCurrentAngle, 1);
+                    turnDegrees(-90 - (-(robotCurrentAngle - 180)), 1);
                     setTimerAndAdvanceStep(1000);
                     break;
                 case 2:
