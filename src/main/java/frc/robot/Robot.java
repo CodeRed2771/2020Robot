@@ -87,11 +87,11 @@ public class Robot extends TimedRobot {
 		if (gamepad.getButtonA(1)) {
 			System.out.println("START SHOOTING");
 			Shooter.StartShooter();
-			Queuer.startQueuer();
+			Indexer.startIndexer();
 		}
 		if (gamepad.getButtonB(1)) {
 			Shooter.StopShooter();
-			Queuer.stopQueuer();
+			Indexer.stopIndexer();
 		}
 		if (gamepad.startIntakeForwards()) {
 			Intake.runIntakeForwards();

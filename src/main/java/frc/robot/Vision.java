@@ -8,18 +8,19 @@ import java.util.*;
 
 public class Vision {
 
-    private static double CameraHeight = 9.0625; // NEED TO BE MORE ACCURATE
-    private static double TargetHeight = 89; // NEED TO BE MORE ACCURATE
-    public static double CameraAngle = 32; // NEED TO BE MORE ACCURATE
+    private static double CameraHeight = 9.0625; 
+    private static double TargetHeight = 89; 
+    public static double CameraAngle = 32; 
     private static double LIMELIGHT_Y_AXIS_FOV = 45.7;
     private static NetworkTable table = null;
     private static double angleOffTarget = 0;
     private static double ty = 0;
     private static double degreesTargetOffGround = 0;
     private static double distance = 0;
-    public static Vision instance;
-    private static double[] mArray = {1,1,1,1,1,1,1,1  }; // Adjustment factors -- starts at 0 feet
-
+    public static Vision instance; // 0,1,2,3,4,5,6,7, 8,  9,   10, 11, 12, 13,  14,  15,  16,  17, 18, 19, 20,   21,  
+    private static double[] mArray = {1,1,1,1,1,1,1,1,1.25,1.25,1.2,1.2,1.2,1.15,1.15,1.15,1.15,1.1,1.1,1.1,1.125,1.125,
+        1.12225,1.12225,1.0775,1.0555,1.0555,1.0555,1.0555,1.0555,1.005,1.01555,1.02255}; // Adjustment factors -- starts at 0 feet
+//      22,     23,     24,    25,    26,    27,    28,    29,    30,   31,     32,
 
     public static Vision getInstance() {
         if (instance == null)
@@ -39,30 +40,26 @@ public class Vision {
     public static double getDistanceAdjustedAngle() {
 
         return getAngleOffset()*SmartDashboard.getNumber("Adjust Val:", 1);
-                                                                                                                        /*
-        double distance = getDistanceFromTarget();
+                                                                           /*                         
+        double distance = getDistanceFromTarget();                                                                                                                        
         double upperVal = 0;
-        double adjustFactorOne = 1;                                                              Actual Code We Are Using to get the adjustment Factor
-        double adjustFactorTwo = 1;                                                              The Code Above is Used For Testing Purposes - IS
+        double adjustFactorOne = 1;                                                    
+        double adjustFactorTwo = 1;                                                    
         double averageAdjustFactorPerInch = 0;
         double finalAdjustedFactor = 1;
-
-        distance = Math.floor(distance/12);
-        upperVal = distance + 1;
+                                   
+        distance = Math.floor(distance/12);                                 // THIS IS THE CODE WE ARE GOING TO USE TO GET
+        upperVal = distance + 1;                                            // THE DISTANCE ADJUSTED FACTOR - IS
         adjustFactorOne = mArray[(int)distance];
         adjustFactorTwo = mArray[(int)upperVal];
-        averageAdjustFactorPerInch = (adjustFactorTwo - adjustFactorOne) / 12;
-        finalAdjustedFactor = (averageAdjustFactorPerInch * distance) + adjustFactorOne;
+        if (adjustFactorOne == adjustFactorTwo) {
+            finalAdjustedFactor = adjustFactorOne;
+        } else {
+            averageAdjustFactorPerInch = (adjustFactorTwo - adjustFactorOne) / 12;
+            finalAdjustedFactor = (averageAdjustFactorPerInch * distance) + adjustFactorOne;
+        }
         return finalAdjustedFactor * getAngleOffset();
-                                                                                                                    */
-        // return (getAngleOffset() + (-(getDistanceFromTarget() - 180) / 360));
-
-        // if (getDistanceFromTarget() < 180) { // 15 feet
-        // return getAngleOffset() + ((180 - getDistanceFromTarget()) * .01);
-        // } else {
-        // return getAngleOffset() - ((getDistanceFromTarget() - 180) * .01);
-        // }
-
+                                                                               */                                     
     }
 
     public static boolean seesTarget() {

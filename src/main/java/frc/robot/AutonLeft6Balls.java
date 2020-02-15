@@ -31,7 +31,7 @@ public class AutonLeft6Balls extends AutoBaseClass{
             switch (getCurrentStep()) {
                 case 0:
                     turnDegrees(23.5, 1);
-                    setTimerAndAdvanceStep(1000);
+                    setTimerAndAdvanceStep(750);
                     break;
                 case 1:
                     if (driveCompleted()) {
@@ -49,7 +49,7 @@ public class AutonLeft6Balls extends AutoBaseClass{
                     break;
                 case 4:
                     Shooter.StartShooter();
-                    setTimerAndAdvanceStep(3000);
+                    setTimerAndAdvanceStep(1500);
                     break;
                 case 5:
                     Shooter.tick();
@@ -63,7 +63,7 @@ public class AutonLeft6Balls extends AutoBaseClass{
                 case 7:
                     turnAngle = RobotGyro.getRelativeAngle() - 35;
                     turnDegrees(-270 - turnAngle, 1);
-                    setTimerAndAdvanceStep(2000);
+                    setTimerAndAdvanceStep(1500);
                     break;
                 case 8:
                     break;
@@ -75,13 +75,13 @@ public class AutonLeft6Balls extends AutoBaseClass{
                     break;
                 case 11:
                     driveInches(65, 180, 1, false, true);
-                    setTimerAndAdvanceStep(2000);
+                    setTimerAndAdvanceStep(1000);
                     break;
                 case 12:
                     break;
                 case 13:
                     driveInches(140, 67.5, 1, false, true);
-                    setTimerAndAdvanceStep(3000);
+                    setTimerAndAdvanceStep(1750);
                     break;
                 case 14:
                     // Intake.moveIntakeUp();
@@ -89,7 +89,7 @@ public class AutonLeft6Balls extends AutoBaseClass{
                     break;
                 case 15:
                     turnDegrees(-150, 1);
-                    setTimerAndAdvanceStep(3000);
+                    setTimerAndAdvanceStep(1500);
                     break;
                 case 16:
                     break;
@@ -105,7 +105,7 @@ public class AutonLeft6Balls extends AutoBaseClass{
                     break;
                 case 19:
                     Shooter.StartShooter();
-                    setTimerAndAdvanceStep(4000);
+                    setTimerAndAdvanceStep(2000);
                     break;
                 case 20:
                     break;
