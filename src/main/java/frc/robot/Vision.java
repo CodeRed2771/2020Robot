@@ -53,7 +53,7 @@ public class Vision {
         upperVal = distance + 1;                                            // THE DISTANCE ADJUSTED FACTOR - IS
         adjustFactorOne = turnAdjustmentArray[(int)distance];
         adjustFactorTwo = turnAdjustmentArray[(int)upperVal];
-        if ((adjustmentFactorTwo - adjustmentFactorOne) <= 0.0001) {
+        if ((adjustmentFactorTwo - adjustmentFactorOne) <= 0.0001 && (adjustmentFactorTwo - adjustmentFactorOne) >= -0.0001) {
             finalAdjustedFactor = adjustFactorOne;
         } else {
             averageAdjustFactorPerInch = (adjustFactorTwo - adjustFactorOne) / 12;
