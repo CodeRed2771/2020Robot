@@ -30,86 +30,78 @@ public class AutonLeft6Balls extends AutoBaseClass{
             SmartDashboard.putNumber("Auto Step", getCurrentStep());
             switch (getCurrentStep()) {
                 case 0:
-                    turnDegrees(23.5, 1);
-                    setTimerAndAdvanceStep(750);
-                    break;
-                case 1:
-                    if (driveCompleted()) {
-                        advanceStep();
-                    }
-                case 2:
                     mAutoAlign.start();
                     advanceStep();
                     break;
-                case 3:
+                case 1:
                     mAutoAlign.tick();
                     if (Vision.onTarget()) {
                         advanceStep();
                     }
                     break;
-                case 4:
+                case 2:
                     Shooter.StartShooter();
                     setTimerAndAdvanceStep(1500);
                     break;
-                case 5:
+                case 3:
                     Shooter.tick();
                     break;
-                case 6:
+                case 4:
                     Shooter.StopShooter();
                     // Intake.moveIntakeDown();
                     // Intake.runIntakeForwards();
                     advanceStep();
                     break;
-                case 7:
+                case 5:
                     turnAngle = RobotGyro.getRelativeAngle() - 35;
                     turnDegrees(-270 - turnAngle, 1);
+                    setTimerAndAdvanceStep(1500);
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    driveInches(100, 225, 1, false, true);
                     setTimerAndAdvanceStep(1500);
                     break;
                 case 8:
                     break;
                 case 9:
-                    driveInches(100, 225, 1, false, true);
-                    setTimerAndAdvanceStep(1500);
+                    driveInches(65, 180, 1, false, true);
+                    setTimerAndAdvanceStep(1000);
                     break;
                 case 10:
                     break;
                 case 11:
-                    driveInches(65, 180, 1, false, true);
-                    setTimerAndAdvanceStep(1000);
-                    break;
-                case 12:
-                    break;
-                case 13:
                     driveInches(140, 67.5, 1, false, true);
                     setTimerAndAdvanceStep(1750);
                     break;
-                case 14:
+                case 12:
                     // Intake.moveIntakeUp();
                     // Intake.stopIntake();
                     break;
-                case 15:
+                case 13:
                     turnDegrees(-150, 1);
                     setTimerAndAdvanceStep(1500);
                     break;
-                case 16:
+                case 14:
                     break;
-                case 17:
+                case 15:
                     mAutoAlign.start();
                     advanceStep();
                     break;
-                case 18:
+                case 16:
                     mAutoAlign.tick();
                     if (Vision.onTarget()) {
                         advanceStep();
                     }
                     break;
-                case 19:
+                case 17:
                     Shooter.StartShooter();
                     setTimerAndAdvanceStep(2000);
                     break;
-                case 20:
+                case 18:
                     break;
-                case 21:
+                case 19:
                     Shooter.StopShooter();
                     stop();
                     break;

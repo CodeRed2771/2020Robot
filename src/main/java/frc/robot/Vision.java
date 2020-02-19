@@ -40,7 +40,7 @@ public class Vision {
     public static double getDistanceAdjustedAngle() {
 
         return getAngleOffset()*SmartDashboard.getNumber("Adjust Val:", 1);
-                                                                           /*                         
+                                                                                            /*
         double distance = getDistanceFromTarget();
         double originalDistance = distance;                                                                                                                        
         double upperVal = 0;
@@ -53,14 +53,14 @@ public class Vision {
         upperVal = distance + 1;                                            // THE DISTANCE ADJUSTED FACTOR - IS
         adjustFactorOne = turnAdjustmentArray[(int)distance];
         adjustFactorTwo = turnAdjustmentArray[(int)upperVal];
-        if ((adjustmentFactorTwo - adjustmentFactorOne) <= 0.0001 && (adjustmentFactorTwo - adjustmentFactorOne) >= -0.0001) {
+        if ((adjustFactorTwo - adjustFactorOne) <= 0.0001 && (adjustFactorTwo - adjustFactorOne) >= -0.0001) {
             finalAdjustedFactor = adjustFactorOne;
         } else {
             averageAdjustFactorPerInch = (adjustFactorTwo - adjustFactorOne) / 12;
             finalAdjustedFactor = (averageAdjustFactorPerInch * (originalDistance - (distance * 12))) + adjustFactorOne;
         }
         return finalAdjustedFactor * getAngleOffset();
-                                                                               */                                     
+                                                                                             */                 
     }
 
     public static boolean seesTarget() {

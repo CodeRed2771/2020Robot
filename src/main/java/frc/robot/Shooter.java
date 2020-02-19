@@ -111,13 +111,9 @@ public class Shooter {
     }
 
     public static void setAdjustmentFactor (double adjustmentFactor) {
-        adjustmentFactor = adjustmentFactor + 1;
-        adjustmentFactor = adjustmentFactor/2;
-        adjustmentFactor = adjustmentFactor + 2;
-        adjustmentFactor = adjustmentFactor * .4;
+        adjustmentFactor = (((adjustmentFactor + 1) / 2) + 2) * 0.4;
         Shooter.adjustmentFactor = adjustmentFactor;
-        System.out.println(Shooter.adjustmentFactor
-        );
+        System.out.println(Shooter.adjustmentFactor);
     } 
 
     public static double getShooterSpeed() {
