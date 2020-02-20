@@ -9,7 +9,7 @@ import java.util.*;
 public class Vision {
 
     private static double CameraHeight = 9.0625; 
-    private static double TargetHeight = 89; 
+    private static double TargetHeight = 89.75; 
     public static double CameraAngle = 32; 
     private static double LIMELIGHT_Y_AXIS_FOV = 45.7;
     private static NetworkTable table = null;
@@ -17,10 +17,10 @@ public class Vision {
     private static double ty = 0;
     private static double degreesTargetOffGround = 0;
     private static double distance = 0;
-    public static Vision instance;              // 0,1,2,3,4,5,6,7, 8,  9,   10, 11, 12, 13,  14,  15,  16,  17, 18, 19, 20,   21,  
-    private static double[] turnAdjustmentArray = {1,1,1,1,1,1,1,1,1.25,1.25,1.2,1.2,1.2,1.15,1.15,1.15,1.15,1.1,1.1,1.1,1.125,1.125,
-        1.12225,1.12225,1.0775,1.0555,1.0555,1.0555,1.0555,1.0555,1.005,1.01555,1.02255}; // Adjustment factors -- starts at 0 feet
-//      22,     23,     24,    25,    26,    27,    28,    29,    30,   31,     32,
+    public static Vision instance;              // 0,  1,  2,  3,  4,   5,   6,    7,    8,  9,   10, 11, 12, 13,  14,  15,  16,  17, 18, 19, 20,   21,  
+    private static double[] turnAdjustmentArray = {1.5,1.5,1.5,1.5,1.49,1.49,1.355,1.355,1.25,1.25,1.2,1.2,1.2,1.15,1.15,1.15,1.15,1.1,1.1,1.1,1.125,1.125,
+        1.12225,1.12225,1.0775,1.0555,1.0555,1.0555,1.0555,1.0555,1.005,1.01555,1.02255,1.02255,1.02255,1.02255,1.02255,1.02255,1.02255,1.02255,1.0225}; // Adjustment factors -- starts at 0 feet
+//      22,     23,     24,    25,    26,    27,    28,    29,    30,   31,     32,     33,     34,     35,     36,     37,     38,     39,     40
 
     public static Vision getInstance() {
         if (instance == null)
@@ -39,8 +39,8 @@ public class Vision {
 
     public static double getDistanceAdjustedAngle() {
 
-        return getAngleOffset()*SmartDashboard.getNumber("Adjust Val:", 1);
-                                                                                            /*
+        // return getAngleOffset()*SmartDashboard.getNumber("Adjust Val:", 1);
+                                                                                           
         double distance = getDistanceFromTarget();
         double originalDistance = distance;                                                                                                                        
         double upperVal = 0;
@@ -59,8 +59,9 @@ public class Vision {
             averageAdjustFactorPerInch = (adjustFactorTwo - adjustFactorOne) / 12;
             finalAdjustedFactor = (averageAdjustFactorPerInch * (originalDistance - (distance * 12))) + adjustFactorOne;
         }
+        SmartDashboard.putNumber("FINAL ADJUSTED FACTOR", finalAdjustedFactor);
         return finalAdjustedFactor * getAngleOffset();
-                                                                                             */                 
+                                                                                                            
     }
 
     public static boolean seesTarget() {

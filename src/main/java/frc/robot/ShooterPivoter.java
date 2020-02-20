@@ -27,9 +27,9 @@ public class ShooterPivoter {
     private static boolean limitGet;
 
     public ShooterPivoter () {
-        throughBore = new DutyCycleEncoder(); // NEED A CHANNEL.... tHE PERSON ON CHIEF DELPHI HAD 9
-        throughBore.setConnectedFrequencyThreshold(); // NEED A FREQUENCY.... The person on chief delphi had 900
-        limit = new DigitalInput(); // NEED A CHANNEL.... The person on chief delphi had 0 - Ishan
+        // throughBore = new DutyCycleEncoder(); // NEED A CHANNEL.... tHE PERSON ON CHIEF DELPHI HAD 9
+        // throughBore.setConnectedFrequencyThreshold(); // NEED A FREQUENCY.... The person on chief delphi had 900
+        // limit = new DigitalInput(); // NEED A CHANNEL.... The person on chief delphi had 0 - Ishan
     }
 
     public static ShooterPivoter getInstance () {
