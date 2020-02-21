@@ -8,9 +8,14 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Encoder;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -19,17 +24,19 @@ public class ShooterPivoter {
     private static ShooterPivoter instance;
 
     // private Encoder throughBore;
-    private static int ticks;
+    private static double encoderPosition;
     private static DutyCycleEncoder throughBore;
-    private static double freq;
     private static boolean isConn;
-    private static DigitalInput limit;
     private static boolean limitGet;
+    private static TalonSRX pivotMotor;
+    private static PIDController positionPID;
+    private static double targetShaftPosition = 0;
 
     public ShooterPivoter () {
-        // throughBore = new DutyCycleEncoder(); // NEED A CHANNEL.... tHE PERSON ON CHIEF DELPHI HAD 9
-        // throughBore.setConnectedFrequencyThreshold(); // NEED A FREQUENCY.... The person on chief delphi had 900
-        // limit = new DigitalInput(); // NEED A CHANNEL.... The person on chief delphi had 0 - Ishan
+        pivotMotor = new TalonSRX(Wiring.SHOOTER_PIVOT_MOTOR_ID);
+        throughBore = new DutyCycleEncoder(1); 
+        throughBore.setConnectedFrequencyThreshold(900); 
+        positionPID = new PIDController(1.5,0,0);
     }
 
     public static ShooterPivoter getInstance () {
@@ -40,18 +47,28 @@ public class ShooterPivoter {
     }
 
     public static void tick() {
-        ticks = (int)throughBore.get();
-        freq = throughBore.getFrequency();
+
+        encoderPosition = throughBore.get();
         isConn = throughBore.isConnected();
-        limitGet = limit.get();
-        SmartDashboard.putNumber("Encoder value", ticks);
-        SmartDashboard.putNumber("Encoder frequency", freq);
-        SmartDashboard.putBoolean("Encoder is connected", isConn);
-        SmartDashboard.putBoolean("Limit is pressed", limitGet);
-    }
+        double calculatedPower = positionPID.calculate(throughBore.get(),targetShaftPosition);
+
+        SmartDashboard.putNumber("ShootPivot pos", encoderPosition);
+        SmartDashboard.putNumber("SP Targ",targetShaftPosition);
+        SmartDashboard.putNumber("SP Pwr", calculatedPower);
+    
+        pivotMotor.set(ControlMode.PercentOutput, calculatedPower);
+     }
 
     public static void resetPivoter() {
         throughBore.reset();
+    }
+
+    public static void setShootHighPosition() {
+        targetShaftPosition = .2;
+    }
+
+    public static void setShootLowPosition() {
+        targetShaftPosition = .8;
     }
 
 }

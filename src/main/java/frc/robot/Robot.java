@@ -10,6 +10,7 @@ package frc.robot;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.libs.HID.HID;
@@ -22,6 +23,7 @@ public class Robot extends TimedRobot {
 	SendableChooser<String> driveChooser;
 	String autoSelected;
 	KeyMap gamepad;
+	BuiltInAccelerometer accel;
 	AutoBaseClass mAutoProgram;
 	boolean isAutoRunning = false;
 	AutoAlign mAutoAlign = new AutoAlign();
@@ -34,12 +36,13 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		gamepad = new KeyMap();
+		accel = new BuiltInAccelerometer();
 		Shooter.getInstance();
 		Shooter.StopShooter();
+		ShooterPivoter.getInstance();
 		Intake.getInstance();
 		RobotGyro.getInstance();
 		DistanceSensor.getInstance();
-
 		Calibration.loadSwerveCalibration();
 		DriveTrain.getInstance();
 		DriveAuto.getInstance();
@@ -68,17 +71,17 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		SmartDashboard.putNumber("DIST", Vision.getDistanceFromTarget());
 		SmartDashboard.updateValues();
-		if (gamepad.getButtonA(1) && !isAutoRunning) {
-			DriveAuto.driveInches(60, 0, 1);
-			isAutoRunning = true;
-		} else if (gamepad.getButtonB(1) && !isAutoRunning) {
-			DriveAuto.driveInches(-60, 0, 1);
-			isAutoRunning = true;
-		} else {
-			if (!gamepad.getButtonA(1) && !gamepad.getButtonB(1)) {
-				isAutoRunning = false;
-			}
-		}
+		// if (gamepad.getButtonA(1) && !isAutoRunning) {
+		// 	DriveAuto.driveInches(60, 0, 1);
+		// 	isAutoRunning = true;
+		// } else if (gamepad.getButtonB(1) && !isAutoRunning) {
+		// 	DriveAuto.driveInches(-60, 0, 1);
+		// 	isAutoRunning = true;
+		// } else {
+		// 	if (!gamepad.getButtonA(1) && !gamepad.getButtonB(1)) {
+		// 		isAutoRunning = false;
+		// 	}
+		// }
 
 		if (gamepad.startVision()) {
 			mAutoAlign.start();
@@ -94,9 +97,11 @@ public class Robot extends TimedRobot {
 			Indexer.stopIndexer();
 		}
 		if (gamepad.startIntakeForwards()) {
+			ShooterPivoter.setShootHighPosition();
 			Intake.runIntakeForwards();
 		}
 		if (gamepad.startIntakeBackwards()) {
+			ShooterPivoter.setShootLowPosition();
 			Intake.runIntakeBackwards();
 		}
 		if (gamepad.stopIntake()) {
@@ -111,6 +116,7 @@ public class Robot extends TimedRobot {
 		Shooter.setAdjustmentFactor(gamepad.getShooterAdjustment());
 
 		Shooter.tick();
+		ShooterPivoter.tick();
 		DriveAuto.tick();
 		// ColorSensorAndClimber.tick();
 		// ColorSensorAndClimber.matchColor();
@@ -162,6 +168,11 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void robotPeriodic() {
+		SmartDashboard.putNumber("Rio X", accel.getX());
+		SmartDashboard.putNumber("Rio Y", accel.getY());
+		SmartDashboard.putNumber("Rio Z", accel.getZ());
+		
+		SmartDashboard.updateValues();
 	}
 
 	@Override
@@ -240,6 +251,7 @@ public class Robot extends TimedRobot {
 	}
 
 	public void disabledPeriodic() {
+		ShooterPivoter.tick();
 		showDashboardInfo();
 		SmartDashboard.putNumber("DIST", Vision.getDistanceFromTarget());
 
