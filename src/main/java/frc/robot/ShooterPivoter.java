@@ -19,6 +19,8 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+// ALL COMMENTED OUT CODE IS HERE FOR TESTING PURPOSES PLEASE DO NOT DELETE - IS
+
 public class ShooterPivoter {
 
     private static ShooterPivoter instance;
@@ -31,12 +33,14 @@ public class ShooterPivoter {
     private static TalonSRX pivotMotor;
     private static PIDController positionPID;
     private static double targetShaftPosition = 0;
+    private static boolean shooterAtPosition = false;
 
     public ShooterPivoter () {
         pivotMotor = new TalonSRX(Wiring.SHOOTER_PIVOT_MOTOR_ID);
         throughBore = new DutyCycleEncoder(1); 
         throughBore.setConnectedFrequencyThreshold(900); 
         positionPID = new PIDController(1.5,0,0);
+        // SmartDashboard.putNumber("SHOOTER SHAFT ADJUSTMENT", 0.5);
     }
 
     public static ShooterPivoter getInstance () {
@@ -50,14 +54,14 @@ public class ShooterPivoter {
 
         encoderPosition = throughBore.get();
         isConn = throughBore.isConnected();
-        double calculatedPower = positionPID.calculate(throughBore.get(),targetShaftPosition);
+        double calculatedPower = positionPID.calculate(encoderPosition,targetShaftPosition/*getDesiredShaftPosition()*/);
 
         SmartDashboard.putNumber("ShootPivot pos", encoderPosition);
         SmartDashboard.putNumber("SP Targ",targetShaftPosition);
         SmartDashboard.putNumber("SP Pwr", calculatedPower);
     
         pivotMotor.set(ControlMode.PercentOutput, calculatedPower);
-     }
+    }
 
     public static void resetPivoter() {
         throughBore.reset();
@@ -71,4 +75,11 @@ public class ShooterPivoter {
         targetShaftPosition = .8;
     }
 
+    public static void setDesiredShootPosition (float desiredShaftPosition) {
+        targetShaftPosition = desiredShaftPosition;
+    }
+
+    // public static float getDesiredShaftPosition () {
+    //     return (float) SmartDashboard.getNumber("SHOOTER SHAFT ADJUSTMENT", 0.5);
+    // }
 }

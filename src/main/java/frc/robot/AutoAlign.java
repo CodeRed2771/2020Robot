@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class AutoAlign extends AutoBaseClass {
 
     private double angleOffset = 0;
+    private float desiredShaftLocation = 0;
 
     public AutoAlign () {
 
@@ -31,15 +32,11 @@ public class AutoAlign extends AutoBaseClass {
             switch (getCurrentStep()) {
             case 0:
                 Vision.setTargetForShooting();
-                // Vision.setLED(true);
                 angleOffset = Vision.getDistanceAdjustedAngle();
                 if (Vision.seesTarget() == true) {
                     advanceStep();
-                } else if (Vision.seesTarget() == false) {
-                    setStep(10);
                 }
                 break;
-
             case 1:
                 DriveAuto.turnDegrees(angleOffset, 1);
                 setTimerAndAdvanceStep(2000);
@@ -56,19 +53,24 @@ public class AutoAlign extends AutoBaseClass {
                 SmartDashboard.putBoolean("Sees Target", Vision.seesTarget());
                 if (Vision.onTarget()) {
                     System.out.println("On Target!");
-                    // Vision.setDriverMode();
-                    // Vision.setLED(false);
                     stop();
+                    // advanceStep();
                 } else {
                     setStep(0);
                 }
                 break;
-            case 10:
-                turnDegrees(60, 1);
-                if (Vision.seesTarget()) {
-                    setStep(0);
-                }
-                break;
+            // case 4: 
+            //     desiredShaftLocation = Vision.getShooterPivoterDesiredShaftLocation();
+            //     ShooterPivoter.setDesiredShootPosition(desiredShaftLocation);
+            //     advanceStep();
+            //     break;
+            // case 5:
+            //     // SOMEHOW MAKES SURE WE ARE AT DESIRED SHAFT LOCATION - IS
+            //     advanceStep();
+            //     break;
+            // case 6:
+            //     stop();
+            //     break;
             }
         }
     }

@@ -22,6 +22,10 @@ public class Vision {
         1.12225,1.12225,1.0775,1.0555,1.0555,1.0555,1.0555,1.0555,1.005,1.01555,1.02255,1.02255,1.02255,1.02255,1.02255,1.02255,1.02255,1.02255,1.0225}; // Adjustment factors -- starts at 0 feet
 //      22,     23,     24,    25,    26,    27,    28,    29,    30,   31,     32,     33,     34,     35,     36,     37,     38,     39,     40
 
+
+
+    private static float[] shooterPivoterArray = {};
+
     public static Vision getInstance() {
         if (instance == null)
             instance = new Vision();
@@ -31,13 +35,14 @@ public class Vision {
     public Vision() {
         table = NetworkTableInstance.getDefault().getTable("limelight");
         SmartDashboard.putNumber("Adjust Val:", 1);
+        SmartDashboard.putNumber("ShooterPivoterAdjust", 0.5);
     }
 
     public static double getAngleOffset() {
         return table.getEntry("tx").getDouble(0);
     }
 
-    public static double getDistanceAdjustedAngle() {
+    public static double getDistanceAdjustedAngle () {
 
         // return getAngleOffset()*SmartDashboard.getNumber("Adjust Val:", 1);
                                                                                            
@@ -51,17 +56,32 @@ public class Vision {
                                    
         distance = Math.floor(distance/12);                                 // THIS IS THE CODE WE ARE GOING TO USE TO GET
         upperVal = distance + 1;                                            // THE DISTANCE ADJUSTED FACTOR - IS
-        adjustFactorOne = turnAdjustmentArray[(int)distance];
-        adjustFactorTwo = turnAdjustmentArray[(int)upperVal];
-        if ((adjustFactorTwo - adjustFactorOne) <= 0.0001 && (adjustFactorTwo - adjustFactorOne) >= -0.0001) {
-            finalAdjustedFactor = adjustFactorOne;
-        } else {
-            averageAdjustFactorPerInch = (adjustFactorTwo - adjustFactorOne) / 12;
-            finalAdjustedFactor = (averageAdjustFactorPerInch * (originalDistance - (distance * 12))) + adjustFactorOne;
-        }
+        adjustFactorOne = turnAdjustmentArray[(int) distance];
+        adjustFactorTwo = turnAdjustmentArray[(int) upperVal];
+        averageAdjustFactorPerInch = (adjustFactorTwo - adjustFactorOne) / 12;
+        finalAdjustedFactor = (averageAdjustFactorPerInch * (originalDistance - (distance * 12))) + adjustFactorOne;
         SmartDashboard.putNumber("FINAL ADJUSTED FACTOR", finalAdjustedFactor);
         return finalAdjustedFactor * getAngleOffset();
-                                                                                                            
+    }
+
+    public static float getShooterPivoterDesiredShaftLocation () {
+        // return SmartDashboard.getNumber("ShooterPivoterAdjust", 0.5);
+
+        double distance = getDistanceFromTarget();
+        float originalDistance = (float) distance;                                                                                                                        
+        float upperVal = 0;
+        float desiredShaftPositionOne = 1;                                                    
+        float desiredShaftPositionTwo = 1;                                                    
+        float averageDesiredShaftPositionPerInch = 0;
+        float finalShaftPosition = 1;
+
+        distance = Math.floor(distance/12);
+        upperVal = (float) distance + 1;
+        desiredShaftPositionOne = shooterPivoterArray[(int) distance];
+        desiredShaftPositionTwo = shooterPivoterArray[(int) upperVal];
+        averageDesiredShaftPositionPerInch = (desiredShaftPositionTwo - desiredShaftPositionOne) / 12;
+        finalShaftPosition = (averageDesiredShaftPositionPerInch * (originalDistance - ((float) distance * 12)));
+        return finalShaftPosition;
     }
 
     public static boolean seesTarget() {
@@ -89,7 +109,7 @@ public class Vision {
     }
 
     public static void setDriverMode() {
-        // setLED(false);
+        setLED(false);
         table.getEntry("camMode").forceSetNumber(1);
     }
 
