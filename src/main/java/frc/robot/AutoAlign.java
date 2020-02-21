@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class AutoAlign extends AutoBaseClass {
 
     private double angleOffset = 0;
-    private float desiredShaftLocation = 0;
 
     public AutoAlign () {
 
@@ -33,7 +32,7 @@ public class AutoAlign extends AutoBaseClass {
             case 0:
                 Vision.setTargetForShooting();
                 angleOffset = Vision.getDistanceAdjustedAngle();
-                if (Vision.seesTarget() == true) {
+                if (Vision.seesTarget()) {
                     advanceStep();
                 }
                 break;
@@ -59,14 +58,14 @@ public class AutoAlign extends AutoBaseClass {
                     setStep(0);
                 }
                 break;
-            // case 4: 
-            //     desiredShaftLocation = Vision.getShooterPivoterDesiredShaftLocation();
-            //     ShooterPivoter.setDesiredShootPosition(desiredShaftLocation);
+            // case 4:
+            //     ShooterPivoter.setDesiredShootPosition(Vision.getShooterPivoterDesiredShaftLocation());
             //     advanceStep();
             //     break;
             // case 5:
-            //     // SOMEHOW MAKES SURE WE ARE AT DESIRED SHAFT LOCATION - IS
-            //     advanceStep();
+            //     if (ShooterPivoter.shooterAtPosition()){
+            //         advanceStep();
+            //     }
             //     break;
             // case 6:
             //     stop();

@@ -59,6 +59,12 @@ public class ShooterPivoter {
         SmartDashboard.putNumber("ShootPivot pos", encoderPosition);
         SmartDashboard.putNumber("SP Targ",targetShaftPosition);
         SmartDashboard.putNumber("SP Pwr", calculatedPower);
+        
+        if (calculatedPower <= 0.05) {
+            shooterAtPosition = true;
+        } else {
+            shooterAtPosition = false;
+        }
     
         pivotMotor.set(ControlMode.PercentOutput, calculatedPower);
     }
@@ -77,6 +83,10 @@ public class ShooterPivoter {
 
     public static void setDesiredShootPosition (float desiredShaftPosition) {
         targetShaftPosition = desiredShaftPosition;
+    }
+
+    public static boolean shooterAtPosition () {
+        return shooterAtPosition;
     }
 
     // public static float getDesiredShaftPosition () {
