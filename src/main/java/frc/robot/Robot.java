@@ -97,11 +97,9 @@ public class Robot extends TimedRobot {
 			Indexer.stopIndexer();
 		}
 		if (gamepad.startIntakeForwards()) {
-			ShooterPivoter.setShootHighPosition();
 			Intake.runIntakeForwards();
 		}
 		if (gamepad.startIntakeBackwards()) {
-			ShooterPivoter.setShootLowPosition();
 			Intake.runIntakeBackwards();
 		}
 		if (gamepad.stopIntake()) {
@@ -171,7 +169,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Rio X", accel.getX());
 		SmartDashboard.putNumber("Rio Y", accel.getY());
 		SmartDashboard.putNumber("Rio Z", accel.getZ());
-		
+
 		SmartDashboard.updateValues();
 	}
 
