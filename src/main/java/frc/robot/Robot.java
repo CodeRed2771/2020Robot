@@ -25,7 +25,6 @@ public class Robot extends TimedRobot {
 	KeyMap gamepad;
 	BuiltInAccelerometer accel;
 	AutoBaseClass mAutoProgram;
-	boolean isAutoRunning = false;
 
 	final String threeBasicBalls = "3 Basic Balls";
 	final String eightBallRight = "8 Balls Right";
@@ -47,7 +46,6 @@ public class Robot extends TimedRobot {
 		DriveAuto.getInstance();
 		// ColorSensorAndTraverser.getInstance();
 		Vision.getInstance();
-	
 
 		setupAutoChoices();
 		mAutoProgram = new AutoDoNothing();
@@ -72,20 +70,20 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("DIST", Vision.getDistanceFromTarget());
 		SmartDashboard.updateValues();
 		// if (gamepad.getButtonA(1) && !isAutoRunning) {
-		// 	DriveAuto.driveInches(60, 0, 1);
-		// 	isAutoRunning = true;
+		// DriveAuto.driveInches(60, 0, 1);
+		// isAutoRunning = true;
 		// } else if (gamepad.getButtonB(1) && !isAutoRunning) {
-		// 	DriveAuto.driveInches(-60, 0, 1);
-		// 	isAutoRunning = true;
+		// DriveAuto.driveInches(-60, 0, 1);
+		// isAutoRunning = true;
 		// } else {
-		// 	if (!gamepad.getButtonA(1) && !gamepad.getButtonB(1)) {
-		// 		isAutoRunning = false;
-		// 	}
+		// if (!gamepad.getButtonA(1) && !gamepad.getButtonB(1)) {
+		// isAutoRunning = false;
+		// }
 		// }
 
 		if (gamepad.startVision()) {
 			mAutoProgram = new AutoAlign();
-			mAutoProgram.start();		
+			mAutoProgram.start();
 		}
 
 		if (gamepad.getButtonA(1)) {
@@ -119,7 +117,7 @@ public class Robot extends TimedRobot {
 		DriveAuto.tick();
 		// ColorSensorAndTraverser.tick();
 		// ColorSensorAndTraverser.matchColor();
-		
+
 		DistanceSensor.tick();
 		// --------------------------------------------------
 		// RESET - allow manual reset of systems by pressing Start
@@ -134,8 +132,8 @@ public class Robot extends TimedRobot {
 		// DRIVE
 		if (mAutoProgram.isRunning()) {
 			mAutoProgram.tick();
-		} 
-		
+		}
+
 		// DRIVER CONTROL MODE
 		// Issue the drive command using the parameters from
 		// above that have been tweaked as needed
@@ -151,17 +149,17 @@ public class Robot extends TimedRobot {
 		driveFWDAmount = forwardAdjust(driveFWDAmount, normalDrive);
 
 		if (Math.abs(driveFWDAmount) > .5) {
-			isAutoRunning = false;
+			if (mAutoProgram.isRunning())
+				mAutoProgram.stop();
 		}
 
-		if (!isAutoRunning) {
+		if (!mAutoProgram.isRunning()) {
 			if (gamepad.getRobotCentricModifier()) {
 				DriveTrain.humanDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
 			} else {
 				DriveTrain.fieldCentricDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
 			}
 		}
-	
 
 		showDashboardInfo();
 	}
@@ -192,7 +190,6 @@ public class Robot extends TimedRobot {
 		mAutoProgram = new AutoDoNothing();
 		mAutoProgram.start();
 
-
 		switch (autoSelected) {
 		case threeBasicBalls:
 			mAutoProgram = new AutonBasic3BallOffLine();
@@ -211,7 +208,6 @@ public class Robot extends TimedRobot {
 			mAutoProgram.start(robotPosition);
 			break;
 		}
-
 
 	}
 
