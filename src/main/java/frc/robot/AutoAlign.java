@@ -38,7 +38,7 @@ public class AutoAlign extends AutoBaseClass {
                 break;
             case 1:
                 DriveAuto.turnDegrees(angleOffset, 1);
-                setTimerAndAdvanceStep(2000);
+                setTimerAndAdvanceStep(4000);
                 break;
 
             case 2:
