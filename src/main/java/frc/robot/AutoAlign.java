@@ -60,7 +60,7 @@ public class AutoAlign extends AutoBaseClass {
                 break;
             // case 4:
             //     ShooterPivoter.setDesiredShootPosition(Vision.getShooterPivoterDesiredShaftLocation());
-            //     advanceStep();
+            //     setTimerAndAdvanceStep(1000);
             //     break;
             // case 5:
             //     if (ShooterPivoter.shooterAtPosition()){
