@@ -48,7 +48,7 @@ public class AutonBasic3BallOffLine extends AutoBaseClass{
                     break;
                 case 2:
                     driveInches(36, 180, 1, false, true);
-                    setTimerAndAdvanceStep(1500);
+                    setTimerAndAdvanceStep(5000);
                     break;
                 case 3:
                     if (driveCompleted()) {

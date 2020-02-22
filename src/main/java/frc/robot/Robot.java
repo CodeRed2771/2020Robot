@@ -188,6 +188,10 @@ public class Robot extends TimedRobot {
 		autoSelected = (String) autoChooser.getSelected();
 		SmartDashboard.putString("Auto Selected: ", autoSelected);
 
+		mAutoProgram = new AutoDoNothing();
+		mAutoProgram.start();
+
+
 		switch (autoSelected) {
 		case threeBasicBalls:
 			mAutoProgram = new AutonBasic3BallOffLine();
