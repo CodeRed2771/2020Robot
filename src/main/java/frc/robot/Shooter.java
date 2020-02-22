@@ -23,6 +23,8 @@ public class Shooter {
     private static double targetSpeed = 0;
     private static final int kPIDLoopIdx = 0;
     private static double adjustmentFactor = 1;
+    private static double desiredShootSpeed = Calibration.SHOOTER_DEFAULT_SPEED * adjustmentFactor;
+    private static double currentShooterSpeed = 0;
 
     public Shooter() {
         // shooterMotor.set(shooterMotor1.follower, Wiring.SHOOTER_MOTOR_ID);
@@ -91,8 +93,14 @@ public class Shooter {
             shooterMotor.config_kD(kPIDLoopIdx, SmartDashboard.getNumber("Shoot D", 0), 0);
 
             if (isEnabled) {
-                shooterMotor.set(ControlMode.Velocity, SmartDashboard.getNumber("Shoot Setpoint", Calibration.SHOOTER_DEFAULT_SPEED) * adjustmentFactor);              
-                // shooterMotor.set(ControlMode.PercentOutput,-.6);
+                shooterMotor.set(ControlMode.Velocity, SmartDashboard.getNumber("Shoot Setpoint", Calibration.SHOOTER_DEFAULT_SPEED) * adjustmentFactor);
+                shooterMotor.getSelectedSensorVelocity(); 
+                
+                if (currentShooterSpeed < desiredShootSpeed) {
+                    Indexer.queuerStopBall();
+                } else {
+                    Indexer.queuerLetBallsThrough();
+                }
             }
         }
         

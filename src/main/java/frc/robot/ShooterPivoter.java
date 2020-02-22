@@ -35,7 +35,7 @@ public class ShooterPivoter {
 
     public ShooterPivoter () {
         pivotMotor = new TalonSRX(Wiring.SHOOTER_PIVOT_MOTOR_ID);
-        throughBore = new DutyCycleEncoder(1); 
+        throughBore = new DutyCycleEncoder(Wiring.SHOOTER_PIVOTER_PWM_ID); 
         throughBore.setConnectedFrequencyThreshold(900); 
         positionPID = new PIDController(1.5,0,0);
         // SmartDashboard.putNumber("SHOOTER SHAFT ADJUSTMENT", 0.5);
@@ -58,12 +58,6 @@ public class ShooterPivoter {
         SmartDashboard.putNumber("SP Targ",targetShaftPosition);
         SmartDashboard.putNumber("SP Pwr", calculatedPower);
         
-        if (calculatedPower <= 0.05) {
-            shooterAtPosition = true;
-        } else {
-            shooterAtPosition = false;
-        }
-    
         pivotMotor.set(ControlMode.PercentOutput, calculatedPower);
     }
 
@@ -79,8 +73,8 @@ public class ShooterPivoter {
         targetShaftPosition = .8;
     }
 
-    public static void setDesiredShootPosition (float desiredShaftPosition) {
-        targetShaftPosition = desiredShaftPosition;
+    public static void setDesiredShootPosition (float desiredPosition) {
+        targetShaftPosition = Calibration.SHOOTER_PIVOTER_INITIAL + desiredPosition;
     }
 
     public static boolean shooterAtPosition () {

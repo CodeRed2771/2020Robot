@@ -145,8 +145,12 @@ public class Robot extends TimedRobot {
 		if (Math.abs(driveFWDAmount) <= .2 || !normalDrive) // strafe adjust if not driving forward
 			driveStrafeAmount = strafeAdjust(driveStrafeAmount, normalDrive);
 
+			
 		driveRotAmount = rotationalAdjust(gamepad.getSwerveRotAxis());
 		driveFWDAmount = forwardAdjust(driveFWDAmount, normalDrive);
+
+		SmartDashboard.putNumber("SWERVE ROT AXIS", gamepad.getSwerveRotAxis());
+		SmartDashboard.putNumber("ADJUSTED SWERVE ROT AMOUNT", driveRotAmount);
 
 		if (Math.abs(driveFWDAmount) > .5) {
 			if (mAutoProgram.isRunning())
@@ -275,17 +279,13 @@ public class Robot extends TimedRobot {
 		if (Math.abs(rotateAmt) < .2) {
 			adjustedAmt = 0;
 		} else {
-			if (Math.abs(rotateAmt) < .6) {
+			if (Math.abs(rotateAmt) < .78) {
 				adjustedAmt = .10 * Math.signum(rotateAmt); // take 10% of the input
 			} else {
-				if (Math.abs(rotateAmt) < .8) {
-					adjustedAmt = .30 * Math.signum(rotateAmt); // take 30% of input
+				if (Math.abs(rotateAmt) < .99) {
+					adjustedAmt = .25 * Math.signum(rotateAmt); // take 45%
 				} else {
-					if (Math.abs(rotateAmt) < .95) {
-						adjustedAmt = .45 * Math.signum(rotateAmt); // take 45%
-					} else {
-						adjustedAmt = rotateAmt * .85; // take 85%
-					}
+					adjustedAmt = rotateAmt * .5; // take 85%
 				}
 			}
 		}
