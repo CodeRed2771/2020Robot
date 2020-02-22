@@ -54,6 +54,7 @@ public class Robot extends TimedRobot {
 		mAutoProgram = new AutoDoNothing();
 
 		RobotGyro.reset();
+		ShooterPivoter.resetPivoter();
 
 		DriveTrain.allowTurnEncoderReset();
 		DriveTrain.resetTurnEncoders(); // sets encoders based on absolute encoder positions

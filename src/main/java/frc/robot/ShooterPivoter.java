@@ -24,8 +24,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ShooterPivoter {
 
     private static ShooterPivoter instance;
-
-    // private Encoder throughBore;
     private static double encoderPosition;
     private static DutyCycleEncoder throughBore;
     private static boolean isConn;
@@ -70,7 +68,7 @@ public class ShooterPivoter {
     }
 
     public static void resetPivoter() {
-        throughBore.reset();
+        targetShaftPosition = Calibration.SHOOTER_PIVOTER_INITIAL;
     }
 
     public static void setShootHighPosition() {
