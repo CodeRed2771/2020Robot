@@ -210,6 +210,10 @@ public class Module {
         return (turn.getSelectedSensorPosition(0) % FULL_ROTATION) / FULL_ROTATION;
     }
 
+    public double getCurrentDriveSetpoint() {
+        return currentDriveSetpoint;
+    }
+
     // These are used for driving and turning in auto.
     public void setDrivePIDToSetPoint(final double setpoint) {
         currentDriveSetpoint = setpoint;

@@ -347,6 +347,8 @@ public class DriveTrain {
         SmartDashboard.putNumber("Mod B Drive Enc", moduleB.getDriveEnc());
         SmartDashboard.putNumber("Mod C Drive Enc", moduleC.getDriveEnc());
         SmartDashboard.putNumber("Mod D Drive Enc", moduleD.getDriveEnc());
+
+        SmartDashboard.putNumber("Mod B Drive Setpt", moduleB.getCurrentDriveSetpoint());
     }
 
     public static void showTurnEncodersOnDash() {
