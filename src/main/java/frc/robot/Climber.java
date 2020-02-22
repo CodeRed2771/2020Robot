@@ -13,7 +13,6 @@ package frc.robot;
 public class Climber extends AutoBaseClass {
     public Climber() {
 		super();
-
 	}
 
 	public void start() {

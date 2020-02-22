@@ -39,7 +39,7 @@ public class AutonBasic3BallOffLine extends AutoBaseClass{
                         System.out.println("AUTON NOT RUNNING");
                         stop();
                     }
-                    setTimerAndAdvanceStep(4000);
+                    setTimerAndAdvanceStep(1000);
                     break;
                 case 1:
                     if (driveCompleted()) {
@@ -48,7 +48,7 @@ public class AutonBasic3BallOffLine extends AutoBaseClass{
                     break;
                 case 2:
                     driveInches(36, 180, 1, false, true);
-                    setTimerAndAdvanceStep(3000);
+                    setTimerAndAdvanceStep(1500);
                     break;
                 case 3:
                     if (driveCompleted()) {
