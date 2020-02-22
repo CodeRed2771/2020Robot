@@ -46,7 +46,7 @@ public class Robot extends TimedRobot {
 		Calibration.loadSwerveCalibration();
 		DriveTrain.getInstance();
 		DriveAuto.getInstance();
-		// ColorSensorAndClimber.getInstance();
+		// ColorSensorAndTraverser.getInstance();
 		Vision.getInstance();
 	
 
@@ -107,18 +107,18 @@ public class Robot extends TimedRobot {
 			Intake.stopIntake();
 		}
 		if (gamepad.spinWheel()) {
-			// ColorSensorAndClimber.start3To5TimesSpinning();
+			// ColorSensorAndTraverser.start3To5TimesSpinning();
 		}
 		if (gamepad.matchColor()) {
-			// ColorSensorAndClimber.startMatchColorSpinning();
+			// ColorSensorAndTraverser.startMatchColorSpinning();
 		}
 		Shooter.setAdjustmentFactor(gamepad.getShooterAdjustment());
 
 		Shooter.tick();
 		ShooterPivoter.tick();
 		DriveAuto.tick();
-		// ColorSensorAndClimber.tick();
-		// ColorSensorAndClimber.matchColor();
+		// ColorSensorAndTraverser.tick();
+		// ColorSensorAndTraverser.matchColor();
 		mAutoAlign.tick();
 		DistanceSensor.tick();
 		// --------------------------------------------------

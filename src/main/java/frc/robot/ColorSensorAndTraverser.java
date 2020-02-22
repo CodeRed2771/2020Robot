@@ -10,7 +10,7 @@ import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
 
-public class ColorSensorAndClimber {
+public class ColorSensorAndTraverser {
 
     // private static final TalonSRX spinMotor = new TalonSRX(Wiring.COLOR_WHEEL_SPINNER_AND_TRAVERSER_ID);
     // private static final I2C.Port i2cPort = I2C.Port.kOnboard;
@@ -21,7 +21,7 @@ public class ColorSensorAndClimber {
     // private static final Color RedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114); // NEED TO BE CALIBRATED
     // private static final Color YellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113); // NEED TO BE CALIBRATED
     // private static boolean isSpinning = false;
-    // private static ColorSensorAndClimber instance;
+    // private static ColorSensorAndTraverser instance;
     // private static int timesColorPassed = 0;
     // private static String colorString;
     // private static Color lastColorSeen = BlueTarget;
@@ -29,16 +29,16 @@ public class ColorSensorAndClimber {
     // private static String gameData = DriverStation.getInstance().getGameSpecificMessage();
     // private static boolean isRunning = false;
 
-    // public ColorSensorAndClimber() {
+    // public ColorSensorAndTraverser() {
     //     colorMatcher.addColorMatch(BlueTarget);
     //     colorMatcher.addColorMatch(GreenTarget);
     //     colorMatcher.addColorMatch(RedTarget);
     //     colorMatcher.addColorMatch(YellowTarget);
     // }
 
-    // public static ColorSensorAndClimber getInstance() {
+    // public static ColorSensorAndTraverser getInstance() {
     //     if (instance == null) {
-    //         instance = new ColorSensorAndClimber();
+    //         instance = new ColorSensorAndTraverser();
     //     }
     //     return instance;
     // }
