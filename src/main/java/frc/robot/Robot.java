@@ -26,7 +26,6 @@ public class Robot extends TimedRobot {
 	BuiltInAccelerometer accel;
 	AutoBaseClass mAutoProgram;
 	boolean isAutoRunning = false;
-	AutoAlign mAutoAlign = new AutoAlign();
 
 	final String threeBasicBalls = "3 Basic Balls";
 	final String eightBallRight = "8 Balls Right";
@@ -85,7 +84,8 @@ public class Robot extends TimedRobot {
 		// }
 
 		if (gamepad.startVision()) {
-			mAutoAlign.start();
+			mAutoProgram = new AutoAlign();
+			mAutoProgram.start();
 		}
 
 		if (gamepad.getButtonA(1)) {
@@ -119,7 +119,6 @@ public class Robot extends TimedRobot {
 		DriveAuto.tick();
 		// ColorSensorAndTraverser.tick();
 		// ColorSensorAndTraverser.matchColor();
-		mAutoAlign.tick();
 		DistanceSensor.tick();
 		// --------------------------------------------------
 		// RESET - allow manual reset of systems by pressing Start
@@ -134,33 +133,34 @@ public class Robot extends TimedRobot {
 		// DRIVE
 		if (mAutoProgram.isRunning()) {
 			mAutoProgram.tick();
-		} else {
-			// DRIVER CONTROL MODE
-			// Issue the drive command using the parameters from
-			// above that have been tweaked as needed
-			double driveRotAmount;
-			double driveFWDAmount = gamepad.getSwerveYAxis();
-			double driveStrafeAmount = -gamepad.getSwerveXAxis();
-			boolean normalDrive = !gamepad.getDriveModifier();
+		}
+		
+		// DRIVER CONTROL MODE
+		// Issue the drive command using the parameters from
+		// above that have been tweaked as needed
+		double driveRotAmount;
+		double driveFWDAmount = gamepad.getSwerveYAxis();
+		double driveStrafeAmount = -gamepad.getSwerveXAxis();
+		boolean normalDrive = !gamepad.getDriveModifier();
 
-			if (Math.abs(driveFWDAmount) <= .2 || !normalDrive) // strafe adjust if not driving forward
-				driveStrafeAmount = strafeAdjust(driveStrafeAmount, normalDrive);
+		if (Math.abs(driveFWDAmount) <= .2 || !normalDrive) // strafe adjust if not driving forward
+			driveStrafeAmount = strafeAdjust(driveStrafeAmount, normalDrive);
 
-			driveRotAmount = rotationalAdjust(gamepad.getSwerveRotAxis());
-			driveFWDAmount = forwardAdjust(driveFWDAmount, normalDrive);
+		driveRotAmount = rotationalAdjust(gamepad.getSwerveRotAxis());
+		driveFWDAmount = forwardAdjust(driveFWDAmount, normalDrive);
 
-			if (Math.abs(driveFWDAmount) > .5) {
-				isAutoRunning = false;
-			}
+		if (Math.abs(driveFWDAmount) > .5) {
+			isAutoRunning = false;
+		}
 
-			if (!isAutoRunning) {
-				if (gamepad.getRobotCentricModifier()) {
-					DriveTrain.humanDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
-				} else {
-					DriveTrain.fieldCentricDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
-				}
+		if (!isAutoRunning) {
+			if (gamepad.getRobotCentricModifier()) {
+				DriveTrain.humanDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
+			} else {
+				DriveTrain.fieldCentricDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
 			}
 		}
+		
 
 		showDashboardInfo();
 	}
