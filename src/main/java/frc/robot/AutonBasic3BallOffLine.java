@@ -42,18 +42,12 @@ public class AutonBasic3BallOffLine extends AutoBaseClass{
                     setTimerAndAdvanceStep(1000);
                     break;
                 case 1:
-                    if (driveCompleted()) {
-                        advanceStep();
-                    }
                     break;
                 case 2:
                     driveInches(36, 180, 1, false, true);
                     setTimerAndAdvanceStep(5000);
                     break;
                 case 3:
-                    if (driveCompleted()) {
-                        advanceStep();
-                    }
                     break;
                 case 4:
                     mAutoAlign.start();

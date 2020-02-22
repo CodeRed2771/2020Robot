@@ -85,7 +85,7 @@ public class Robot extends TimedRobot {
 
 		if (gamepad.startVision()) {
 			mAutoProgram = new AutoAlign();
-			mAutoProgram.start();
+			mAutoProgram.start();		
 		}
 
 		if (gamepad.getButtonA(1)) {
@@ -119,6 +119,7 @@ public class Robot extends TimedRobot {
 		DriveAuto.tick();
 		// ColorSensorAndTraverser.tick();
 		// ColorSensorAndTraverser.matchColor();
+		
 		DistanceSensor.tick();
 		// --------------------------------------------------
 		// RESET - allow manual reset of systems by pressing Start
@@ -133,7 +134,7 @@ public class Robot extends TimedRobot {
 		// DRIVE
 		if (mAutoProgram.isRunning()) {
 			mAutoProgram.tick();
-		}
+		} 
 		
 		// DRIVER CONTROL MODE
 		// Issue the drive command using the parameters from
@@ -160,7 +161,7 @@ public class Robot extends TimedRobot {
 				DriveTrain.fieldCentricDrive(driveFWDAmount, driveStrafeAmount, driveRotAmount);
 			}
 		}
-		
+	
 
 		showDashboardInfo();
 	}
