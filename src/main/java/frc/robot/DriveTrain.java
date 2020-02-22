@@ -67,7 +67,7 @@ public class DriveTrain {
         moduleD.setDriveMMVelocity(velocity);
     }
 
-    public static boolean hasDriveCompleted(int allowedError) {
+    public static boolean hasDriveCompleted(double allowedError) {
         // just checking two of the modules to see if they are done moving
         return moduleB.hasDriveCompleted(allowedError) && moduleA.hasDriveCompleted(allowedError);
     }
@@ -349,6 +349,7 @@ public class DriveTrain {
         SmartDashboard.putNumber("Mod D Drive Enc", moduleD.getDriveEnc());
 
         SmartDashboard.putNumber("Mod B Drive Setpt", moduleB.getCurrentDriveSetpoint());
+        SmartDashboard.putNumber("Mod A Drive Setpt", moduleA.getCurrentDriveSetpoint());
     }
 
     public static void showTurnEncodersOnDash() {

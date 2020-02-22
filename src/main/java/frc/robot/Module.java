@@ -220,7 +220,7 @@ public class Module {
         drivePID.setReference(setpoint, ControlType.kSmartMotion);
     }
 
-    public boolean hasDriveCompleted(final int allowedError) {
+    public boolean hasDriveCompleted(final double allowedError) {
         return Math.abs(currentDriveSetpoint - getDriveEnc()) <= allowedError;
     }
 
