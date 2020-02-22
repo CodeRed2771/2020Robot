@@ -70,6 +70,10 @@ public class DistanceSensor {
         if(isValid) {
             SmartDashboard.putNumber("Range", distSens.getRange());
             SmartDashboard.putNumber("Timestamp", distSens.getTimestamp());
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
         }
+    }
+    public static float getRange () {
+        return (float) distSens.getRange();
     }
 }
