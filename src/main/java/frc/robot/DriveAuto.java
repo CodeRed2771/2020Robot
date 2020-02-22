@@ -236,7 +236,7 @@ public class DriveAuto {
     }
 
     public static boolean hasArrived() {
-        return DriveTrain.hasDriveCompleted(10);
+        return DriveTrain.hasDriveCompleted(1);
     }
 
     public static boolean turnCompleted(double allowedError) {
