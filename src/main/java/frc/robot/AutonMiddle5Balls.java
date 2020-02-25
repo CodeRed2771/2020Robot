@@ -43,11 +43,11 @@ public class AutonMiddle5Balls extends AutoBaseClass {
                 advanceStep();
                 break;
             case 5:
-                turnDegrees(-45 + (-(RobotGyro.getRelativeAngle())), 1);
+                turnToHeading(337.5 , 1);
                 setTimerAndAdvanceStep(2000);
                 break;
             case 6:
-                if (turnCompleted()) {
+                if (driveCompleted()) {
                     advanceStep();
                 }
                 break;
@@ -88,7 +88,7 @@ public class AutonMiddle5Balls extends AutoBaseClass {
                 break;
             case 15:
                 Intake.stopIntake();
-                mAutoAlign.start();
+                Intake.moveIntakeUp();
                 advanceStep();
                 break;
             case 16:

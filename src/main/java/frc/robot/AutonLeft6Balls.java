@@ -76,8 +76,8 @@ public class AutonLeft6Balls extends AutoBaseClass{
                     setTimerAndAdvanceStep(1750);
                     break;
                 case 12:
-                    // Intake.moveIntakeUp();
-                    // Intake.stopIntake();
+                    Intake.moveIntakeUp();
+                    Intake.stopIntake();
                     break;
                 case 13:
                     turnDegrees(-150, 1);
