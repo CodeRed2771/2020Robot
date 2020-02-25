@@ -30,7 +30,7 @@ public class AutonAllTheWayRight8Ball extends AutoBaseClass {
             switch (getCurrentStep()) {
             case 0:
                 driveInches(40, 180, 1);
-                advanceStep();
+                setTimerAndAdvanceStep(2000);
                 break;
             case 1:
                 if (driveCompleted()) {
