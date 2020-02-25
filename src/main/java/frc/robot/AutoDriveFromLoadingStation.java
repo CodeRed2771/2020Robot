@@ -23,15 +23,31 @@ public class AutoDriveFromLoadingStation extends AutoBaseClass {
                     setTimerAndAdvanceStep(2000);
                     break;
                 case 1:
+                    if (driveCompleted()){
+                        advanceStep();
+                    }
                     break;
                 case 2:
                     turnDegrees(180, 1);
                     setTimerAndAdvanceStep(3000);
                     break;
                 case 3:
-                    DistanceSensor.getRange();
+                    if (driveCompleted()) {
+                        advanceStep();
+                    }
                     break;
                 case 4:
+                    driveInches(160, 35, 1); 
+                    break;
+                case 5:
+                    if (driveCompleted()){
+                        advanceStep();
+                    }
+                    break;
+                case 6:
+                    DistanceSensor.getRange();
+                    break;
+                case 7:
                     if (DistanceSensor.getRange() >= 12){
                         driveInches(12, 45, 1, false, true);
                     } else if (DistanceSensor.getRange() <= 12){
@@ -39,11 +55,15 @@ public class AutoDriveFromLoadingStation extends AutoBaseClass {
                         setTimerAndAdvanceStep(2000);
                     }
                     break;
-                case 5:
+                case 8:
+                    if (driveCompleted()){
+                        advanceStep();
+                    }
                     break;
-                case 6:
+                case 9:
                     stop();
                     break;
+                
             }
         }
 	}
