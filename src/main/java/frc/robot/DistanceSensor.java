@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.*;
 import com.revrobotics.Rev2mDistanceSensor.Port;
 import com.revrobotics.Rev2mDistanceSensor.RangeProfile;
+import com.revrobotics.Rev2mDistanceSensor.Unit;
 
 public class DistanceSensor {
     private Rev2mDistanceSensor distOnboard; 
@@ -68,12 +69,12 @@ public class DistanceSensor {
         boolean isValid = distSens.isRangeValid();
         SmartDashboard.putBoolean("Valid", isValid);
         if(isValid) {
-            SmartDashboard.putNumber("Range", distSens.getRange());
+            SmartDashboard.putNumber("Range", distSens.getRange(Unit.kInches));
             SmartDashboard.putNumber("Timestamp", distSens.getTimestamp());
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
         }
     }
     public static float getRange () {
-        return (float) distSens.getRange();
+        return (float) distSens.getRange(Unit.kInches);
     }
 }
