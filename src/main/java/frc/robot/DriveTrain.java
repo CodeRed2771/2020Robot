@@ -26,7 +26,7 @@ public class DriveTrain {
     }
 
     // define robot dimensions. L=wheel base W=track width
-    private static final double l = 22, w = 21, r = Math.sqrt((l * l) + (w * w));
+    private static final double l = 29, w = 18, r = Math.sqrt((l * l) + (w * w));
 
     private DriveTrain() {
         moduleA = new Module(Calibration.DT_A_DRIVE_SPARK_ID, Calibration.DT_A_TURN_TALON_ID, Calibration.AUTO_DRIVE_P,

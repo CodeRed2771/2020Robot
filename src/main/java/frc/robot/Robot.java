@@ -44,6 +44,7 @@ public class Robot extends TimedRobot {
 		Calibration.loadSwerveCalibration();
 		DriveTrain.getInstance();
 		DriveAuto.getInstance();
+		Climber.getInstance();
 		// ColorSensorAndTraverser.getInstance();
 		Vision.getInstance();
 
@@ -85,24 +86,17 @@ public class Robot extends TimedRobot {
 			mAutoProgram = new AutoAlign();
 			mAutoProgram.start();
 		}
-
-		if (gamepad.getButtonA(1)) {
-			System.out.println("START SHOOTING");
-			Shooter.StartShooter();
-			Indexer.startIndexer();
-		}
-		if (gamepad.getButtonB(1)) {
-			Shooter.StopShooter();
-			Indexer.stopIndexer();
-		}
-		if (gamepad.startIntakeForwards()) {
+		if (gamepad.startIntake()) {
 			Intake.runIntakeForwards();
-		}
-		if (gamepad.startIntakeBackwards()) {
-			Intake.runIntakeBackwards();
 		}
 		if (gamepad.stopIntake()) {
 			Intake.stopIntake();
+		}
+		if (gamepad.intakeDownPosition()) {
+			Intake.moveIntakeDown();
+		}
+		if (gamepad.intakeUpPosition()) {
+			Intake.moveIntakeUp();
 		}
 		if (gamepad.spinWheel()) {
 			// ColorSensorAndTraverser.start3To5TimesSpinning();
@@ -110,11 +104,58 @@ public class Robot extends TimedRobot {
 		if (gamepad.matchColor()) {
 			// ColorSensorAndTraverser.startMatchColorSpinning();
 		}
+		if (gamepad.stopShooter() || gamepad.stopShooting()) {
+			Shooter.StopShooter();
+		}
+		if (gamepad.lowClimberHeight() || gamepad.climberLowPosition()) {
+			Climber.lowClimberPosition(true);
+		}
+		if (gamepad.colorWheelClimberHeight()) {
+			Climber.colorWheelPosition(true);
+		}
+		if (gamepad.climber() && gamepad.getRobotCentricModifier()) {
+			Climber.climbHighPosition(true);
+		}
+		if (gamepad.closeShooterPosition()) {
+			ShooterPivoter.shootClosePosition();
+		}
+		if (gamepad.midTrenchPosition()) {
+			ShooterPivoter.midTrench();
+		}
+		if (gamepad.backTrenchPosition()) {
+			ShooterPivoter.backTrench();
+		}
+		if (gamepad.startShooter()) {
+			Shooter.StartShooter();
+		}
+		if (gamepad.levelScale()) {
+			Climber.setLevelScale(true);
+		}
+		if (gamepad.turboTurning()) {
+			// ADD TURBO TURN
+		}
+		if (gamepad.dropBellyPan()) {
+			Climber.dropBellyPan(true);
+		}
+		if (gamepad.pickUpbellyPanContinueClimb()) {
+			Climber.pickUpBellyPanAndContinueClimbing(true);
+		}
+		if (gamepad.oneShotShooter()) {
+			Indexer.queuerOneShot();
+		}
+		if (gamepad.continualShooter()) {
+			Indexer.queuerContinualShot();
+		}
+		if (gamepad.getRobotCentricModifier() && gamepad.oneShotShooter()) {
+			Climber.startClimbing(true);
+		}
+
 		Shooter.setAdjustmentFactor(gamepad.getShooterAdjustment());
 
 		Shooter.tick();
 		ShooterPivoter.tick();
 		DriveAuto.tick();
+		Climber.tick();
 		// ColorSensorAndTraverser.tick();
 		// ColorSensorAndTraverser.matchColor();
 
@@ -140,14 +181,10 @@ public class Robot extends TimedRobot {
 		double driveRotAmount;
 		double driveFWDAmount = gamepad.getSwerveYAxis();
 		double driveStrafeAmount = -gamepad.getSwerveXAxis();
-		boolean normalDrive = !gamepad.getDriveModifier();
-
-		if (Math.abs(driveFWDAmount) <= .2 || !normalDrive) // strafe adjust if not driving forward
-			driveStrafeAmount = strafeAdjust(driveStrafeAmount, normalDrive);
-
+		
 			
 		driveRotAmount = rotationalAdjust(gamepad.getSwerveRotAxis());
-		driveFWDAmount = forwardAdjust(driveFWDAmount, normalDrive);
+		driveFWDAmount = forwardAdjust(driveFWDAmount, true);
 
 		SmartDashboard.putNumber("SWERVE ROT AXIS", gamepad.getSwerveRotAxis());
 		SmartDashboard.putNumber("ADJUSTED SWERVE ROT AMOUNT", driveRotAmount);

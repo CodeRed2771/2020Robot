@@ -65,15 +65,19 @@ public class ShooterPivoter {
         targetShaftPosition = Calibration.SHOOTER_PIVOTER_INITIAL;
     }
 
-    public static void setShootHighPosition() {
-        targetShaftPosition = .2;
+    public static void shootClosePosition () {
+        setDesiredShootPosition(0.3); // NEEDS TO BE ADJUSTED
     }
 
-    public static void setShootLowPosition() {
-        targetShaftPosition = .8;
+    public static void midTrench () {
+        setDesiredShootPosition(0.4); // NEEDS TO BE ADJUSTED
     }
 
-    public static void setDesiredShootPosition (float desiredPosition) {
+    public static void backTrench () {
+        setDesiredShootPosition(0.5);; // NEEDS TO BE ADJUSTED
+    }
+
+    public static void setDesiredShootPosition (double desiredPosition) {
         targetShaftPosition = Calibration.SHOOTER_PIVOTER_INITIAL + desiredPosition;
     }
 
