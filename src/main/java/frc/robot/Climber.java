@@ -20,6 +20,7 @@ public class Climber {
 	private static boolean colorMatchPosition = false;
 	private static boolean climbHighPosition = false;
 	private static Climber instance;
+	private static double currentLiftSetpoint = 0;
 
 
     public Climber() {

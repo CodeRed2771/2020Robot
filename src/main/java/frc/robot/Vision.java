@@ -8,9 +8,10 @@ import java.util.*;
 
 public class Vision {
 
-    private static double CameraHeight = 9.0625; 
+    private static double CameraHeight = 23; // MAYBE 24ISH NEEDS TO BE REALLY ACCURATE
     private static double TargetHeight = 89.75; 
-    public static double CameraAngle = 32; 
+    private static double CameraAngle = 29.5;
+    private static double cameraDistanceFromCenterOfRobot = 3; // NEEDS TO BE ADJUSTED TO THE DISTANCE THE CAMERA ACTUALLY IS - IS
     private static double LIMELIGHT_Y_AXIS_FOV = 45.7;
     private static NetworkTable table = null;
     private static double angleOffTarget = 0;
@@ -101,25 +102,11 @@ public class Vision {
     }
 
     public static double getAdjustedDistanceFromTarget () {
-        /**
-         * The purpose of this function is to get an adjusted distance that we will be at after a turn
-         * It does it by taking the distance that our camera is from the center of the robot, using the angle offset from the target
-         * and using the camera distance from the center of the robot as the hypotenuse. After that it does simple trig to get the 
-         * get sides to use them in the pythagorean theorem to get the approximate distance we will be at. - IS
-         */
+        
         double originalDistance = getDistanceFromTarget(); 
-        double adjustedDistance = 0; // THE DISTANCE WE SUBTRACT BY TO GET TO THE DISTNACE WE WILL BE AT AFTER THE TURN
         double angleFromTarget = getAngleOffset();
-        double cameraDistanceFromCenterOfRobot = 3; // NEEDS TO BE ADJUSTED TO THE DISTANCE THE CAMERA ACTUALLY IS
-        double side1 = 0;
-        double side2 = 0;
-        double firstTriangleBigLeg = 0;
 
-        side1 = ((cameraDistanceFromCenterOfRobot) * (Math.sin(Math.toRadians(angleFromTarget))));
-        firstTriangleBigLeg = (side1/Math.tan(Math.toRadians(angleFromTarget)));
-        side2 = cameraDistanceFromCenterOfRobot - firstTriangleBigLeg;
-        adjustedDistance = originalDistance - Math.sqrt((side1 * side1) + (side2 * side2));
-        return originalDistance - adjustedDistance;
+        return originalDistance - (cameraDistanceFromCenterOfRobot - ((Math.acos(Math.toRadians(angleFromTarget))) * cameraDistanceFromCenterOfRobot));
     }
 
     public static void setLED(boolean turnOn) {
