@@ -150,6 +150,10 @@ public class Robot extends TimedRobot {
 			Climber.startClimbing(true);
 		}
 
+		
+
+
+		
 		Shooter.setAdjustmentFactor(gamepad.getShooterAdjustment());
 
 		Shooter.tick();
