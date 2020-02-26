@@ -40,12 +40,12 @@ public class Robot extends TimedRobot {
 		ShooterPivoter.getInstance();
 		Intake.getInstance();
 		RobotGyro.getInstance();
-		DistanceSensor.getInstance();
+		// DistanceSensor.getInstance();
 		Calibration.loadSwerveCalibration();
 		DriveTrain.getInstance();
 		DriveAuto.getInstance();
 		Climber.getInstance();
-		// ColorSensorAndTraverser.getInstance();
+		ColorSensorAndTraverser.getInstance();
 		Vision.getInstance();
 
 		setupAutoChoices();
@@ -99,22 +99,22 @@ public class Robot extends TimedRobot {
 			Intake.moveIntakeUp();
 		}
 		if (gamepad.spinWheel()) {
-			// ColorSensorAndTraverser.start3To5TimesSpinning();
+			ColorSensorAndTraverser.start3To5TimesSpinning();
 		}
 		if (gamepad.matchColor()) {
-			// ColorSensorAndTraverser.startMatchColorSpinning();
+			ColorSensorAndTraverser.startMatchColorSpinning();
 		}
 		if (gamepad.stopShooter() || gamepad.stopShooting()) {
 			Shooter.StopShooter();
 		}
 		if (gamepad.lowClimberHeight() || gamepad.climberLowPosition()) {
-			Climber.lowClimberPosition(true);
+			Climber.setlowClimberPosition();
 		}
 		if (gamepad.colorWheelClimberHeight()) {
-			Climber.colorWheelPosition(true);
+			Climber.setColorWheelClimberPosition();
 		}
 		if (gamepad.climber() && gamepad.getRobotCentricModifier()) {
-			Climber.climbHighPosition(true);
+			Climber.setHighClimberPosition();
 		}
 		if (gamepad.closeShooterPosition()) {
 			ShooterPivoter.shootClosePosition();
@@ -129,7 +129,7 @@ public class Robot extends TimedRobot {
 			Shooter.StartShooter();
 		}
 		if (gamepad.levelScale()) {
-			Climber.setLevelScale(true);
+			ColorSensorAndTraverser.runTrue(true);
 		}
 		if (gamepad.turboTurning()) {
 			// ADD TURBO TURN
@@ -147,7 +147,13 @@ public class Robot extends TimedRobot {
 			Indexer.queuerContinualShot();
 		}
 		if (gamepad.getRobotCentricModifier() && gamepad.oneShotShooter()) {
-			Climber.startClimbing(true);
+			Climber.setIdealClimberPositionToDropBellyPan();
+		}
+		if (Math.abs(gamepad.shooterPivoterAdjuster()) > 0.1) {
+			ShooterPivoter.moveToSetPoint(gamepad.shooterPivoterAdjuster()); // THIS FUNCTIONS NEED TO BE IMPROVISED BASED ON WHAT WE ARE GIVEN
+		}
+		if (Math.abs(gamepad.manualClimberAdjuster()) > 0.1) {
+			Climber.moveToSetPoint(gamepad.manualClimberAdjuster()); // THIS FUNCTIONS NEED TO BE IMPROVISED BASED ON WHAT WE ARE GIVEN
 		}
 
 		
@@ -160,10 +166,11 @@ public class Robot extends TimedRobot {
 		ShooterPivoter.tick();
 		DriveAuto.tick();
 		Climber.tick();
-		// ColorSensorAndTraverser.tick();
-		// ColorSensorAndTraverser.matchColor();
+		ColorSensorAndTraverser.tick();
+		ColorSensorAndTraverser.matchColor();
+		ColorSensorAndTraverser.levelScale();
 
-		DistanceSensor.tick();
+		// DistanceSensor.tick();
 		// --------------------------------------------------
 		// RESET - allow manual reset of systems by pressing Start
 		// --------------------------------------------------

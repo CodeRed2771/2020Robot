@@ -85,6 +85,25 @@ public class ShooterPivoter {
         return shooterAtPosition;
     }
 
+    public static void moveToSetPoint (double direction) {  // NEED TO BE BETTER ADDS AND SETPOINTS
+        
+        double newSetpoint;
+
+		if (direction < 0) {
+			newSetpoint = pivotMotor.getSelectedSensorPosition(0) - 0.01;
+			if (newSetpoint <= 0) {
+				newSetpoint = 0;
+			}
+		} else {
+			newSetpoint = pivotMotor.getSelectedSensorPosition(0) + 0.01;
+			if (newSetpoint > 0.6) {
+				newSetpoint = 0.6; // 
+			}
+		}
+
+		targetShaftPosition = newSetpoint;
+    }
+
     // public static float getDesiredShaftPosition () {
     //     return (float) SmartDashboard.getNumber("SHOOTER SHAFT ADJUSTMENT", 0.5);
     // }

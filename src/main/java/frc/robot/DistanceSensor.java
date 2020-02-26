@@ -22,59 +22,59 @@ import com.revrobotics.Rev2mDistanceSensor.RangeProfile;
 import com.revrobotics.Rev2mDistanceSensor.Unit;
 
 public class DistanceSensor {
-    private Rev2mDistanceSensor distOnboard; 
-    private Rev2mDistanceSensor distMXP;
-    private static DistanceSensor instance;
-    private static final String profileDefault = "Default";
-    private static final String highSpeed = "High Speed";
-    private static final String highAccuracy = "High Accuracy";
-    private static final String longRange = "Long Range";
-    private static String m_profileSelected;
-    private static final SendableChooser<String> m_chooser = new SendableChooser<>();
-    private static Rev2mDistanceSensor distSens;
+    // private Rev2mDistanceSensor distOnboard; 
+    // private Rev2mDistanceSensor distMXP;
+    // private static DistanceSensor instance;
+    // private static final String profileDefault = "Default";
+    // private static final String highSpeed = "High Speed";
+    // private static final String highAccuracy = "High Accuracy";
+    // private static final String longRange = "Long Range";
+    // private static String m_profileSelected;
+    // private static final SendableChooser<String> m_chooser = new SendableChooser<>();
+    // private static Rev2mDistanceSensor distSens;
 
-    public DistanceSensor() {
-        m_chooser.setDefaultOption("Default", profileDefault);
-        m_chooser.addOption("High Speed", highSpeed);
-        m_chooser.addOption("High Accuracy", highAccuracy);
-        m_chooser.addOption("Long Range", longRange);
-        SmartDashboard.putData("Profile", m_chooser);
-        distSens = new Rev2mDistanceSensor(Port.kOnboard);
-        distSens.setAutomaticMode(true);
-    }
+    // public DistanceSensor() {
+    //     m_chooser.setDefaultOption("Default", profileDefault);
+    //     m_chooser.addOption("High Speed", highSpeed);
+    //     m_chooser.addOption("High Accuracy", highAccuracy);
+    //     m_chooser.addOption("Long Range", longRange);
+    //     SmartDashboard.putData("Profile", m_chooser);
+    //     distSens = new Rev2mDistanceSensor(Port.kOnboard);
+    //     distSens.setAutomaticMode(true);
+    // }
 
-    public static DistanceSensor getInstance() {
-        if (instance == null)
-            instance = new DistanceSensor();
-        return instance;
-    }
+    // public static DistanceSensor getInstance() {
+    //     if (instance == null)
+    //         instance = new DistanceSensor();
+    //     return instance;
+    // }
 
-    public static void tick() {
-        m_profileSelected = m_chooser.getSelected();
-        switch (m_profileSelected) {
-        case highSpeed:
-            distSens.setRangeProfile(RangeProfile.kHighSpeed);
-            break;
-        case highAccuracy:
-            distSens.setRangeProfile(RangeProfile.kHighAccuracy);
-            break;
-        case longRange:
-            distSens.setRangeProfile(RangeProfile.kLongRange);
-            break;
-        default:
-            distSens.setRangeProfile(RangeProfile.kDefault);
-            break;
-        }
+    // public static void tick() {
+    //     m_profileSelected = m_chooser.getSelected();
+    //     switch (m_profileSelected) {
+    //     case highSpeed:
+    //         distSens.setRangeProfile(RangeProfile.kHighSpeed);
+    //         break;
+    //     case highAccuracy:
+    //         distSens.setRangeProfile(RangeProfile.kHighAccuracy);
+    //         break;
+    //     case longRange:
+    //         distSens.setRangeProfile(RangeProfile.kLongRange);
+    //         break;
+    //     default:
+    //         distSens.setRangeProfile(RangeProfile.kDefault);
+    //         break;
+    //     }
 
-        boolean isValid = distSens.isRangeValid();
-        SmartDashboard.putBoolean("Valid", isValid);
-        if(isValid) {
-            SmartDashboard.putNumber("Range", distSens.getRange(Unit.kInches));
-            SmartDashboard.putNumber("Timestamp", distSens.getTimestamp());
+    //     boolean isValid = distSens.isRangeValid();
+    //     SmartDashboard.putBoolean("Valid", isValid);
+    //     if(isValid) {
+    //         SmartDashboard.putNumber("Range", distSens.getRange(Unit.kInches));
+    //         SmartDashboard.putNumber("Timestamp", distSens.getTimestamp());
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-        }
-    }
-    public static float getRange () {
-        return (float) distSens.getRange(Unit.kInches);
-    }
+    //     }
+    // }
+    // public static float getRange () {
+    //     return (float) distSens.getRange(Unit.kInches);
+    // }
 }

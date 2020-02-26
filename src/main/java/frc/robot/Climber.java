@@ -7,24 +7,20 @@
 
 package frc.robot;
 
-/**
- * Add your docs here.
- */
+
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 public class Climber {
 	
-	private static boolean startClimbing = false;
-	private static boolean levelScale = false;
 	private static boolean dropBellyPan = false;
 	private static boolean pickUpBellyPan = false;
-	private static boolean lowClimberPosition = true;
-	private static boolean colorMatchPosition = false;
-	private static boolean climbHighPosition = false;
 	private static Climber instance;
-	private static double currentLiftSetpoint = 0;
+	private static TalonSRX climberMotor;
 
 
     public Climber() {
-	
+		climberMotor = new TalonSRX(Wiring.CLIMBER_MOTOR_ID);
+		climberMotor.configFactoryDefault(10);
 	}
 
 	public static Climber getInstance () {
@@ -36,45 +32,16 @@ public class Climber {
 
 	public static void tick() {
 
-		if (levelScale) {
-
-		}
-
 		if (dropBellyPan) {
-
+			// DROPS BELLY PAN
 		}
 
 		if (pickUpBellyPan) {
-
+			// LOCKS BELLY PAN IN TO CONTINUE CLIMBING
 		}
 
-		if (lowClimberPosition) {
-			climbHighPosition(false);
-			colorWheelPosition(false);
-			startClimbing(false);
+		// NEED SOMETHING FOR THE PID AND SETPOINTS
 
-		}
-
-		if (colorMatchPosition) {
-			climbHighPosition(false);
-			lowClimberPosition(false);
-			startClimbing(false);
-		}
-
-		if (climbHighPosition) {
-			lowClimberPosition(false);
-			colorWheelPosition(false);
-			startClimbing(false);
-
-		}
-
-		if (startClimbing) {
-			
-		}
-	}
-
-	public static void setLevelScale (boolean levelScale) {
-		Climber.levelScale = levelScale;
 	}
 
 	public static void dropBellyPan(boolean dropBellyPan) {
@@ -83,21 +50,41 @@ public class Climber {
 
 	public static void pickUpBellyPanAndContinueClimbing (boolean pickUpBellyPan) {
 		Climber.pickUpBellyPan = pickUpBellyPan;
+		// NEED A SETPOINT TO PUT THE CLIMBER AT
 	}
 
-	public static void lowClimberPosition (boolean lowClimberPosition) {
-		Climber.lowClimberPosition = lowClimberPosition;
+	public static void setlowClimberPosition () {
+		// GIVE SETPOINT FOR LOW CLIMBER POSITION
 	}
 
-	public static void colorWheelPosition (boolean colorWheelPosition) {
-		Climber.colorMatchPosition = colorWheelPosition;
+	public static void setColorWheelClimberPosition () {
+		// GIVE SETPOINT FOR COLOR WHEEL CLIMBER POSITION
 	}
 
-	public static void climbHighPosition (boolean climberHighPosition) {
-		Climber.climbHighPosition = climberHighPosition;
+	public static void setHighClimberPosition () {
+		// GIVE SETPOINT FOR HIGH CLIMBER POSITION
 	}
 
-	public static void startClimbing (boolean startClimbing) {
-		Climber.startClimbing = startClimbing;
+	public static void setIdealClimberPositionToDropBellyPan () {
+		// GIVE SETPOINT FOR REGULAR CLIMB POSITION
 	}
+
+	public static void moveToSetPoint (double direction) {
+        
+        double newSetpoint;
+
+		if (direction < 0) {
+			newSetpoint = climberMotor.getSelectedSensorPosition(0) - 1000;
+			if (newSetpoint <= 0) {
+				newSetpoint = 0;
+			}
+		} else {
+			newSetpoint = climberMotor.getSelectedSensorPosition(0) + 1000;
+			if (newSetpoint > 30000) {
+				newSetpoint = 30000; // 
+			}
+		}
+
+		//  SET THE SETPOINT TO THE FUNCTION LEVEL VARIABLE SETPOINT
+    }
 }

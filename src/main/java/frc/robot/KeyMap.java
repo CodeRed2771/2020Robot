@@ -45,6 +45,8 @@ public class KeyMap extends DirectAccessKeyMap {
     private final HID.Button stopIntake = LogitechF310.TRIGGER_RIGHT;
     private final HID.Button colorWheelStartRotationControl = LogitechF310.BACK;
     private final HID.Button colorWheelStartPositionControl = LogitechF310.START;
+    private final HID.Axis manualShooterPivoterAdjuster = LogitechF310.STICK_RIGHT_Y;
+    private final HID.Axis manualClimberAdjuster = LogitechF310.STICK_LEFT_Y;
 
 
 
@@ -184,5 +186,13 @@ public class KeyMap extends DirectAccessKeyMap {
 
     public boolean colorWheenPositionColor () {
         return getHID(gamepad2).button(colorWheelStartPositionControl);
+    }
+
+    public double shooterPivoterAdjuster () {
+        return getHID(gamepad2).axis(manualShooterPivoterAdjuster);
+    }
+
+    public double manualClimberAdjuster () {
+        return getHID(gamepad2).axis(manualClimberAdjuster);
     }
 }
