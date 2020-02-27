@@ -141,7 +141,7 @@ public class Module {
      * @return turn encoder absolute position
      */
     public double getTurnAbsolutePosition() {
-        return (turn.getSensorCollection().getAnalogInRaw() & 0xFFF) / 1024d;
+        return (turn.getSensorCollection().getAnalogInRaw() & 0x3FF) / 1024d;
     }
 
     public double getTurnPosition() {
@@ -175,7 +175,7 @@ public class Module {
     }
 
     public void resetTurnEnc() {
-        this.turn.getSensorCollection().setQuadraturePosition(0, 10);
+        this.turn.getSensorCollection().setAnalogPosition(0, 10);
     }
 
     public double getDriveEnc() {
