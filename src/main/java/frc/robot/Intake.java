@@ -11,15 +11,13 @@ public class Intake {
 
     private static Intake instance;
     private static CANSparkMax intakeMotor = new CANSparkMax(Wiring.INTAKE_MOTOR_ID, MotorType.kBrushless);
-    private static DoubleSolenoid pistonArm;
+    private static DoubleSolenoid pistonArm1;
     private static Compressor compressor;
     private static int BallCount = 0;
     public static CurrentBreaker currentBreaker;
 
     public Intake() {
         // pistonArm1 = new DoubleSolenoid(forwardChannel, reverseChannel);
-        // pistonArm2 = new DoubleSolenoid(forwardChannel, reverseChannel);
-        // compressor = new Compressor();
     }
 
     public static Intake getInstance() {
@@ -30,11 +28,11 @@ public class Intake {
     }
 
     public static void moveIntakeDown() {
-        pistonArm.set(DoubleSolenoid.Value.kForward);
+        pistonArm1.set(DoubleSolenoid.Value.kForward);
     }
 
     public static void moveIntakeUp() {
-        pistonArm.set(DoubleSolenoid.Value.kReverse);
+        pistonArm1.set(DoubleSolenoid.Value.kReverse);
     }
 
     public static void runIntakeForwards() {
@@ -47,12 +45,5 @@ public class Intake {
 
     public static void runIntakeBackwards() {
         intakeMotor.set(.7);
-    }
-
-    public static boolean intakeStalled() {
-        return (currentBreaker.tripped());
-    }
-
-    public static void ballCount() {
     }
 }

@@ -56,7 +56,7 @@ public class AutonAllTheWayRight8Ball extends AutoBaseClass {
                 break;
             case 6:
                 Shooter.StopShooter();
-                turnDegrees(-180 + RobotGyro.getAngle(), 1);
+                turnToHeading(180, 1);
                 setTimerAndAdvanceStep(2000);
                 break;
             case 7:

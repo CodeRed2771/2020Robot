@@ -10,7 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Encoder;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
@@ -28,13 +28,14 @@ public class ShooterPivoter {
     private static DutyCycleEncoder throughBore;
     private static boolean isConn;
     private static boolean limitGet;
-    private static TalonSRX pivotMotor;
+    private static VictorSPX pivotMotor;
     private static PIDController positionPID;
     private static double targetShaftPosition = 0;
     private static boolean shooterAtPosition = false;
 
     public ShooterPivoter () {
-        pivotMotor = new TalonSRX(Wiring.SHOOTER_PIVOT_MOTOR_ID);
+        pivotMotor = new VictorSPX(Wiring.SHOOTER_PIVOT_MOTOR_ID);
+
         throughBore = new DutyCycleEncoder(Wiring.SHOOTER_PIVOTER_PWM_ID); 
         throughBore.setConnectedFrequencyThreshold(900); 
         positionPID = new PIDController(1.5,0,0);

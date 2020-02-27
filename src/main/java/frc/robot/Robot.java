@@ -13,6 +13,7 @@ import java.math.RoundingMode;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.libs.Drive;
 import frc.robot.libs.HID.HID;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
@@ -155,11 +156,13 @@ public class Robot extends TimedRobot {
 		if (Math.abs(gamepad.manualClimberAdjuster()) > 0.1) {
 			Climber.moveToSetPoint(gamepad.manualClimberAdjuster()); // THIS FUNCTIONS NEED TO BE IMPROVISED BASED ON WHAT WE ARE GIVEN
 		}
-
-		
-
-
-		
+		if (gamepad.turnTo180Degrees()) {
+			DriveAuto.turnToHeading(180, 1);
+		}
+		if (gamepad.turnToZeroDegrees()) {
+			DriveAuto.turnToHeading(0, 1);
+		}
+			
 		Shooter.setAdjustmentFactor(gamepad.getShooterAdjustment());
 
 		Shooter.tick();

@@ -8,10 +8,10 @@ import java.util.*;
 
 public class Vision {
 
-    private static double CameraHeight = 23; // MAYBE 24ISH NEEDS TO BE REALLY ACCURATE
+    private static double CameraHeight = 22.3725; // MAYBE 24ISH NEEDS TO BE REALLY ACCURATE
     private static double TargetHeight = 89.75; 
     private static double CameraAngle = 29.5;
-    private static double cameraDistanceFromCenterOfRobot = 3; // NEEDS TO BE ADJUSTED TO THE DISTANCE THE CAMERA ACTUALLY IS - IS
+    private static double cameraDistanceFromCenterOfRobot = 4.875; // NEEDS TO BE ADJUSTED TO THE DISTANCE THE CAMERA ACTUALLY IS - IS
     private static double LIMELIGHT_Y_AXIS_FOV = 45.7;
     private static NetworkTable table = null;
     private static double angleOffTarget = 0;

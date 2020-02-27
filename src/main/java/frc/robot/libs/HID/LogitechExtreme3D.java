@@ -22,6 +22,12 @@ public class LogitechExtreme3D extends HID {
     public static final Button Button10 = new Button(10);
     public static final Button Button11 = new Button(11);
     public static final Button Button12 = new Button(12);
+    public static final POVAxis POV_AXIS_X = new POVAxis(0, true);
+    public static final POVAxis POV_AXIS_Y = new POVAxis(0, false);
+    public static final Button HAT_BUTTON_LEFT = new AxisButton(POV_AXIS_X, false);
+    public static final Button HAT_BUTTON_RIGHT = new AxisButton(POV_AXIS_X, true);
+    public static final Button HAT_BUTTON_UP = new AxisButton(POV_AXIS_X, true);
+    public static final Button HAT_BUTTON_DOWN = new AxisButton(POV_AXIS_X, false);
     // we also need to account for the button on the top of the joystick that moves
     // up and down, side to side, and diagonally.
     // I don't know how to do this--would we just take the x and y values and not

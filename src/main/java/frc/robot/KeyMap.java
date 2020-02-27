@@ -30,6 +30,8 @@ public class KeyMap extends DirectAccessKeyMap {
     private final HID.Button continualShooter = LogitechExtreme3D.Button10;
     private final HID.Button stopShooter = LogitechExtreme3D.Button11;
     private final HID.Button climber = LogitechExtreme3D.Button12;
+    private final HID.Button turnToZeroDegrees = LogitechExtreme3D.HAT_BUTTON_UP;
+    private final HID.Button turnTo180Degrees = LogitechExtreme3D.HAT_BUTTON_DOWN;
 
     // CONTROLLER 2
     private final HID.Button closeShooterPosition = LogitechF310.A;
@@ -83,6 +85,14 @@ public class KeyMap extends DirectAccessKeyMap {
 
     public boolean climber () {
         return getHID(gamepad1).button(climber);
+    }
+
+    public boolean turnToZeroDegrees () {
+        return getHID(gamepad1).button(turnToZeroDegrees);
+    }
+
+    public boolean turnTo180Degrees () {
+        return getHID(gamepad1).button(turnTo180Degrees);
     }
 
     public boolean levelScale () {
