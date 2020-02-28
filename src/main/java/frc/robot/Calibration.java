@@ -52,7 +52,7 @@ public class Calibration {
     public final static double TURN_I = 0.01;
     public final static double TURN_D = 400;
 
-    public final static double SHOOTER_PIVOTER_INITIAL = -.17; // INITIAL SHOOTER PIVOTER - IS
+    public final static double SHOOTER_PIVOTER_INITIAL = -.17; // INITIAL SHOOTER PIVOTER
 
     // Physical Module - A
     public final static int DT_A_DRIVE_SPARK_ID = 6;
