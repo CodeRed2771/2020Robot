@@ -73,7 +73,7 @@ public class AutonAllTheWayRight8Ball extends AutoBaseClass {
                 advanceStep();
                 break;
             case 10:
-                driveInches(265, 180, 1, false, true);
+                driveInches(235, 180, 1, false, true);
                 setTimerAndAdvanceStep(5000);
                 break;
             case 11:
@@ -82,48 +82,57 @@ public class AutonAllTheWayRight8Ball extends AutoBaseClass {
                 }
                 break;
             case 12:
-                setTimer(1000);
-                Intake.stopIntake();
-                advanceStep();
+                turnToHeading(210, 1);
+                setTimerAndAdvanceStep(1000);
                 break;
             case 13:
-                turnDegrees(180, 1);
-                setTimerAndAdvanceStep(2000);
-                break;
-            case 14:
                 if (driveCompleted()) {
                     advanceStep();
                 }
                 break;
-            case 15:
-                driveInches(45, 0, 1, false, true);
-                setTimerAndAdvanceStep(2000);
-                break;
-            case 16:
-                if (driveCompleted()) {
-                    advanceStep();
-                }
-                break;
-            case 17:
-                mAutoAlign.start();
-                advanceStep();
-                break;
-            case 18:
-                mAutoAlign.tick();
-                if (Vision.onTarget()) {
-                    advanceStep();
-                }
-                break;
-            case 19:
-                Shooter.StartShooter();
-                setTimerAndAdvanceStep(2000);
-                break;
-            case 20:
-                break;
-            case 21:
-                Shooter.StopShooter();
-                stop();
-                break;
+            // case 12:
+            //     setTimer(1000);
+            //     Intake.stopIntake();
+            //     advanceStep();
+            //     break;
+            // case 13:
+            //     turnDegrees(180, 1);
+            //     setTimerAndAdvanceStep(2000);
+            //     break;
+            // case 14:
+            //     if (driveCompleted()) {
+            //         advanceStep();
+            //     }
+            //     break;
+            // case 15:
+            //     driveInches(45, 0, 1, false, true);
+            //     setTimerAndAdvanceStep(2000);
+            //     break;
+            // case 16:
+            //     if (driveCompleted()) {
+            //         advanceStep();
+            //     }
+            //     break;
+            // case 17:
+            //     mAutoAlign.start();
+            //     advanceStep();
+            //     break;
+            // case 18:
+            //     mAutoAlign.tick();
+            //     if (Vision.onTarget()) {
+            //         advanceStep();
+            //     }
+            //     break;
+            // case 19:
+            //     Shooter.StartShooter();
+            //     setTimerAndAdvanceStep(2000);
+            //     break;
+            // case 20:
+            //     break;
+            // case 21:
+            //     Shooter.StopShooter();
+            //     stop();
+            //     break;
             }
         }
     }

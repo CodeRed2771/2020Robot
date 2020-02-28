@@ -45,6 +45,8 @@ public class Shooter {
 		shooterMotor.setNeutralMode(NeutralMode.Coast);
         shooterMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, kPIDLoopIdx, 0);
 
+        shooterMotor.configClosedloopRamp(500);
+
 		shooterMotor.configClosedloopRamp(.25, 0);
 		/* set closed loop gains in slot0 - see documentation */
         shooterMotor.selectProfileSlot(0, 0);
@@ -95,13 +97,6 @@ public class Shooter {
             if (isEnabled) {
                 shooterMotor.set(ControlMode.Velocity, SmartDashboard.getNumber("Shoot Setpoint", Calibration.SHOOTER_DEFAULT_SPEED) * adjustmentFactor);
                 SmartDashboard.putNumber("SHOOTER VELOCITY", shooterMotor.getSelectedSensorVelocity());
-                
-                
-                if (currentShooterSpeed < desiredShootSpeed) {
-                    Indexer.queuerStopBall();
-                } else {
-                    Indexer.queuerLetBallsThrough();
-                }
             }
         }
         

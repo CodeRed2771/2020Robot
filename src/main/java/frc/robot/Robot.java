@@ -142,10 +142,10 @@ public class Robot extends TimedRobot {
 			Climber.pickUpBellyPanAndContinueClimbing(true);
 		}
 		if (gamepad.oneShotShooter()) {
-			Indexer.queuerOneShot();
+			// SHOOTER ONE SHOT
 		}
 		if (gamepad.continualShooter()) {
-			Indexer.queuerContinualShot();
+			// SHOOTER CONTINUOUS SHOTS
 		}
 		if (gamepad.getRobotCentricModifier() && gamepad.oneShotShooter()) {
 			Climber.setIdealClimberPositionToDropBellyPan();
