@@ -29,16 +29,16 @@ public class DriveTrain {
     private static final double l = 29, w = 18, r = Math.sqrt((l * l) + (w * w));
 
     private DriveTrain() {
-        moduleA = new Module(Calibration.DT_A_DRIVE_SPARK_ID, Calibration.DT_A_TURN_TALON_ID, Calibration.AUTO_DRIVE_P,
+        moduleD = new Module(Calibration.DT_A_DRIVE_SPARK_ID, Calibration.DT_A_TURN_TALON_ID, Calibration.AUTO_DRIVE_P,
                 Calibration.AUTO_DRIVE_I, Calibration.AUTO_DRIVE_D, Calibration.AUTO_DRIVE_IZONE, Calibration.TURN_P,
                 Calibration.TURN_I, Calibration.TURN_D, 200, Calibration.GET_DT_A_ABS_ZERO(), 'A'); // Front right
-        moduleB = new Module(Calibration.DT_B_DRIVE_SPARK_ID, Calibration.DT_B_TURN_TALON_ID, Calibration.AUTO_DRIVE_P,
+        moduleC = new Module(Calibration.DT_B_DRIVE_SPARK_ID, Calibration.DT_B_TURN_TALON_ID, Calibration.AUTO_DRIVE_P,
                 Calibration.AUTO_DRIVE_I, Calibration.AUTO_DRIVE_D, Calibration.AUTO_DRIVE_IZONE, Calibration.TURN_P,
                 Calibration.TURN_I, Calibration.TURN_D, 200, Calibration.GET_DT_B_ABS_ZERO(), 'B'); // Back left
-        moduleC = new Module(Calibration.DT_C_DRIVE_SPARK_ID, Calibration.DT_C_TURN_TALON_ID, Calibration.AUTO_DRIVE_P,
+        moduleB = new Module(Calibration.DT_C_DRIVE_SPARK_ID, Calibration.DT_C_TURN_TALON_ID, Calibration.AUTO_DRIVE_P,
                 Calibration.AUTO_DRIVE_I, Calibration.AUTO_DRIVE_D, Calibration.AUTO_DRIVE_IZONE, Calibration.TURN_P,
                 Calibration.TURN_I, Calibration.TURN_D, 200, Calibration.GET_DT_C_ABS_ZERO(), 'C'); // Back right
-        moduleD = new Module(Calibration.DT_D_DRIVE_SPARK_ID, Calibration.DT_D_TURN_TALON_ID, Calibration.AUTO_DRIVE_P,
+        moduleA = new Module(Calibration.DT_D_DRIVE_SPARK_ID, Calibration.DT_D_TURN_TALON_ID, Calibration.AUTO_DRIVE_P,
                 Calibration.AUTO_DRIVE_I, Calibration.AUTO_DRIVE_D, Calibration.AUTO_DRIVE_IZONE, Calibration.TURN_P,
                 Calibration.TURN_I, Calibration.TURN_D, 200, Calibration.GET_DT_D_ABS_ZERO(), 'D'); // Front left
     }
@@ -88,7 +88,7 @@ public class DriveTrain {
 
     public static void setTurnOrientation(double modAPosition, double modBPosition, double modCPosition,
             double modDPosition) {
-        setTurnOrientation(modAPosition, modBPosition, modCPosition, modDPosition, true);
+        setTurnOrientation(modAPosition, modBPosition, modCPosition, modDPosition, false);
     }
 
     public static void setTurnOrientation(double modAPosition, double modBPosition, double modCPosition,
@@ -104,6 +104,11 @@ public class DriveTrain {
         moduleB.setTurnOrientation(modBPosition, optimizeTurn);
         moduleC.setTurnOrientation(modCPosition, optimizeTurn);
         moduleD.setTurnOrientation(modDPosition, optimizeTurn);
+
+        SmartDashboard.putNumber("A pos call", modAPosition);
+        SmartDashboard.putNumber("B pos call", modBPosition);
+        SmartDashboard.putNumber("C pos call", modCPosition);
+        SmartDashboard.putNumber("D pos call", modDPosition);
     }
 
     public static void setAllTurnOrientation(double position) {
