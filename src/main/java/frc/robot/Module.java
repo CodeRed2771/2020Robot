@@ -43,6 +43,9 @@ public class Module {
 
         drive = new CANSparkMax(driveSparkID, MotorType.kBrushless);
         drive.restoreFactoryDefaults();
+        drive.setOpenLoopRampRate(.2);
+        drive.setIdleMode(IdleMode.kBrake);
+        
         mModuleID = moduleID;
 
         /**
@@ -70,6 +73,7 @@ public class Module {
         drivePID.setSmartMotionMaxVelocity(Calibration.DT_MM_VELOCITY, 0);
         drivePID.setSmartMotionMaxAccel(Calibration.DT_MM_ACCEL, 0);
 
+        // TURN MOTOR
         turn = new WPI_TalonSRX(turnTalonID);
         turn.configFactoryDefault(10);
 

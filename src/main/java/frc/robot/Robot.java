@@ -192,16 +192,15 @@ public class Robot extends TimedRobot {
 		// DRIVER CONTROL MODE
 		// Issue the drive command using the parameters from
 		// above that have been tweaked as needed
-		double driveRotAmount;
+		double driveRotAmount = -gamepad.getSwerveRotAxis();
 		double driveFWDAmount = gamepad.getSwerveYAxis();
-		double driveStrafeAmount = -gamepad.getSwerveXAxis();
+		double driveStrafeAmount = gamepad.getSwerveXAxis();
 		
 			
-		driveRotAmount = rotationalAdjust(gamepad.getSwerveRotAxis());
-		driveFWDAmount = forwardAdjust(driveFWDAmount, true);
-
-		SmartDashboard.putNumber("SWERVE ROT AXIS", gamepad.getSwerveRotAxis());
+		SmartDashboard.putNumber("SWERVE ROT AXIS", driveRotAmount);
+		driveRotAmount = rotationalAdjust(driveRotAmount);
 		SmartDashboard.putNumber("ADJUSTED SWERVE ROT AMOUNT", driveRotAmount);
+		driveFWDAmount = forwardAdjust(driveFWDAmount, true);
 
 		if (Math.abs(driveFWDAmount) > .5) {
 			if (mAutoProgram.isRunning())

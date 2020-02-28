@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Encoder;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
@@ -28,13 +29,16 @@ public class ShooterPivoter {
     private static DutyCycleEncoder throughBore;
     private static boolean isConn;
     private static boolean limitGet;
-    private static VictorSPX pivotMotor;
+    private static WPI_TalonSRX pivotMotor;
     private static PIDController positionPID;
     private static double targetShaftPosition = 0;
     private static boolean shooterAtPosition = false;
 
+    private static final double minPivotPosition = .839;
+    private static final double maxPivotPosition = .890;
+
     public ShooterPivoter () {
-        pivotMotor = new VictorSPX(Wiring.SHOOTER_PIVOT_MOTOR_ID);
+        pivotMotor = new WPI_TalonSRX(Wiring.SHOOTER_PIVOT_MOTOR_ID);
 
         throughBore = new DutyCycleEncoder(Wiring.SHOOTER_PIVOTER_PWM_ID); 
         throughBore.setConnectedFrequencyThreshold(900); 
@@ -63,23 +67,23 @@ public class ShooterPivoter {
     }
 
     public static void resetPivoter() {
-        targetShaftPosition = Calibration.SHOOTER_PIVOTER_INITIAL;
+        targetShaftPosition = minPivotPosition;
     }
 
     public static void shootClosePosition () {
-        setDesiredShootPosition(0.1); // NEEDS TO BE ADJUSTED
+        setDesiredShootPosition(0); // NEEDS TO BE ADJUSTED
     }
 
     public static void midTrench () {
-        setDesiredShootPosition(0.4); // NEEDS TO BE ADJUSTED
+        setDesiredShootPosition(.5); // NEEDS TO BE ADJUSTED
     }
 
     public static void backTrench () {
-        setDesiredShootPosition(0.5);; // NEEDS TO BE ADJUSTED
+        setDesiredShootPosition(1); // NEEDS TO BE ADJUSTED
     }
 
     public static void setDesiredShootPosition (double desiredPosition) {
-        targetShaftPosition = Calibration.SHOOTER_PIVOTER_INITIAL + desiredPosition;
+        targetShaftPosition = minPivotPosition + ((maxPivotPosition - minPivotPosition) * desiredPosition);
     }
 
     public static boolean shooterAtPosition () {
@@ -92,13 +96,13 @@ public class ShooterPivoter {
 
 		if (direction < 0) {
 			newSetpoint = pivotMotor.getSelectedSensorPosition(0) - 0.01;
-			if (newSetpoint <= 0) {
-				newSetpoint = 0;
+			if (newSetpoint < minPivotPosition) {
+				newSetpoint = minPivotPosition;
 			}
 		} else {
 			newSetpoint = pivotMotor.getSelectedSensorPosition(0) + 0.01;
-			if (newSetpoint > 0.6) {
-				newSetpoint = 0.6; // 
+			if (newSetpoint > maxPivotPosition) {
+				newSetpoint = maxPivotPosition; // 
 			}
 		}
 
