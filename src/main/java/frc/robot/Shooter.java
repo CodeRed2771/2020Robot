@@ -94,7 +94,8 @@ public class Shooter {
 
             if (isEnabled) {
                 shooterMotor.set(ControlMode.Velocity, SmartDashboard.getNumber("Shoot Setpoint", Calibration.SHOOTER_DEFAULT_SPEED) * adjustmentFactor);
-                shooterMotor.getSelectedSensorVelocity(); 
+                SmartDashboard.putNumber("SHOOTER VELOCITY", shooterMotor.getSelectedSensorVelocity());
+                
                 
                 if (currentShooterSpeed < desiredShootSpeed) {
                     Indexer.queuerStopBall();

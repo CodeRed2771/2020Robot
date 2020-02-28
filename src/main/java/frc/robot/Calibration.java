@@ -31,10 +31,10 @@ public class Calibration {
 	
     // COMPETIION
 
-    private final static double DT_A_ABS_ZERO_INITIAL = .277; // .277; // COMPEITION
-    private final static double DT_B_ABS_ZERO_INITIAL = .903; // .554;
-    private final static double DT_C_ABS_ZERO_INITIAL = .794; // .042;
-    private final static double DT_D_ABS_ZERO_INITIAL = .466; // .924;
+    private final static double DT_A_ABS_ZERO_INITIAL = .0; // .277; // COMPEITION
+    private final static double DT_B_ABS_ZERO_INITIAL = .0; // .554;
+    private final static double DT_C_ABS_ZERO_INITIAL = .0; // .042;
+    private final static double DT_D_ABS_ZERO_INITIAL = .0; // .924;
 
     public final static double VISION_FWD_P = 0.05;
     public final static double VISION_FWD_I = 0;
@@ -122,7 +122,7 @@ public class Calibration {
     public static final double SHOOTER_I = 0.0;
     public static final double SHOOTER_D = 0.0;
     public static final double SHOOTER_F = 0.054;
-    public static final int SHOOTER_DEFAULT_SPEED = 6000;
+    public static final int SHOOTER_DEFAULT_SPEED = 6000; // WAS 6000 MR. BAAS WANTED IT AT 4000 - IS
 
     public static final double LINKAGE_P = 5; // was 3.2
     public static final double LINKAGE_I = 0.0;

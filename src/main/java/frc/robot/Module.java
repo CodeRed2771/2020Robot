@@ -175,7 +175,7 @@ public class Module {
     }
 
     public void resetTurnEnc() {
-        this.turn.getSensorCollection().setAnalogPosition(0, 10);
+        // this.turn.getSensorCollection().setAnalogPosition(0, 10);
     }
 
     public double getDriveEnc() {
