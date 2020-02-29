@@ -25,7 +25,6 @@ public class Intake {
 
         // pistonArm1 = new DoubleSolenoid(forwardChannel, reverseChannel);
         intakeMotor.setSmartCurrentLimit(20);
-
     }
 
     public static Intake getInstance() {

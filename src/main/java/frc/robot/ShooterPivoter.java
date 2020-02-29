@@ -62,15 +62,27 @@ public class ShooterPivoter {
 
     public static void tick() {
 
-        encoderPosition = throughBore.get();
-        isConn = throughBore.isConnected();
+        encoderPosition = getShaftEncoderPosition();
         double calculatedPower = positionPID.calculate(encoderPosition,targetShaftPosition/*getDesiredShaftPosition()*/);
 
         SmartDashboard.putNumber("ShootPivot pos", encoderPosition);
         SmartDashboard.putNumber("SP Targ",targetShaftPosition);
         SmartDashboard.putNumber("SP Pwr", calculatedPower);
         
+        if (Math.abs(calculatedPower) > 1) {
+            calculatedPower = 1 * Math.signum(calculatedPower);
+        }
+
         pivotMotor.set(ControlMode.PercentOutput, calculatedPower);
+    }
+
+    public static double getShaftEncoderPosition() {
+        double encValue ;
+        encValue = throughBore.get();
+        if (Math.abs(encValue)>=1) {
+            encValue = (Math.abs(encValue) * 1000 -  (((int) Math.abs(encValue)) * 1000)) /1000;
+        }
+        return encValue;
     }
 
     public static void resetPivoter() {
