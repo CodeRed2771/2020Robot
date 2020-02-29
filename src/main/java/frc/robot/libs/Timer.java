@@ -33,8 +33,17 @@ public class Timer {
     	nextStep();
     }
     
+    public void stopTimer() {
+        setTimer(1000000); // push the target time way into the future so it never reaches the target time
+    }
+
+    public void stopTimerAndSetStep(int step) {
+        stopTimer();
+    	setStep(step);
+    }
+    
     public void stopTimerAndAdvanceStep() {
-    	setTimer(1000000); // push the target time way into the future so it never reaches the target time
+        stopTimer();
     	nextStep();
     }
     
