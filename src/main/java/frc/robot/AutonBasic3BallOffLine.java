@@ -42,7 +42,7 @@ public class AutonBasic3BallOffLine extends AutoBaseClass {
                 setTimerAndAdvanceStep(1000);
                 break;
             case 1:
-                if (DriveAuto.hasArrived()) {
+                if (driveCompleted()) {
                     advanceStep();
                 } 
                 break;
@@ -64,6 +64,7 @@ public class AutonBasic3BallOffLine extends AutoBaseClass {
                 setTimerAndAdvanceStep(3000);
                 break;
             case 6:
+                advanceStep();
                 break;
             case 7:
                 Shooter.StopShooter();
