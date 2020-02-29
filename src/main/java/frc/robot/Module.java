@@ -43,7 +43,8 @@ public class Module {
 
         drive = new CANSparkMax(driveSparkID, MotorType.kBrushless);
         drive.restoreFactoryDefaults();
-        drive.setOpenLoopRampRate(.2);
+        drive.setOpenLoopRampRate(.1);
+        drive.setSmartCurrentLimit(40);
         drive.setIdleMode(IdleMode.kBrake);
         
         mModuleID = moduleID;
