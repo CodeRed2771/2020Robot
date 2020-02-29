@@ -151,10 +151,12 @@ public class Robot extends TimedRobot {
 			Climber.setIdealClimberPositionToDropBellyPan();
 		}
 		if (Math.abs(gamepad.shooterPivoterAdjuster()) > 0.1) {
-			ShooterPivoter.moveToSetPoint(gamepad.shooterPivoterAdjuster()); // THIS FUNCTIONS NEED TO BE IMPROVISED BASED ON WHAT WE ARE GIVEN
+			ShooterPivoter.moveToSetPoint(gamepad.shooterPivoterAdjuster()); // THIS FUNCTIONS NEED TO BE IMPROVISED
+																				// BASED ON WHAT WE ARE GIVEN
 		}
 		if (Math.abs(gamepad.manualClimberAdjuster()) > 0.1) {
-			Climber.moveToSetPoint(gamepad.manualClimberAdjuster()); // THIS FUNCTIONS NEED TO BE IMPROVISED BASED ON WHAT WE ARE GIVEN
+			Climber.moveToSetPoint(gamepad.manualClimberAdjuster()); // THIS FUNCTIONS NEED TO BE IMPROVISED BASED ON
+																		// WHAT WE ARE GIVEN
 		}
 		if (gamepad.turnTo180Degrees()) {
 			DriveAuto.turnToHeading(180, 1);
@@ -162,7 +164,7 @@ public class Robot extends TimedRobot {
 		if (gamepad.turnToZeroDegrees()) {
 			DriveAuto.turnToHeading(0, 1);
 		}
-			
+
 		Shooter.setAdjustmentFactor(gamepad.getShooterAdjustment());
 
 		Shooter.tick();
@@ -195,12 +197,12 @@ public class Robot extends TimedRobot {
 		double driveRotAmount = -gamepad.getSwerveRotAxis();
 		double driveFWDAmount = gamepad.getSwerveYAxis();
 		double driveStrafeAmount = gamepad.getSwerveXAxis();
-		
-			
+
 		SmartDashboard.putNumber("SWERVE ROT AXIS", driveRotAmount);
 		driveRotAmount = rotationalAdjust(driveRotAmount);
 		SmartDashboard.putNumber("ADJUSTED SWERVE ROT AMOUNT", driveRotAmount);
 		driveFWDAmount = forwardAdjust(driveFWDAmount, true);
+		driveStrafeAmount = strafeAdjust(driveStrafeAmount, true);
 
 		if (Math.abs(driveFWDAmount) > .5) {
 			if (mAutoProgram.isRunning())
@@ -330,12 +332,12 @@ public class Robot extends TimedRobot {
 			adjustedAmt = 0;
 		} else {
 			if (Math.abs(rotateAmt) < .78) {
-				adjustedAmt = .10 * Math.signum(rotateAmt); // take 10% of the input
+				adjustedAmt = .1 * Math.signum(rotateAmt); // take 10% of the input
 			} else {
 				if (Math.abs(rotateAmt) < .99) {
-					adjustedAmt = .25 * Math.signum(rotateAmt); // take 45%
+					adjustedAmt = .25 * rotateAmt;
 				} else {
-					adjustedAmt = rotateAmt * .5; // take 85%
+					adjustedAmt = rotateAmt * .4;
 				}
 			}
 		}
@@ -353,7 +355,26 @@ public class Robot extends TimedRobot {
 	private double strafeAdjust(double strafeAmt, boolean normalDrive) {
 		// put some power restrictions in place to make it
 		// more controlled
-		return strafeAmt;
+		double adjustedAmt = 0;
+
+		if (Math.abs(strafeAmt) < .1) {
+			adjustedAmt = 0;
+		} else {
+			if (Math.abs(strafeAmt) < .5) {
+				adjustedAmt = .15 * Math.signum(strafeAmt);
+			} else {
+				if (Math.abs(strafeAmt) < .78) {
+					adjustedAmt = strafeAmt * .35;
+				} else {
+					if (Math.abs(strafeAmt) < .99) {
+						adjustedAmt = strafeAmt * .5;
+					} else {
+						adjustedAmt = strafeAmt * .8;
+					}
+				}
+			}
+		}
+		return adjustedAmt;
 	}
 
 	private void showDashboardInfo() {
