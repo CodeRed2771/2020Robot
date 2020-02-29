@@ -17,10 +17,15 @@ public class Intake {
     public static CurrentBreaker currentBreaker;
 
     public Intake() {
+
         pistonArm1 = new DoubleSolenoid(0, 1);
         intakeMotor = new CANSparkMax(Wiring.INTAKE_MOTOR_ID, MotorType.kBrushless);
         compressor = new Compressor();
         intakeMotor.setClosedLoopRampRate(0.5);
+
+        // pistonArm1 = new DoubleSolenoid(forwardChannel, reverseChannel);
+        intakeMotor.setSmartCurrentLimit(20);
+
     }
 
     public static Intake getInstance() {
