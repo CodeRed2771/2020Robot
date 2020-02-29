@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Encoder;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -35,14 +36,15 @@ public class ShooterPivoter {
     private static boolean shooterAtPosition = false;
 
     private static final double minPivotPosition = .839;
-    private static final double maxPivotPosition = .890;
+    private static final double maxPivotPosition = .877;
 
     public ShooterPivoter () {
         pivotMotor = new WPI_TalonSRX(Wiring.SHOOTER_PIVOT_MOTOR_ID);
+        pivotMotor.setInverted(InvertType.InvertMotorOutput);
 
         throughBore = new DutyCycleEncoder(Wiring.SHOOTER_PIVOTER_PWM_ID); 
         throughBore.setConnectedFrequencyThreshold(900); 
-        positionPID = new PIDController(1.5,0,0);
+        positionPID = new PIDController(100,0,0);
         // SmartDashboard.putNumber("SHOOTER SHAFT ADJUSTMENT", 0.5);
     }
 
@@ -94,15 +96,15 @@ public class ShooterPivoter {
         
         double newSetpoint;
 
-		if (direction < 0) {
-			newSetpoint = pivotMotor.getSelectedSensorPosition(0) - 0.01;
+		if (direction > 0) {
+			newSetpoint = throughBore.get() - 0.01;
 			if (newSetpoint < minPivotPosition) {
 				newSetpoint = minPivotPosition;
 			}
 		} else {
-			newSetpoint = pivotMotor.getSelectedSensorPosition(0) + 0.01;
+			newSetpoint = throughBore.get() + 0.01;
 			if (newSetpoint > maxPivotPosition) {
-				newSetpoint = maxPivotPosition; // 
+				newSetpoint = maxPivotPosition; 
 			}
 		}
 
