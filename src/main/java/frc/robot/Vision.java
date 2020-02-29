@@ -65,7 +65,7 @@ public class Vision {
         return finalAdjustedFactor * getAngleOffset();
     }
 
-    public static float getShooterPivoterDesiredShaftLocation () {
+    public static double getShooterPivoterDesiredPosition () {
         // return SmartDashboard.getNumber("ShooterPivoterAdjust", 0.5);
 
         double distance = getAdjustedDistanceFromTarget();
