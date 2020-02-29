@@ -37,12 +37,12 @@ public class AutoAlign extends AutoBaseClass {
                 }
                 break;
             case 1:
-                DriveAuto.turnDegrees(angleOffset, 1);
+                turnDegrees(angleOffset, 1);
                 setTimerAndAdvanceStep(10000);
                 break;
 
             case 2:
-                if (DriveAuto.hasArrived()) {
+                if (driveCompleted()) {
                     advanceStep();
                 }
                 break;
@@ -52,13 +52,12 @@ public class AutoAlign extends AutoBaseClass {
                 SmartDashboard.putBoolean("Sees Target", Vision.seesTarget());
                 if (Vision.onTarget()) {
                     System.out.println("On Target!");
-                    stop();
-                    // advanceStep();
+                    // stop();
+                    advanceStep();
                 } else {
                     setStep(0);
                 }
                 break;
-            // case 4:
             //     ShooterPivoter.setDesiredShootPosition(Vision.getShooterPivoterDesiredShaftLocation());
             //     setTimerAndAdvanceStep(1000);
             //     break;

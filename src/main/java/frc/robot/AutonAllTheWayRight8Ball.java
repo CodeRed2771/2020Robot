@@ -66,30 +66,45 @@ public class AutonAllTheWayRight8Ball extends AutoBaseClass {
                 break;
             case 8:
                 Intake.moveIntakeDown();
-                advanceStep();
-                break;
-            case 9:
                 Intake.runIntakeForwards();
                 advanceStep();
                 break;
-            case 10:
-                driveInches(235, 180, 1, false, true);
+            case 9:
+                driveInches(195, 180, 1, false, true);
                 setTimerAndAdvanceStep(5000);
                 break;
-            case 11:
+            case 10:
                 if (driveCompleted()) {
                     advanceStep();
                 }
                 break;
-            case 12:
+            case 11:
                 turnToHeading(210, 1);
                 setTimerAndAdvanceStep(1000);
                 break;
-            case 13:
+            case 12:
                 if (driveCompleted()) {
                     advanceStep();
                 }
                 break;
+            case 13:
+                driveInches(45, 160, 1, false, true);
+                setTimerAndAdvanceStep(1000);
+                break;
+            case 14:
+                if (driveCompleted()) {
+                    advanceStep();
+                }
+            case 15:
+                driveInches(20, 80, 1);
+                setTimerAndAdvanceStep(1000);
+                break;
+            case 16:
+                if (driveCompleted()) {
+                    advanceStep();
+                }
+            case 17:
+                driveInches(60, 0, 1, false, true);
             // case 12:
             //     setTimer(1000);
             //     Intake.stopIntake();

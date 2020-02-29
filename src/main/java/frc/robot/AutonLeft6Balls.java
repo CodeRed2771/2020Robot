@@ -44,7 +44,7 @@ public class AutonLeft6Balls extends AutoBaseClass{
                     setTimerAndAdvanceStep(1500);
                     break;
                 case 3:
-                    Shooter.tick();
+                    // Shooter.tick();
                     break;
                 case 4:
                     Shooter.StopShooter();
@@ -53,23 +53,31 @@ public class AutonLeft6Balls extends AutoBaseClass{
                     advanceStep();
                     break;
                 case 5:
-                    turnAngle = RobotGyro.getRelativeAngle() - 35;
-                    turnDegrees(-270 - turnAngle, 1);
-                    setTimerAndAdvanceStep(1500);
+                    turnToHeading(67.5, 1);
+                    setTimerAndAdvanceStep(2000);
                     break;
                 case 6:
+                    if (driveCompleted()) {
+                        advanceStep();
+                    }
                     break;
                 case 7:
                     driveInches(100, 225, 1, false, true);
                     setTimerAndAdvanceStep(1500);
                     break;
                 case 8:
+                if (driveCompleted()) {
+                    advanceStep();
+                }
                     break;
                 case 9:
                     driveInches(65, 180, 1, false, true);
                     setTimerAndAdvanceStep(1000);
                     break;
                 case 10:
+                    if (driveCompleted()) {
+                        advanceStep();
+                    }
                     break;
                 case 11:
                     driveInches(140, 67.5, 1, false, true);
@@ -78,12 +86,18 @@ public class AutonLeft6Balls extends AutoBaseClass{
                 case 12:
                     Intake.moveIntakeUp();
                     Intake.stopIntake();
+                    if (driveCompleted()) {
+                        advanceStep();
+                    }
                     break;
                 case 13:
-                    turnDegrees(-150, 1);
+                    turnToHeading(30, 1);
                     setTimerAndAdvanceStep(1500);
                     break;
                 case 14:
+                    if (driveCompleted()) {
+                        advanceStep();
+                    }
                     break;
                 case 15:
                     mAutoAlign.start();

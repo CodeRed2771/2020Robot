@@ -193,7 +193,7 @@ public class DriveAuto {
 
         DriveTrain.setDriveMMVelocity((int) (Calibration.DT_MM_VELOCITY * turnSpeedFactor));
 
-        double turnInches = degreesToInches(degrees);
+        double turnInches = degreesToInches(-degrees);
         SmartDashboard.putNumber("Turn Inches", turnInches);
         DriveTrain.addToAllDrivePositions(convertToTicks(turnInches));
     }

@@ -10,14 +10,17 @@ import frc.robot.libs.CurrentBreaker;
 public class Intake {
 
     private static Intake instance;
-    private static CANSparkMax intakeMotor = new CANSparkMax(Wiring.INTAKE_MOTOR_ID, MotorType.kBrushless);
+    private static CANSparkMax intakeMotor;
     private static DoubleSolenoid pistonArm1;
     private static Compressor compressor;
     private static int BallCount = 0;
     public static CurrentBreaker currentBreaker;
 
     public Intake() {
-        // pistonArm1 = new DoubleSolenoid(forwardChannel, reverseChannel);
+        pistonArm1 = new DoubleSolenoid(0, 1);
+        intakeMotor = new CANSparkMax(Wiring.INTAKE_MOTOR_ID, MotorType.kBrushless);
+        compressor = new Compressor();
+        intakeMotor.setClosedLoopRampRate(0.5);
     }
 
     public static Intake getInstance() {
@@ -28,15 +31,15 @@ public class Intake {
     }
 
     public static void moveIntakeDown() {
-        pistonArm1.set(DoubleSolenoid.Value.kForward);
-    }
-
-    public static void moveIntakeUp() {
         pistonArm1.set(DoubleSolenoid.Value.kReverse);
     }
 
+    public static void moveIntakeUp() {
+        pistonArm1.set(DoubleSolenoid.Value.kForward);
+    }
+
     public static void runIntakeForwards() {
-        intakeMotor.set(-.7);
+        intakeMotor.set(-.4);
     }
 
     public static void stopIntake() {
@@ -44,6 +47,6 @@ public class Intake {
     }
 
     public static void runIntakeBackwards() {
-        intakeMotor.set(.7);
+        intakeMotor.set(.1);
     }
 }

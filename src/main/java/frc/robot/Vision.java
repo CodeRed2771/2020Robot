@@ -106,7 +106,7 @@ public class Vision {
         double originalDistance = getDistanceFromTarget(); 
         double angleFromTarget = getAngleOffset();
 
-        return originalDistance - (cameraDistanceFromCenterOfRobot - ((Math.acos(Math.toRadians(angleFromTarget))) * cameraDistanceFromCenterOfRobot));
+        return originalDistance - (cameraDistanceFromCenterOfRobot - ((Math.cos(Math.toRadians(angleFromTarget))) * cameraDistanceFromCenterOfRobot));
     }
 
     public static void setLED(boolean turnOn) {

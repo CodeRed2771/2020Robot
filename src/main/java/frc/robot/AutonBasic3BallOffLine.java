@@ -51,34 +51,30 @@ public class AutonBasic3BallOffLine extends AutoBaseClass {
                 advanceStep();
                 break;
             case 3:
-                advanceStep();
-                break;
-            case 4:
                 mAutoAlign.tick();
                 if (Vision.onTarget()) {
                     advanceStep();
                 }
                 break;
-            case 5:
+            case 4:
                 Shooter.StartShooter();
                 setTimerAndAdvanceStep(3000);
                 break;
-            case 6:
-                advanceStep();
+            case 5:
                 break;
-            case 7:
+            case 6:
                 Shooter.StopShooter();
                 advanceStep();
                 break;
-            case 8:
+            case 7:
                 DriveAuto.driveInches(36, 180, 1, false, true);
                 setTimerAndAdvanceStep(3000);
-            case 9:
+            case 8:
                 if (driveCompleted()) {
                     advanceStep();
                 }
                 break;
-            case 10:
+            case 9:
                 stop();
                 break;
             }
