@@ -20,7 +20,13 @@ public class Wiring {
 	 * PWM ID PORTS
 	 */
 	
-	public static final int SHOOTER_PIVOTER_PWM_ID = 0;
+	public static final int SERVO_PWM_ID = 1;
+
+	/**
+	 * DIO ID PORTS
+	 */
+
+	public static final int SHOOTER_PIVOTER_DIO_ID = 0;
 
 	
 	// public static final int CLIMB_MOTOR_ID = 11;

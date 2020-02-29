@@ -11,20 +11,31 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import java.util.Timer;
 
 
 public class Shooter {
     private static Shooter instance;
     // private static TalonSRX shooterMotor = new TalonSRX(Wiring.SHOOTER>MOTOR_ID);
     private static TalonFX shooterMotor = new TalonFX(Wiring.SHOOTER_MOTOR_ID);
+    private static Servo gate = new Servo(Wiring.SERVO_PWM_ID);
+    // private static Timer timer = new Timer();
     // private static TalonFX shooterMotor1 = new TalonFX(Wiring.SHOOTER1_MOTOR_ID);
     private static boolean isEnabled = false;
+    private static boolean isGateOpen = false;
+    private static boolean oneShot = false;
+    private static boolean continuousShooting = false;
+    private static int timer = 0;
     private static double targetSpeed = 0;
     private static final int kPIDLoopIdx = 0;
+    private static int timerCurrent = 0;
     private static double adjustmentFactor = 1;
     private static double desiredShootSpeed = Calibration.SHOOTER_DEFAULT_SPEED * adjustmentFactor;
     private static double currentShooterSpeed = 0;
+
 
     public Shooter() {
         // shooterMotor.set(shooterMotor1.follower, Wiring.SHOOTER_MOTOR_ID);
@@ -95,8 +106,30 @@ public class Shooter {
             shooterMotor.config_kD(kPIDLoopIdx, SmartDashboard.getNumber("Shoot D", 0), 0);
 
             if (isEnabled) {
+                closeGate();
                 shooterMotor.set(ControlMode.Velocity, SmartDashboard.getNumber("Shoot Setpoint", Calibration.SHOOTER_DEFAULT_SPEED) * adjustmentFactor);
                 SmartDashboard.putNumber("SHOOTER VELOCITY", shooterMotor.getSelectedSensorVelocity());
+
+                if (oneShot) {
+                    timer += 1; // ONE TIMER UNIT EQUALS ABOUT 20 MILLISECONDS
+                    openGate();
+                    if (timer == 25) {
+                        closeGate();
+                        resetTimer();
+                        oneShot = false;
+                    }
+                }
+
+                if (continuousShooting) {
+                    timer += 1; // ONE TIMER UNIT EQUALS ABOUT 20 MILLISECONDS
+                    openGate();
+                    if (timer == 300) {
+                        closeGate();
+                        resetTimer();
+                        continuousShooting = false;
+                    }
+                }
+                
             }
         }
         
@@ -111,6 +144,10 @@ public class Shooter {
 
     public static void StopShooter() {
         isEnabled = false;
+        closeGate();
+        oneShot = false;
+        continuousShooting = false;
+        resetTimer();
         shooterMotor.set(ControlMode.PercentOutput,0);
     }
 
@@ -127,6 +164,40 @@ public class Shooter {
     public static boolean isAtSpeed() {
         return (getShooterSpeed() > 0 && Math.abs(getShooterSpeed() - targetSpeed) < 100);
     }
+
+    public static void closeGate () {
+        gate.set(.5);
+        isGateOpen = false;
+    }
+
+    public static void openGate () {
+        gate.set(.2);
+        isGateOpen = true;
+    }
+
+    public static void oneShot () {
+        oneShot = true;
+        continuousShooting = false;
+    }
+
+    public static void continuousShooting () {
+        continuousShooting = true;
+        oneShot = false;
+    }
+
+    public static boolean isGateOpen () {
+        return isGateOpen;
+    }
+
+    public static void resetTimer () {
+        timer = 0;
+    }
+
+    public static void stopTimer () {
+        
+    }
+
+
 
 }
 

@@ -47,7 +47,7 @@ public class ShooterPivoter {
         pivotMotor.configPeakCurrentLimit(1);
         pivotMotor.enableCurrentLimit(true);
 
-        throughBore = new DutyCycleEncoder(Wiring.SHOOTER_PIVOTER_PWM_ID); 
+        throughBore = new DutyCycleEncoder(Wiring.SHOOTER_PIVOTER_DIO_ID); 
         throughBore.setConnectedFrequencyThreshold(900); 
         positionPID = new PIDController(100,0,0);
         // SmartDashboard.putNumber("SHOOTER SHAFT ADJUSTMENT", 0.5);

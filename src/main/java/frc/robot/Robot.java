@@ -143,10 +143,10 @@ public class Robot extends TimedRobot {
 			Climber.pickUpBellyPanAndContinueClimbing(true);
 		}
 		if (gamepad.oneShotShooter()) {
-			// SHOOTER ONE SHOT
+			Shooter.oneShot();
 		}
 		if (gamepad.continualShooter()) {
-			// SHOOTER CONTINUOUS SHOTS
+			Shooter.continuousShooting();
 		}
 		if (gamepad.getRobotCentricModifier() && gamepad.oneShotShooter()) {
 			Climber.setIdealClimberPositionToDropBellyPan();
@@ -262,6 +262,10 @@ public class Robot extends TimedRobot {
 			break;
 		case sixBallsLeft:
 			mAutoProgram = new AutonLeft6Balls();
+			mAutoProgram.start(robotPosition);
+			break;
+		case autoCalibrator:
+			mAutoProgram = new AutoCalibrator();
 			mAutoProgram.start(robotPosition);
 			break;
 		}
