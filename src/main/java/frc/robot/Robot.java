@@ -31,6 +31,7 @@ public class Robot extends TimedRobot {
 	final String eightBallRight = "8 Balls Right";
 	final String fiveBallsMiddle = "5 Balls Middle";
 	final String sixBallsLeft = "6 Balls Left";
+	final String autoCalibrator = "Auto Calibrator";
 
 	@Override
 	public void robotInit() {
@@ -280,6 +281,7 @@ public class Robot extends TimedRobot {
 		autoChooser.addOption(eightBallRight, eightBallRight);
 		autoChooser.addOption(fiveBallsMiddle, fiveBallsMiddle);
 		autoChooser.addOption(sixBallsLeft, sixBallsLeft);
+		autoChooser.addOption(autoCalibrator, autoCalibrator);
 		SmartDashboard.putData("Auto Chose:", autoChooser);
 	}
 
