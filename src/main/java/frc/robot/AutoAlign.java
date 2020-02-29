@@ -48,12 +48,12 @@ public class AutoAlign extends AutoBaseClass {
                 break;
             case 3:
                 angleOffset = Vision.getDistanceAdjustedAngle();
-                SmartDashboard.putNumber("Angle Offset", angleOffset);
+                SmartDashboard.putNumber("Adj Angle Offset", angleOffset);
+                SmartDashboard.putNumber("Angle Offset", Vision.getAngleOffset());
                 SmartDashboard.putBoolean("Sees Target", Vision.seesTarget());
                 if (Vision.onTarget()) {
                     System.out.println("On Target!");
-                    // stop();
-                    advanceStep();
+                    stop();
                 } else {
                     setStep(0);
                 }
