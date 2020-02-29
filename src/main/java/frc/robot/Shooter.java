@@ -110,10 +110,12 @@ public class Shooter {
                 shooterMotor.set(ControlMode.Velocity, SmartDashboard.getNumber("Shoot Setpoint", Calibration.SHOOTER_DEFAULT_SPEED) * adjustmentFactor);
                 SmartDashboard.putNumber("SHOOTER VELOCITY", shooterMotor.getSelectedSensorVelocity());
 
+                System.out.println(timer);
+
                 if (oneShot) {
                     timer += 1; // ONE TIMER UNIT EQUALS ABOUT 20 MILLISECONDS
                     openGate();
-                    if (timer == 25) {
+                    if (timer >= 10) {
                         closeGate();
                         resetTimer();
                         oneShot = false;
@@ -123,7 +125,7 @@ public class Shooter {
                 if (continuousShooting) {
                     timer += 1; // ONE TIMER UNIT EQUALS ABOUT 20 MILLISECONDS
                     openGate();
-                    if (timer == 300) {
+                    if (timer >= 45) {
                         closeGate();
                         resetTimer();
                         continuousShooting = false;
@@ -140,6 +142,8 @@ public class Shooter {
 
     public static void StartShooter() {
         isEnabled = true;
+        oneShot = false;
+        continuousShooting = false;
     }
 
     public static void StopShooter() {
@@ -166,12 +170,12 @@ public class Shooter {
     }
 
     public static void closeGate () {
-        gate.set(.5);
+        gate.set(.2);
         isGateOpen = false;
     }
 
     public static void openGate () {
-        gate.set(.2);
+        gate.set(.5);
         isGateOpen = true;
     }
 
