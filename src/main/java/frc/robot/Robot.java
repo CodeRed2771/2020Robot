@@ -54,7 +54,6 @@ public class Robot extends TimedRobot {
 		mAutoProgram = new AutoDoNothing();
 
 		RobotGyro.reset();
-		ShooterPivoter.resetPivoter();
 		Shooter.closeGate();
 
 		DriveTrain.allowTurnEncoderReset();
@@ -153,7 +152,7 @@ public class Robot extends TimedRobot {
 			Climber.setIdealClimberPositionToDropBellyPan();
 		}
 		if (Math.abs(gamepad.shooterPivoterAdjuster()) > 0.1) {
-			ShooterPivoter.moveToSetPoint(gamepad.shooterPivoterAdjuster()); // THIS FUNCTIONS NEED TO BE IMPROVISED
+			ShooterPivoter.moveToSetPoint(gamepad.shooterPivoterAdjuster());	 // THIS FUNCTIONS NEED TO BE IMPROVISED
 																				// BASED ON WHAT WE ARE GIVEN
 		}
 		if (Math.abs(gamepad.manualClimberAdjuster()) > 0.1) {

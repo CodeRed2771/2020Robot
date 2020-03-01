@@ -54,7 +54,7 @@ public class Calibration {
 
     public final static double SHOOTER_PIVOTER_INITIAL = -.17; // INITIAL SHOOTER PIVOTER
 
-    // Physical Module - A
+    // Physical Module - D
     public final static int DT_A_DRIVE_SPARK_ID = 6;
     public final static int DT_A_TURN_TALON_ID = 5;
     private static double DT_A_ABS_ZERO = DT_A_ABS_ZERO_INITIAL;
@@ -63,7 +63,7 @@ public class Calibration {
         return DT_A_ABS_ZERO;
     }
 
-    // Physical Module - B
+    // Physical Module - C
     public final static int DT_B_DRIVE_SPARK_ID = 3;
     public final static int DT_B_TURN_TALON_ID = 4;
     private static double DT_B_ABS_ZERO = DT_B_ABS_ZERO_INITIAL;
@@ -72,7 +72,7 @@ public class Calibration {
         return DT_B_ABS_ZERO;
     }
 
-    // Physical Module - C
+    // Physical Module - B
     public final static int DT_C_DRIVE_SPARK_ID = 7;
     public final static int DT_C_TURN_TALON_ID = 8;
     private static double DT_C_ABS_ZERO = DT_C_ABS_ZERO_INITIAL;
@@ -81,7 +81,7 @@ public class Calibration {
         return DT_C_ABS_ZERO;
     }
 
-    // Physical Module - D
+    // Physical Module - A
     public final static int DT_D_DRIVE_SPARK_ID = 2;
     public final static int DT_D_TURN_TALON_ID = 1;
     private static double DT_D_ABS_ZERO = DT_D_ABS_ZERO_INITIAL;

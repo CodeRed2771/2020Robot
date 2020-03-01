@@ -32,11 +32,11 @@ public class ShooterPivoter {
     private static boolean limitGet;
     private static WPI_TalonSRX pivotMotor;
     private static PIDController positionPID;
-    private static double targetShaftPosition = 0;
+    private static double targetShaftPosition = .85;
     private static boolean shooterAtPosition = false;
 
-    private static final double minPivotPosition = .828; // back position
-    private static final double maxPivotPosition = .877; // forward position
+    private static final double minPivotPosition = .829; // back position .... .828
+    private static final double maxPivotPosition = .885; // forward position .... .877
 
     public ShooterPivoter () {
         pivotMotor = new WPI_TalonSRX(Wiring.SHOOTER_PIVOT_MOTOR_ID);
@@ -63,7 +63,18 @@ public class ShooterPivoter {
     public static void tick() {
 
         encoderPosition = getShaftEncoderPosition();
+
+        // System.out.println("RAW COMMAND:" + targetShaftPosition);
+
+        if (encoderPosition >= maxPivotPosition) {
+            targetShaftPosition = maxPivotPosition;
+        } else if (encoderPosition <= minPivotPosition) {
+            targetShaftPosition = minPivotPosition;
+        }
+
         double calculatedPower = positionPID.calculate(encoderPosition,targetShaftPosition/*getDesiredShaftPosition()*/);
+
+        // System.out.println("filtered command:" + targetShaftPosition);
 
         SmartDashboard.putNumber("ShootPivot pos", encoderPosition);
         SmartDashboard.putNumber("SP Targ",targetShaftPosition);
@@ -74,6 +85,7 @@ public class ShooterPivoter {
         }
 
         pivotMotor.set(ControlMode.PercentOutput, calculatedPower);
+
     }
 
     public static double getShaftEncoderPosition() {
@@ -86,7 +98,7 @@ public class ShooterPivoter {
     }
 
     public static void resetPivoter() {
-        targetShaftPosition = maxPivotPosition; // max is forward
+        targetShaftPosition = minPivotPosition; // min is backwards
     }
 
     public static void shootClosePosition () {
@@ -114,18 +126,20 @@ public class ShooterPivoter {
         double newSetpoint;
 
 		if (direction < 0) {
-			newSetpoint = throughBore.get() - 0.01;
+			newSetpoint = getShaftEncoderPosition() - 0.01;
 			if (newSetpoint < minPivotPosition) {
 				newSetpoint = minPivotPosition;
 			}
 		} else {
-			newSetpoint = throughBore.get() + 0.01;
+			newSetpoint = getShaftEncoderPosition() + 0.01;
 			if (newSetpoint > maxPivotPosition) {
 				newSetpoint = maxPivotPosition; 
 			}
 		}
 
-		targetShaftPosition = newSetpoint;
+        targetShaftPosition = newSetpoint;
+        // System.out.println("Target Shaft Position:" + newSetpoint);
+        
     }
 
     // public static float getDesiredShaftPosition () {
