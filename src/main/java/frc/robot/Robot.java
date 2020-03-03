@@ -156,7 +156,7 @@ public class Robot extends TimedRobot {
 																				// BASED ON WHAT WE ARE GIVEN
 		}
 		if (Math.abs(gamepad.manualClimberAdjuster()) > 0.1) {
-			Climber.moveToSetPoint(gamepad.manualClimberAdjuster()); // THIS FUNCTIONS NEED TO BE IMPROVISED BASED ON
+			// Climber.moveToSetPoint(gamepad.manualClimberAdjuster()); // THIS FUNCTIONS NEED TO BE IMPROVISED BASED ON
 																		// WHAT WE ARE GIVEN
 		}
 		if (gamepad.turnTo180Degrees()) {

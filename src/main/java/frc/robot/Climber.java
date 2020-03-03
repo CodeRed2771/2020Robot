@@ -7,11 +7,14 @@
 
 package frc.robot;
 
-
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkMax;
+import com.revrobotics.ControlType;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.ctre.phoenix.motorcontrol.*;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class Climber {
 	
@@ -19,6 +22,7 @@ public class Climber {
 	private static boolean pickUpBellyPan = false;
 	private static Climber instance;
 	private static CANSparkMax climberMotor;
+	private static CANPIDController climberPID;
 
 
     public Climber() {
@@ -74,22 +78,22 @@ public class Climber {
 		// GIVE SETPOINT FOR REGULAR CLIMB POSITION
 	}
 
-	public static void moveToSetPoint (double direction) {
+	// public static void moveToSetPoint (double direction) {
         
-        double newSetpoint;
+    //     double newSetpoint;
 
-		if (direction < 0) {
-			newSetpoint = climberMotor.getSelectedSensorPosition(0) - 1000;
-			if (newSetpoint <= 0) {
-				newSetpoint = 0;
-			}
-		} else {
-			newSetpoint = climberMotor.getSelectedSensorPosition(0) + 1000;
-			if (newSetpoint > 30000) {
-				newSetpoint = 30000; // 
-			}
-		}
+	// 	if (direction < 0) {
+	// 		newSetpoint = climberMotor.getCPR();
+	// 		if (newSetpoint <= 0) {
+	// 			newSetpoint = 0;
+	// 		}
+	// 	} else {
+	// 		newSetpoint = climberMotor.getSelectedSensorPosition(0) + 1000;
+	// 		if (newSetpoint > 30000) {
+	// 			newSetpoint = 30000; // 
+	// 		}
+	// 	}
 
-		//  SET THE SETPOINT TO THE FUNCTION LEVEL VARIABLE SETPOINT
-    }
+	// 	//  SET THE SETPOINT TO THE FUNCTION LEVEL VARIABLE SETPOINT
+    // }
 }
