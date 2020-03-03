@@ -9,18 +9,23 @@ package frc.robot;
 
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class Climber {
 	
 	private static boolean dropBellyPan = false;
 	private static boolean pickUpBellyPan = false;
 	private static Climber instance;
-	private static TalonSRX climberMotor;
+	private static CANSparkMax climberMotor;
 
 
     public Climber() {
-		climberMotor = new TalonSRX(Wiring.CLIMBER_MOTOR_ID);
-		climberMotor.configFactoryDefault(10);
+		// climberMotor = new TalonSRX(Wiring.CLIMBER_MOTOR_ID);
+		// climberMotor.configFactoryDefault(10);
+		climberMotor = new CANSparkMax(Wiring.CLIMBER_MOTOR_ID, MotorType.kBrushless);
+		climberMotor.restoreFactoryDefaults();
 	}
 
 	public static Climber getInstance () {
