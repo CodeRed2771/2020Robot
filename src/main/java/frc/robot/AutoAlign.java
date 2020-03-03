@@ -47,7 +47,7 @@ public class AutoAlign extends AutoBaseClass {
                 }
                 break;
             case 3:
-                angleOffset = Vision.getDistanceAdjustedAngle();
+               // angleOffset = Vision.getDistanceAdjustedAngle();
                 SmartDashboard.putNumber("Adj Angle Offset", angleOffset);
                 SmartDashboard.putNumber("Angle Offset", Vision.getAngleOffset());
                 SmartDashboard.putBoolean("Sees Target", Vision.seesTarget());
