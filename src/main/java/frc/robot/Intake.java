@@ -43,7 +43,7 @@ public class Intake {
     }
 
     public static void runIntakeForwards() {
-        intakeMotor.set(.8);
+        intakeMotor.set(.5);
     }
 
     public static void stopIntake() {
