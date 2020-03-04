@@ -66,6 +66,7 @@ public class Robot extends TimedRobot {
 	public void teleopInit() {
 		DriveTrain.stopDriveAndTurnMotors();
 		DriveTrain.setAllTurnOrientation(0, false); // sets them back to calibrated zero position
+		Shooter.StopShooter();
 	}
 
 	@Override
@@ -334,7 +335,7 @@ public class Robot extends TimedRobot {
 		// more controlled movement
 		double adjustedAmt = 0;
 
-		if (Math.abs(rotateAmt) < .2) {
+		if (Math.abs(rotateAmt) < .05) {
 			adjustedAmt = 0;
 		} else {
 			if (Math.abs(rotateAmt) < .78) {
@@ -363,7 +364,7 @@ public class Robot extends TimedRobot {
 		// more controlled
 		double adjustedAmt = 0;
 
-		if (Math.abs(strafeAmt) < .1) {
+		if (Math.abs(strafeAmt) < .05) {
 			adjustedAmt = 0;
 		} else {
 			if (Math.abs(strafeAmt) < .5) {

@@ -108,7 +108,7 @@ public class ShooterPivoter {
     }
 
     public static void midTrench () {
-        setDesiredShootPosition(.5); // NEEDS TO BE ADJUSTED
+        setDesiredShootPosition(.65); // NEEDS TO BE ADJUSTED
     }
 
     public static void backTrench () {

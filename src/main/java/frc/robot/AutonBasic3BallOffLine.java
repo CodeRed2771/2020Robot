@@ -30,6 +30,8 @@ public class AutonBasic3BallOffLine extends AutoBaseClass {
 
             switch (getCurrentStep()) {
             case 0:
+                ShooterPivoter.midTrench();
+                Shooter.closeGate();
                 if (robotPosition() == Position.LEFT) {
                     DriveAuto.turnDegrees(15, 1);
                     setTimerAndAdvanceStep(1000);
@@ -50,6 +52,7 @@ public class AutonBasic3BallOffLine extends AutoBaseClass {
                 } 
                 break;
             case 2:
+                Shooter.StartShooter();
                 mAutoAlign.start();
                 advanceStep();
                 break;
@@ -60,11 +63,11 @@ public class AutonBasic3BallOffLine extends AutoBaseClass {
                 }
                 break;
             case 4:
-                Shooter.StartShooter();
+                Shooter.openGate();
                 setTimerAndAdvanceStep(3000);
                 break;
             case 5:
-                advanceStep();
+                
                 break;
             case 6:
                 Shooter.StopShooter();

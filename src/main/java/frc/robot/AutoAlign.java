@@ -30,6 +30,7 @@ public class AutoAlign extends AutoBaseClass {
             SmartDashboard.putNumber("Auto Step", getCurrentStep());
             switch (getCurrentStep()) {
             case 0:
+                Intake.moveIntakeDown();
                 Vision.setTargetForShooting();
                 angleOffset = Vision.getDistanceAdjustedAngle();
                 if (Vision.seesTarget()) {
@@ -37,7 +38,7 @@ public class AutoAlign extends AutoBaseClass {
                 }
                 break;
             case 1:
-                turnDegrees(angleOffset, 1);
+                DriveAuto.turnDegrees(angleOffset, 1);
                 setTimerAndAdvanceStep(10000);
                 break;
 
@@ -47,7 +48,7 @@ public class AutoAlign extends AutoBaseClass {
                 }
                 break;
             case 3:
-               // angleOffset = Vision.getDistanceAdjustedAngle();
+               angleOffset = Vision.getDistanceAdjustedAngle();
                 SmartDashboard.putNumber("Adj Angle Offset", angleOffset);
                 SmartDashboard.putNumber("Angle Offset", Vision.getAngleOffset());
                 SmartDashboard.putBoolean("Sees Target", Vision.seesTarget());
