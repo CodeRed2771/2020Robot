@@ -32,19 +32,21 @@ public class ShooterPivoter {
     private static boolean limitGet;
     private static WPI_TalonSRX pivotMotor;
     private static PIDController positionPID;
-    private static double targetShaftPosition = .85;
+
     private static boolean shooterAtPosition = false;
 
     private static final double minPivotPosition = .829; // back position .... .828
     private static final double maxPivotPosition = .885; // forward position .... .877
+    private static double targetShaftPosition = maxPivotPosition;
 
     public ShooterPivoter () {
         pivotMotor = new WPI_TalonSRX(Wiring.SHOOTER_PIVOT_MOTOR_ID);
         pivotMotor.setInverted(InvertType.InvertMotorOutput);
 
         // NOTE - none of this current limiting seems to work.
-        pivotMotor.configContinuousCurrentLimit(1);
-        pivotMotor.configPeakCurrentLimit(1);
+        pivotMotor.configPeakCurrentDuration(200);
+        pivotMotor.configPeakCurrentLimit(4);
+        pivotMotor.configContinuousCurrentLimit(4);
         pivotMotor.enableCurrentLimit(true);
 
         throughBore = new DutyCycleEncoder(Wiring.SHOOTER_PIVOTER_DIO_ID); 
