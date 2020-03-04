@@ -56,8 +56,6 @@ public class Shooter {
 		shooterMotor.setNeutralMode(NeutralMode.Coast);
         shooterMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, kPIDLoopIdx, 0);
 
-        shooterMotor.configClosedloopRamp(500);
-
 		shooterMotor.configClosedloopRamp(.25, 0);
 		/* set closed loop gains in slot0 - see documentation */
         shooterMotor.selectProfileSlot(0, 0);
@@ -82,6 +80,8 @@ public class Shooter {
         SmartDashboard.putNumber("Shoot Setpoint", Calibration.SHOOTER_DEFAULT_SPEED);
         SmartDashboard.putNumber("Adjustment Factor", adjustmentFactor);
 
+        closeGate();
+
         // feederMotor.setNeutralMode(NeutralMode.Brake);
     }
 
@@ -104,9 +104,9 @@ public class Shooter {
 			shooterMotor.config_kP(kPIDLoopIdx, SmartDashboard.getNumber("Shoot P", 0), 0);
 			shooterMotor.config_kI(kPIDLoopIdx, SmartDashboard.getNumber("Shoot I", 0), 0);
             shooterMotor.config_kD(kPIDLoopIdx, SmartDashboard.getNumber("Shoot D", 0), 0);
+        }
 
             if (isEnabled) {
-                closeGate();
                 shooterMotor.set(ControlMode.Velocity, SmartDashboard.getNumber("Shoot Setpoint", Calibration.SHOOTER_DEFAULT_SPEED) * adjustmentFactor);
                 SmartDashboard.putNumber("SHOOTER VELOCITY", shooterMotor.getSelectedSensorVelocity());
 
@@ -133,7 +133,7 @@ public class Shooter {
                 }
                 
             }
-        }
+        
         
         SmartDashboard.putNumber("Shoot Enc", shooterMotor.getSensorCollection().getIntegratedSensorVelocity());
         SmartDashboard.putNumber("Shoot Err", shooterMotor.getClosedLoopError());
