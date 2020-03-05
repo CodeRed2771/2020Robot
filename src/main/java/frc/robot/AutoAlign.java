@@ -1,5 +1,7 @@
 package frc.robot;
 
+import javax.lang.model.util.ElementScanner6;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 //The purpose of this class is to turn the robot until we are on target.
@@ -13,14 +15,11 @@ public class AutoAlign extends AutoBaseClass {
     }
 
     public void start() {
-        this.start(false);
+        super.start();
     }
 
     public void start(boolean autoShoot){
         super.start(autoShoot);
-        Vision.getInstance();
-        Vision.setVisionTrackingMode();
-        Vision.setTargetForShooting();
     }
 
     public void stop() {
@@ -34,27 +33,36 @@ public class AutoAlign extends AutoBaseClass {
             SmartDashboard.putNumber("Auto Step", getCurrentStep());
             switch (getCurrentStep()) {
             case 0:
+                Vision.setVisionTrackingMode();
+                Vision.setTargetForShooting();
                 Intake.moveIntakeDown();
                 Vision.setTargetForShooting();
+                advanceStep();
+                break;
+            case 1:
                 angleOffset = Vision.getDistanceAdjustedAngle();
                 if (Vision.seesTarget()) {
                     advanceStep();
+                }
+                break;
+            case 2:
+                if (Math.abs(angleOffset) > 1) {
+                    DriveAuto.turnDegrees(angleOffset, 1);
+                    setTimerAndAdvanceStep(1500);
+                } else {
+                    setStep(5);
                 }
                 if (autoShoot()){
                     Shooter.StartShooter();
                 }
                 break;
-            case 1:
-                DriveAuto.turnDegrees(angleOffset, 1);
-                setTimerAndAdvanceStep(10000);
-                break;
 
-            case 2:
+            case 3:
                 if (driveCompleted()) {
                     advanceStep();
                 }
                 break;
-            case 3:
+            case 4:
                angleOffset = Vision.getDistanceAdjustedAngle();
                 SmartDashboard.putNumber("Adj Angle Offset", angleOffset);
                 SmartDashboard.putNumber("Angle Offset", Vision.getAngleOffset());
@@ -63,16 +71,16 @@ public class AutoAlign extends AutoBaseClass {
                     System.out.println("On Target!");
                     advanceStep();
                 } else {
-                    setStep(0);
+                    setStep(1);
                 }
                 break;
-            case 4:
+            case 5:
                 if (autoShoot()){
                     Shooter.oneShot();
                 }
                 advanceStep();
                 break;
-            case 5:
+            case 6:
                 stop();
                 break;
             //     ShooterPivoter.setDesiredShootPosition(Vision.getShooterPivoterDesiredShaftLocation());

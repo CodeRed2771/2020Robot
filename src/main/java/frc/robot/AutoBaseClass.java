@@ -137,7 +137,7 @@ public abstract class AutoBaseClass {
     }
 
     public boolean autoShoot(){
-        return autoShoot();
+        return mAutoShoot;
     }
 
     public void advanceStep() {
