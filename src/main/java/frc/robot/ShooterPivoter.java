@@ -100,23 +100,23 @@ public class ShooterPivoter {
     }
 
     public static void resetPivoter() {
-        targetShaftPosition = maxPivotPosition; // min is backwards
+        targetShaftPosition = maxPivotPosition; // max is forward
     }
 
     public static void shootClosePosition () {
-        setDesiredShootPosition(0); // NEEDS TO BE ADJUSTED
+        setDesiredShootPosition(0); 
     }
 
     public static void shootOnInitiationLine() {
-        setDesiredShootPosition(.45); // NEEDS TO BE ADJUSTED
+        setDesiredShootPosition(.45); 
     }
 
     public static void shootFromFrontOfTrench () {
-        setDesiredShootPosition(.75); // NEEDS TO BE ADJUSTED
+        setDesiredShootPosition(.862); 
     }
 
-    public static void backTrench () {
-        setDesiredShootPosition(1); // NEEDS TO BE ADJUSTED
+    public static void shootFromBackOfTrench () {
+        setDesiredShootPosition(1); 
     }
 
     public static void setDesiredShootPosition (double desiredPosition) {

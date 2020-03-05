@@ -124,10 +124,10 @@ public class Robot extends TimedRobot {
 			ShooterPivoter.shootClosePosition();
 		}
 		if (gamepad.midTrenchPosition()) {
-			ShooterPivoter.midTrench();
+			ShooterPivoter.shootFromFrontOfTrench();
 		}
 		if (gamepad.backTrenchPosition()) {
-			ShooterPivoter.backTrench();
+			ShooterPivoter.shootFromBackOfTrench();
 		}
 		if (gamepad.startShooter()) {
 			Shooter.StartShooter();
