@@ -7,6 +7,7 @@ public abstract class AutoBaseClass {
     private Position mRobotPosition;
     private boolean mIsRunning = false;
     private Direction mDirection;
+    private boolean mAutoShoot = false;
 
     public static enum Direction {
         LEFT, RIGHT
@@ -52,6 +53,11 @@ public abstract class AutoBaseClass {
     public void start(Direction direction) {
         mDirection = direction;
         start();
+    }
+
+    public void start(boolean autoShoot){
+       mAutoShoot = autoShoot;
+       start(); 
     }
 
     public void stop() {
@@ -128,6 +134,10 @@ public abstract class AutoBaseClass {
 
     public Direction slideDirection() {
         return mDirection;
+    }
+
+    public boolean autoShoot(){
+        return autoShoot();
     }
 
     public void advanceStep() {

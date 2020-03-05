@@ -88,7 +88,7 @@ public class Robot extends TimedRobot {
 
 		if (gamepad.startVision()) {
 			mAutoProgram = new AutoAlign();
-			mAutoProgram.start();
+			mAutoProgram.start(true);
 		}
 		if (gamepad.startIntake()) {
 			Intake.runIntakeForwards();
