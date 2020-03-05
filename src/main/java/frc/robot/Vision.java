@@ -19,8 +19,8 @@ public class Vision {
     private static double degreesTargetOffGround = 0;
     private static double distance = 0;
     public static Vision instance;              // 0,  1,  2,  3,  4,   5,   6,    7,    8,   9,   10, 11, 12, 13,  14,  15,     16,  17, 18, 19, 20,   21,  
-    private static double[] turnAdjustmentArray = {1.5,1.5,1.5,1.5,1.49,1.49,1.355,1.355,1.3,1.2,1.2,1.2,1.2,1.15,1.15,1.1,1.1,1.075,1.1,1.095,1.1195,1.125,
-        1.,1.,1.0775,1.0555,1.0555,1.0555,1.0555,1.0555,1.055,1.01555,1.02255,1.02255,1.02255,1.0205,1.02255,1.02255,1.02255,1.02255,1.0225,1.0225,1.0225,1.0225,1.0225,1.0225,1.0225,1.0225,1.0225}; // Adjustment factors -- starts at 0 feet
+    private static double[] turnAdjustmentArray = {1.8,1.8,1.8,1.8,1.79,1.79,1.655,1.655,1.6,1.5,1.5,1.5,1.5,1.45,1.45,1.4,1.4,1.375,1.4,1.395,1.4195,1.425,
+        1.4,1.4,1.4775,1.4555,1.4,1.4255,1.4,1.3555,1.355,1.31555,1.32255,1.32255,1.32255,1.3205,1.32255,1.32255,1.32255,1.32255,1.3225,1.3225,1.3225,1.3225,1.3225,1.3225,1.3225,1.3225,1.3225}; // Adjustment factors -- starts at 0 feet
 //      22,     23,     24,    25,    26,    27,    28,    29,    30,   31,     32,     33,     34,     35,     36,     37,     38,     39,     40,   41,    42,    43     44
 
 
@@ -90,7 +90,7 @@ public class Vision {
     }
 
     public static boolean onTarget() {
-        return (seesTarget() && (Math.abs(getAngleOffset()) <= 1.5));
+        return (seesTarget() && (Math.abs(getAngleOffset()) <= 1));
     }
 
     public static double getDistanceFromTarget () {

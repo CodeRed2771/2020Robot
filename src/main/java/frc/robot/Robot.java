@@ -32,6 +32,7 @@ public class Robot extends TimedRobot {
 	final String fiveBallsMiddle = "5 Balls Middle";
 	final String sixBallsLeft = "6 Balls Left";
 	final String autoCalibrator = "Auto Calibrator";
+	final String autoAlign = "Auto Align";
 
 	@Override
 	public void robotInit() {
@@ -124,7 +125,11 @@ public class Robot extends TimedRobot {
 			ShooterPivoter.shootClosePosition();
 		}
 		if (gamepad.midTrenchPosition()) {
+<<<<<<< HEAD
 			ShooterPivoter.shootFromFrontOfTrench();
+=======
+			// ShooterPivoter.midTrench();
+>>>>>>> Added an autoalign auton for retesting many things... Vision gets within a degree now, just need to test a little more. Tested Intake. Moved Shooter Speed up to what we had calculated it to be earlier in the season (13000 ticks, 9500 RPM)
 		}
 		if (gamepad.backTrenchPosition()) {
 			ShooterPivoter.shootFromBackOfTrench();
@@ -272,6 +277,9 @@ public class Robot extends TimedRobot {
 			mAutoProgram = new AutoCalibrator();
 			mAutoProgram.start(robotPosition);
 			break;
+		case autoAlign:
+			mAutoProgram = new AutoAlign();
+			mAutoProgram.start(robotPosition);
 		}
 
 	}
@@ -290,6 +298,7 @@ public class Robot extends TimedRobot {
 		autoChooser.addOption(fiveBallsMiddle, fiveBallsMiddle);
 		autoChooser.addOption(sixBallsLeft, sixBallsLeft);
 		autoChooser.addOption(autoCalibrator, autoCalibrator);
+		autoChooser.addOption(autoAlign, autoAlign);
 		SmartDashboard.putData("Auto Chose:", autoChooser);
 	}
 
