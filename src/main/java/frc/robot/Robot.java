@@ -64,6 +64,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
+		mAutoProgram.stop();
 		DriveTrain.stopDriveAndTurnMotors();
 		DriveTrain.setAllTurnOrientation(0, false); // sets them back to calibrated zero position
 		Shooter.StopShooter();
@@ -169,11 +170,6 @@ public class Robot extends TimedRobot {
 
 		Shooter.setAdjustmentFactor(gamepad.getShooterAdjustment());
 
-		Shooter.tick();
-		ShooterPivoter.tick();
-		DriveAuto.tick();
-		Climber.tick();
-		ColorSensorAndTraverser.tick();
 		ColorSensorAndTraverser.matchColor();
 		ColorSensorAndTraverser.levelScale();
 
@@ -229,6 +225,13 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Rio Z", accel.getZ());
 
 		SmartDashboard.updateValues();
+
+		Shooter.tick();
+		ShooterPivoter.tick();
+		DriveAuto.tick();
+		Climber.tick();
+		ColorSensorAndTraverser.tick();
+
 	}
 
 	@Override
@@ -297,7 +300,6 @@ public class Robot extends TimedRobot {
 	public void autonomousPeriodic() {
 		if (mAutoProgram.isRunning()) {
 			mAutoProgram.tick();
-			Shooter.tick();
 		}
 	}
 
@@ -311,7 +313,6 @@ public class Robot extends TimedRobot {
 	}
 
 	public void disabledPeriodic() {
-		ShooterPivoter.tick();
 		showDashboardInfo();
 		SmartDashboard.putNumber("DIST", Vision.getDistanceFromTarget());
 

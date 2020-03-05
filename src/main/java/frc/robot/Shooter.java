@@ -125,7 +125,7 @@ public class Shooter {
                 if (continuousShooting) {
                     timer += 1; // ONE TIMER UNIT EQUALS ABOUT 20 MILLISECONDS
                     openGate();
-                    if (timer >= 100) {
+                    if (timer >= 200) {
                         closeGate();
                         resetTimer();
                         continuousShooting = false;
@@ -175,7 +175,7 @@ public class Shooter {
     }
 
     public static void openGate () {
-        gate.set(.82);
+        gate.set(.78);
         isGateOpen = true;
     }
 

@@ -36,12 +36,12 @@ public class ShooterPivoter {
     private static boolean shooterAtPosition = false;
 
     private static final double minPivotPosition = .829; // back position .... .828
-    private static final double maxPivotPosition = .885; // forward position .... .877
+    private static final double maxPivotPosition = .870; // forward position .... .877
     private static double targetShaftPosition = maxPivotPosition;
 
     public ShooterPivoter () {
         pivotMotor = new WPI_TalonSRX(Wiring.SHOOTER_PIVOT_MOTOR_ID);
-        pivotMotor.setInverted(InvertType.InvertMotorOutput);
+        pivotMotor.setInverted(InvertType.None);
 
         // NOTE - none of this current limiting seems to work.
         pivotMotor.configPeakCurrentDuration(200);
@@ -68,9 +68,9 @@ public class ShooterPivoter {
 
         // System.out.println("RAW COMMAND:" + targetShaftPosition);
 
-        if (encoderPosition >= maxPivotPosition) {
+        if (encoderPosition >= maxPivotPosition + .02) {
             targetShaftPosition = maxPivotPosition;
-        } else if (encoderPosition <= minPivotPosition) {
+        } else if (encoderPosition <= minPivotPosition - .02) {
             targetShaftPosition = minPivotPosition;
         }
 
@@ -82,8 +82,8 @@ public class ShooterPivoter {
         SmartDashboard.putNumber("SP Targ",targetShaftPosition);
         SmartDashboard.putNumber("SP Pwr", calculatedPower);
         
-        if (Math.abs(calculatedPower) > 1) {
-            calculatedPower = 1 * Math.signum(calculatedPower);
+        if (Math.abs(calculatedPower) > .5) {
+            calculatedPower = .5 * Math.signum(calculatedPower);
         }
 
         pivotMotor.set(ControlMode.PercentOutput, calculatedPower);
@@ -100,15 +100,19 @@ public class ShooterPivoter {
     }
 
     public static void resetPivoter() {
-        targetShaftPosition = minPivotPosition; // min is backwards
+        targetShaftPosition = maxPivotPosition; // min is backwards
     }
 
     public static void shootClosePosition () {
         setDesiredShootPosition(0); // NEEDS TO BE ADJUSTED
     }
 
-    public static void midTrench () {
-        setDesiredShootPosition(.65); // NEEDS TO BE ADJUSTED
+    public static void shootOnInitiationLine() {
+        setDesiredShootPosition(.45); // NEEDS TO BE ADJUSTED
+    }
+
+    public static void shootFromFrontOfTrench () {
+        setDesiredShootPosition(.75); // NEEDS TO BE ADJUSTED
     }
 
     public static void backTrench () {
