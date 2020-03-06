@@ -125,11 +125,7 @@ public class Robot extends TimedRobot {
 			ShooterPivoter.shootClosePosition();
 		}
 		if (gamepad.midTrenchPosition()) {
-<<<<<<< HEAD
 			ShooterPivoter.shootFromFrontOfTrench();
-=======
-			// ShooterPivoter.midTrench();
->>>>>>> Added an autoalign auton for retesting many things... Vision gets within a degree now, just need to test a little more. Tested Intake. Moved Shooter Speed up to what we had calculated it to be earlier in the season (13000 ticks, 9500 RPM)
 		}
 		if (gamepad.backTrenchPosition()) {
 			ShooterPivoter.shootFromBackOfTrench();
