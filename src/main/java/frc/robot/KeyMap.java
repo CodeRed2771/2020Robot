@@ -56,6 +56,7 @@ public class KeyMap extends DirectAccessKeyMap {
     private final HID.Button backTrenchPosition = LogitechF310.Y;
     private final HID.Button startShooter = LogitechF310.X;
     private final HID.Button stopShooting = LogitechF310.BUMPER_RIGHT;
+    private final HID.Button runIntakeBackWards = LogitechF310.BUMPER_LEFT;
     private final HID.Button intakeUpPosition = LogitechF310.DPAD_UP;
     private final HID.Button intakeDownPosition = LogitechF310.DPAD_DOWN;
     private final HID.Button lowClimberHeight = LogitechF310.DPAD_LEFT;
@@ -221,5 +222,8 @@ public class KeyMap extends DirectAccessKeyMap {
 
     public double manualClimberAdjuster () {
         return getHID(gamepad2).axis(manualClimberAdjuster);
+    }
+    public boolean runIntakeBackWards () {
+        return getHID(gamepad2).button(runIntakeBackWards);
     }
 }

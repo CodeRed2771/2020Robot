@@ -168,6 +168,9 @@ public class Robot extends TimedRobot {
 		if (gamepad.turnToZeroDegrees()) {
 			DriveAuto.turnToHeading(0, 1);
 		}
+		if (gamepad.runIntakeBackWards()) {
+			Intake.runIntakeBackwards();
+		}
 
 		Shooter.setAdjustmentFactor(gamepad.getShooterAdjustment());
 
