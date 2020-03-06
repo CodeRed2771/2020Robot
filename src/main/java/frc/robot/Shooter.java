@@ -146,6 +146,10 @@ public class Shooter {
         continuousShooting = false;
     }
 
+    public static boolean isShooterEnabled () {
+        return isEnabled;
+    }
+
     public static void StopShooter() {
         isEnabled = false;
         closeGate();

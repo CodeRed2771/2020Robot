@@ -53,10 +53,11 @@ public class AutoAlign extends AutoBaseClass {
                     setStep(5);
                 }
                 if (autoShoot()){
-                    Shooter.StartShooter();
+                    if (Shooter.isShooterEnabled() == false) {
+                        Shooter.StartShooter();
+                    }
                 }
                 break;
-
             case 3:
                 if (driveCompleted()) {
                     advanceStep();
