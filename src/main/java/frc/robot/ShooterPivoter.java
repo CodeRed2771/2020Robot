@@ -53,6 +53,8 @@ public class ShooterPivoter {
         throughBore.setConnectedFrequencyThreshold(900); 
         positionPID = new PIDController(100,0,0);
         // SmartDashboard.putNumber("SHOOTER SHAFT ADJUSTMENT", 0.5);
+
+        SmartDashboard.getNumber("ShootPivot pos", encoderPosition);
     }
 
     public static ShooterPivoter getInstance () {
@@ -132,12 +134,12 @@ public class ShooterPivoter {
         double newSetpoint;
 
 		if (direction < 0) {
-			newSetpoint = getShaftEncoderPosition() - 0.01;
+			newSetpoint = getShaftEncoderPosition() - 0.0005;
 			if (newSetpoint < minPivotPosition) {
 				newSetpoint = minPivotPosition;
 			}
 		} else {
-			newSetpoint = getShaftEncoderPosition() + 0.01;
+			newSetpoint = getShaftEncoderPosition() + 0.0005;
 			if (newSetpoint > maxPivotPosition) {
 				newSetpoint = maxPivotPosition; 
 			}
