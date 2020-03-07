@@ -119,6 +119,15 @@ public class Vision {
 
     public static void flashLED() {
         table.getEntry("ledMode").forceSetNumber(2);
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            setLED(false);
+        }).start();
     }
 
     public static void setDriverMode() {
