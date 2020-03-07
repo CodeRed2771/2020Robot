@@ -66,6 +66,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopInit() {
 		mAutoProgram.stop();
+		ShooterPivoter.resetPivoter();
 		DriveTrain.stopDriveAndTurnMotors();
 		DriveTrain.setAllTurnOrientation(0, false); // sets them back to calibrated zero position
 		Shooter.StopShooter();
@@ -349,7 +350,7 @@ public class Robot extends TimedRobot {
 		if (Math.abs(rotateAmt) < .05) {
 			adjustedAmt = 0;
 		} else {
-			if (Math.abs(rotateAmt) < .78) {
+			if (Math.abs(rotateAmt) < .5) {
 				adjustedAmt = .1 * Math.signum(rotateAmt); // take 10% of the input
 			} else {
 				if (Math.abs(rotateAmt) < .99) {
@@ -378,10 +379,10 @@ public class Robot extends TimedRobot {
 		if (Math.abs(strafeAmt) < .05) {
 			adjustedAmt = 0;
 		} else {
-			if (Math.abs(strafeAmt) < .5) {
-				adjustedAmt = .15 * Math.signum(strafeAmt);
+			if (Math.abs(strafeAmt) < .4) {
+				adjustedAmt = .1 * Math.signum(strafeAmt);
 			} else {
-				if (Math.abs(strafeAmt) < .78) {
+				if (Math.abs(strafeAmt) < .7) {
 					adjustedAmt = strafeAmt * .35;
 				} else {
 					if (Math.abs(strafeAmt) < .99) {

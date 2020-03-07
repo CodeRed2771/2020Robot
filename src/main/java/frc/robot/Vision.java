@@ -25,7 +25,7 @@ public class Vision {
 
 
 
-    private static float[] shooterPivoterArray = {0,0,0,0,0,0,0,0,0,0.38292632f,0.48780432f,0.47561008f,0.48048747f,0.43902445f,0.47804806f,0.47f,0.47f};
+    private static float[] shooterPivoterArray = {0,0,0,0,0,0,0,0,0,0.38292632f,0.48780432f,0.47561008f,0.48048747f,0.43902445f,0.47804806f,0.55f,0.75f,0.76052524f,0.71313335f,0.6992223f,0.7858046f,0.7635147f,0.7634147f,0.7624147f};
 
     public static Vision getInstance() {
         if (instance == null)

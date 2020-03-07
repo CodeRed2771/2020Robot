@@ -153,6 +153,7 @@ public class Shooter {
     public static void StopShooter() {
         isEnabled = false;
         closeGate();
+        ShooterPivoter.resetPivoter();
         oneShot = false;
         continuousShooting = false;
         resetTimer();

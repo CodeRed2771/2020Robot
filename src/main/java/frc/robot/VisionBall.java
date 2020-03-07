@@ -8,13 +8,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.opencv.core.Point;
 
-public class NewAuto extends AutoBaseClass {
+public class VisionBall extends AutoBaseClass {
 
     private double angleOffset = 0;
 
     private static ArrayList<Point> BallLocations = new ArrayList<>();
 
-    public NewAuto () {
+    public VisionBall () {
 
     }
 
