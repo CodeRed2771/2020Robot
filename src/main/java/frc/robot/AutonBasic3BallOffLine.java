@@ -60,7 +60,7 @@ public class AutonBasic3BallOffLine extends AutoBaseClass {
                 break;
             case 3:
                 mAutoAlign.tick();
-                if (Vision.onTarget() && Shooter.isAtSpeed()) {
+                if (mAutoAlign.wasAligned() && Shooter.isAtSpeed()) {
                     advanceStep();
                 }
                 break;

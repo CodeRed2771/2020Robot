@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class AutoAlign extends AutoBaseClass {
 
     private double angleOffset = 0;
+    private boolean wasAligned = false;
 
     public AutoAlign () {
 
@@ -16,14 +17,20 @@ public class AutoAlign extends AutoBaseClass {
 
     public void start() {
         super.start();
+        wasAligned = false;
     }
 
     public void start(boolean autoShoot){
         super.start(autoShoot);
+        wasAligned = false;
     }
 
     public void stop() {
         super.stop();
+    }
+
+    public boolean wasAligned() {
+        return wasAligned;
     }
 
     @Override
@@ -69,22 +76,21 @@ public class AutoAlign extends AutoBaseClass {
                 SmartDashboard.putNumber("Angle Offset", Vision.getAngleOffset());
                 SmartDashboard.putBoolean("Sees Target", Vision.seesTarget());
                 if (Vision.onTarget()) {
-                    // Vision.flashLED();
-                    System.out.println("On Target!");
                     advanceStep();
                 } else {
                     setStep(1);
                 }
                 break;
             case 5:
-                if (autoShoot()){
-                    Shooter.oneShot();
-                }
+                wasAligned = true;
+                Vision.flashLED();
+                System.out.println("On Target!");
                 advanceStep();
                 break;
             case 6:
-                // Vision.stopActiveVisionMode();
-                // Vision.setLED(false);               
+                if (autoShoot()){
+                    Shooter.oneShot();
+                }
                 stop();
                 break;
             //     ShooterPivoter.setDesiredShootPosition(Vision.getShooterPivoterDesiredShaftLocation());
