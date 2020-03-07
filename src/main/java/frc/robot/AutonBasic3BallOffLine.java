@@ -27,9 +27,12 @@ public class AutonBasic3BallOffLine extends AutoBaseClass {
             Vision.setTargetForShooting();
             DriveAuto.tick();
             SmartDashboard.putNumber("3 ball Auto Step", getCurrentStep());
+            SmartDashboard.putBoolean("Vision On Target", Vision.onTarget());
+            SmartDashboard.putBoolean("Shooter At Speed", Shooter.isAtSpeed());
 
             switch (getCurrentStep()) {
             case 0:
+                Shooter.StartShooter();
                 ShooterPivoter.shootOnInitiationLine();
                 Shooter.closeGate();
                 if (robotPosition() == Position.LEFT) {
@@ -52,13 +55,12 @@ public class AutonBasic3BallOffLine extends AutoBaseClass {
                 } 
                 break;
             case 2:
-                Shooter.StartShooter();
                 mAutoAlign.start();
                 advanceStep();
                 break;
             case 3:
                 mAutoAlign.tick();
-                if (Vision.onTarget()) {
+                if (Vision.onTarget() && Shooter.isAtSpeed()) {
                     advanceStep();
                 }
                 break;
@@ -74,7 +76,7 @@ public class AutonBasic3BallOffLine extends AutoBaseClass {
                 advanceStep();
                 break;
             case 7:
-                // DriveAuto.driveInches(36, 180, 1, false, true);
+                DriveAuto.driveInches(36, 180, 1, false, true);
                 setTimerAndAdvanceStep(3000);
                 break;
             case 8:

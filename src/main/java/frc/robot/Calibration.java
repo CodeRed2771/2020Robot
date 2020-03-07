@@ -118,11 +118,11 @@ public class Calibration {
 
     public static final double INTAKE_MAX_CURRENT = 14;
 
-    public static final double SHOOTER_P = 0.35;
+    public static final double SHOOTER_P = 1.5;
     public static final double SHOOTER_I = 0.0;
-    public static final double SHOOTER_D = 0.0;
+    public static final double SHOOTER_D = 2;
     public static final double SHOOTER_F = 0.054;
-    public static final int SHOOTER_DEFAULT_SPEED = 12000;
+    public static final int SHOOTER_DEFAULT_SPEED = 13000;
 
     public static final double LINKAGE_P = 5; // was 3.2
     public static final double LINKAGE_I = 0.0;

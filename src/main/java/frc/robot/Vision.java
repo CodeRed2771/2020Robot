@@ -25,7 +25,7 @@ public class Vision {
 
 
 
-    private static float[] shooterPivoterArray = {};
+    private static float[] shooterPivoterArray = {0,0,0,0,0,0,0,0,0,0.38292632f,0.48780432f,0.47561008f,0.48048747f,0.43902445f,0.47804806f,0.47f,0.47f};
 
     public static Vision getInstance() {
         if (instance == null)
@@ -69,6 +69,7 @@ public class Vision {
         // return SmartDashboard.getNumber("ShooterPivoterAdjust", 0.5);
 
         double distance = getAdjustedDistanceFromTarget();
+        SmartDashboard.putNumber("Adjusted Distance", getAdjustedDistanceFromTarget());
         float originalDistance = (float) distance;                                                                                                                        
         float upperVal = 0;
         float desiredShaftPositionOne = 1;                                                    
@@ -79,9 +80,12 @@ public class Vision {
         distance = Math.floor(distance/12);
         upperVal = (float) distance + 1;
         desiredShaftPositionOne = shooterPivoterArray[(int) distance];
+        SmartDashboard.putNumber("Desired Shaft Position One", desiredShaftPositionOne);
         desiredShaftPositionTwo = shooterPivoterArray[(int) upperVal];
+        SmartDashboard.putNumber("Desired Shaft Position Two", desiredShaftPositionTwo);
         averageDesiredShaftPositionPerInch = (desiredShaftPositionTwo - desiredShaftPositionOne) / 12;
-        finalShaftPosition = (averageDesiredShaftPositionPerInch * (originalDistance - ((float) distance * 12)));
+        finalShaftPosition = (averageDesiredShaftPositionPerInch * (originalDistance - ((float) distance * 12))) + desiredShaftPositionOne;
+        SmartDashboard.putNumber("Final Shaft Position", finalShaftPosition);
         return finalShaftPosition;
     }
 

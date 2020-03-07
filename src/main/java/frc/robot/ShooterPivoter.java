@@ -114,7 +114,7 @@ public class ShooterPivoter {
     }
 
     public static void shootFromFrontOfTrench () {
-        setDesiredShootPosition(.862); 
+        setDesiredShootPosition(0.74390215); 
     }
 
     public static void shootFromBackOfTrench () {
@@ -134,12 +134,12 @@ public class ShooterPivoter {
         double newSetpoint;
 
 		if (direction < 0) {
-			newSetpoint = getShaftEncoderPosition() - 0.0005;
+			newSetpoint = getShaftEncoderPosition() - 0.0025;
 			if (newSetpoint < minPivotPosition) {
 				newSetpoint = minPivotPosition;
 			}
 		} else {
-			newSetpoint = getShaftEncoderPosition() + 0.0005;
+			newSetpoint = getShaftEncoderPosition() + 0.0025;
 			if (newSetpoint > maxPivotPosition) {
 				newSetpoint = maxPivotPosition; 
 			}

@@ -29,7 +29,7 @@ public class Shooter {
     private static boolean oneShot = false;
     private static boolean continuousShooting = false;
     private static int timer = 0;
-    private static double targetSpeed = 0;
+    private static double targetSpeed = Calibration.SHOOTER_DEFAULT_SPEED;
     private static final int kPIDLoopIdx = 0;
     private static int timerCurrent = 0;
     private static double adjustmentFactor = 1;
@@ -166,11 +166,12 @@ public class Shooter {
     } 
 
     public static double getShooterSpeed() {
-        return shooterMotor.getSensorCollection().getIntegratedSensorVelocity();
+        // return shooterMotor.getSensorCollection().getIntegratedSensorVelocity();
+        return shooterMotor.getSelectedSensorVelocity();
     }
 
     public static boolean isAtSpeed() {
-        return (getShooterSpeed() > 0 && Math.abs(getShooterSpeed() - targetSpeed) < 100);
+        return (getShooterSpeed() > 0 && Math.abs(getShooterSpeed() - targetSpeed) < 300);
     }
 
     public static void closeGate () {

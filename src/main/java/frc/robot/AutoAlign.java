@@ -36,7 +36,7 @@ public class AutoAlign extends AutoBaseClass {
                 Vision.setVisionTrackingMode();
                 Vision.setTargetForShooting();
                 Intake.moveIntakeDown();
-                Vision.setTargetForShooting();
+                ShooterPivoter.setDesiredShootPosition(Vision.getShooterPivoterDesiredPosition());
                 advanceStep();
                 break;
             case 1:
@@ -64,11 +64,12 @@ public class AutoAlign extends AutoBaseClass {
                 }
                 break;
             case 4:
-               angleOffset = Vision.getDistanceAdjustedAngle();
+                angleOffset = Vision.getDistanceAdjustedAngle();
                 SmartDashboard.putNumber("Adj Angle Offset", angleOffset);
                 SmartDashboard.putNumber("Angle Offset", Vision.getAngleOffset());
                 SmartDashboard.putBoolean("Sees Target", Vision.seesTarget());
                 if (Vision.onTarget()) {
+                    // Vision.flashLED();
                     System.out.println("On Target!");
                     advanceStep();
                 } else {
@@ -82,6 +83,8 @@ public class AutoAlign extends AutoBaseClass {
                 advanceStep();
                 break;
             case 6:
+                // Vision.stopActiveVisionMode();
+                // Vision.setLED(false);               
                 stop();
                 break;
             //     ShooterPivoter.setDesiredShootPosition(Vision.getShooterPivoterDesiredShaftLocation());
