@@ -318,6 +318,8 @@ public class Robot extends TimedRobot {
 		DriveTrain.resetTurnEncoders();
 
 		Calibration.initializeSmartDashboard();
+
+		Vision.setLED(false);
 	}
 
 	public void disabledPeriodic() {
