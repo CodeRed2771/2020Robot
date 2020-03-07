@@ -406,9 +406,9 @@ public class DriveTrain {
         if (getInstance() == null)
             return;
 
-        double temp = (fwd * Math.cos(RobotGyro.getGyroAngleInRad()))
-                + (strafe * Math.sin(RobotGyro.getGyroAngleInRad()));
-        strafe = (-fwd * Math.sin(RobotGyro.getGyroAngleInRad())) + (strafe * Math.cos(RobotGyro.getGyroAngleInRad()));
+        double temp = (fwd * Math.cos(-RobotGyro.getGyroAngleInRad()))
+                + (strafe * Math.sin(-RobotGyro.getGyroAngleInRad()));
+        strafe = (-fwd * Math.sin(-RobotGyro.getGyroAngleInRad())) + (strafe * Math.cos(-RobotGyro.getGyroAngleInRad()));
         fwd = temp;
         humanDrive(fwd, strafe, rot);
     }
