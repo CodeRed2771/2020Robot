@@ -56,7 +56,7 @@ public class Shooter {
 		shooterMotor.setNeutralMode(NeutralMode.Coast);
         shooterMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, kPIDLoopIdx, 0);
 
-		shooterMotor.configClosedloopRamp(.25, 0);
+		shooterMotor.configClosedloopRamp(.45, 0);
 		/* set closed loop gains in slot0 - see documentation */
         shooterMotor.selectProfileSlot(0, 0);
 
