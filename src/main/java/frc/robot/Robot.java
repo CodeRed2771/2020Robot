@@ -28,7 +28,7 @@ public class Robot extends TimedRobot {
 	AutoBaseClass mAutoProgram;
 
 	final String threeBasicBalls = "3 Basic Balls";
-	final String eightBallRight = "8 Balls Right";
+	final String sixBallRight = "6 Balls Right";
 	final String fiveBallsMiddle = "5 Balls Middle";
 	final String sixBallsLeft = "6 Balls Left";
 	final String autoCalibrator = "Auto Calibrator";
@@ -261,8 +261,8 @@ public class Robot extends TimedRobot {
 			mAutoProgram = new AutonBasic3BallOffLine();
 			mAutoProgram.start(robotPosition);
 			break;
-		case eightBallRight:
-			mAutoProgram = new AutonAllTheWayRight8Ball();
+		case sixBallRight:
+			mAutoProgram = new AutonAllTheWayRight6Ball();
 			mAutoProgram.start(robotPosition);
 			break;
 		case fiveBallsMiddle:
@@ -294,7 +294,7 @@ public class Robot extends TimedRobot {
 
 		autoChooser = new SendableChooser<String>();
 		autoChooser.setDefaultOption(threeBasicBalls, threeBasicBalls);
-		autoChooser.addOption(eightBallRight, eightBallRight);
+		autoChooser.addOption(sixBallRight, sixBallRight);
 		autoChooser.addOption(fiveBallsMiddle, fiveBallsMiddle);
 		autoChooser.addOption(sixBallsLeft, sixBallsLeft);
 		autoChooser.addOption(autoCalibrator, autoCalibrator);

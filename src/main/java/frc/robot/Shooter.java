@@ -181,7 +181,7 @@ public class Shooter {
     }
 
     public static void openGate () {
-        gate.set(0.35);
+        gate.set(0.33);
         isGateOpen = true;
     }
 

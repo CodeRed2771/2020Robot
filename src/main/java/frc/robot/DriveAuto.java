@@ -161,13 +161,17 @@ public class DriveAuto {
     }
 
     public static double degreesToInches(double degrees) {
-        double inches = degrees / 4.0;
+        double inches = degrees / 3.12;
         return inches;
     }
 
     public static void turnToHeading(double desiredHeading, double turnSpeedFactor) {
         double turnAmount = desiredHeading - RobotGyro.getRelativeAngle();
+        SmartDashboard.putNumber("DESIRED HEADING EQUALS", desiredHeading);
+        SmartDashboard.putNumber("ROBOT GYRO RELATIVE", RobotGyro.getRelativeAngle());
+        SmartDashboard.putNumber("TURN AMOUNT", turnAmount);
         turnDegrees(turnAmount, turnSpeedFactor);
+        SmartDashboard.putNumber("NEW ROBOT GYRO ANGLE", RobotGyro.getRelativeAngle());
     }
 
     public static void turnDegrees(double degrees, double turnSpeedFactor) {
