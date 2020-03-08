@@ -12,7 +12,7 @@ public class AutoAlign extends AutoBaseClass {
     private boolean wasAligned = false;
 
     public AutoAlign () {
-
+        
     }
 
     public void start() {
