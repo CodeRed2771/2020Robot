@@ -61,10 +61,10 @@ public class Shooter {
         shooterMotor.selectProfileSlot(0, 0);
 
 
-		shooterMotor.config_kP(0, Calibration.SHOOTER_P, 0);
-		shooterMotor.config_kI(0, Calibration.SHOOTER_I, 0);
-		shooterMotor.config_kD(0, Calibration.SHOOTER_D, 0);
-        shooterMotor.config_kF(0, Calibration.SHOOTER_F, 0);
+		shooterMotor.config_kP(kPIDLoopIdx, Calibration.SHOOTER_P, 0);
+		shooterMotor.config_kI(kPIDLoopIdx, Calibration.SHOOTER_I, 0);
+		shooterMotor.config_kD(kPIDLoopIdx, Calibration.SHOOTER_D, 0);
+        shooterMotor.config_kF(kPIDLoopIdx, Calibration.SHOOTER_F, 0);
 		/* zero the sensor */
         shooterMotor.setSelectedSensorPosition(0, kPIDLoopIdx, 0);
  	

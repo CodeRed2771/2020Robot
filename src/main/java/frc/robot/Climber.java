@@ -51,7 +51,6 @@ public class Climber {
 		}
 
 		// NEED SOMETHING FOR THE PID AND SETPOINTS
-
 	}
 
 	public static void dropBellyPan(boolean dropBellyPan) {

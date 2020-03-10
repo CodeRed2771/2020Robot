@@ -13,8 +13,6 @@ import java.math.RoundingMode;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.libs.Drive;
-import frc.robot.libs.HID.HID;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 public class Robot extends TimedRobot {
@@ -60,7 +58,7 @@ public class Robot extends TimedRobot {
 		DriveTrain.allowTurnEncoderReset();
 		DriveTrain.resetTurnEncoders(); // sets encoders based on absolute encoder positions
 
-		SmartDashboard.putBoolean("Show Encoders", true);
+		SmartDashboard.putBoolean("Show Encoders", false);
 	}
 
 	@Override
@@ -75,18 +73,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		SmartDashboard.putNumber("DIST", Vision.getDistanceFromTarget());
-		SmartDashboard.updateValues();
-		// if (gamepad.getButtonA(1) && !isAutoRunning) {
-		// DriveAuto.driveInches(60, 0, 1);
-		// isAutoRunning = true;
-		// } else if (gamepad.getButtonB(1) && !isAutoRunning) {
-		// DriveAuto.driveInches(-60, 0, 1);
-		// isAutoRunning = true;
-		// } else {
-		// if (!gamepad.getButtonA(1) && !gamepad.getButtonB(1)) {
-		// isAutoRunning = false;
-		// }
-		// }
 
 		if (gamepad.startVision()) {
 			mAutoProgram = new AutoAlign();
@@ -173,7 +159,7 @@ public class Robot extends TimedRobot {
 			Intake.runIntakeBackwards();
 		}
 
-		Shooter.setAdjustmentFactor(gamepad.getShooterAdjustment());
+		// Shooter.setAdjustmentFactor(gamepad.getShooterAdjustment());
 
 		ColorSensorAndTraverser.matchColor();
 		ColorSensorAndTraverser.levelScale();
@@ -201,9 +187,9 @@ public class Robot extends TimedRobot {
 		double driveFWDAmount = gamepad.getSwerveYAxis();
 		double driveStrafeAmount = gamepad.getSwerveXAxis();
 
-		SmartDashboard.putNumber("SWERVE ROT AXIS", driveRotAmount);
+		// SmartDashboard.putNumber("SWERVE ROT AXIS", driveRotAmount);
 		driveRotAmount = rotationalAdjust(driveRotAmount);
-		SmartDashboard.putNumber("ADJUSTED SWERVE ROT AMOUNT", driveRotAmount);
+		// SmartDashboard.putNumber("ADJUSTED SWERVE ROT AMOUNT", driveRotAmount);
 		driveFWDAmount = forwardAdjust(driveFWDAmount, true);
 		driveStrafeAmount = strafeAdjust(driveStrafeAmount, true);
 
@@ -225,10 +211,6 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void robotPeriodic() {
-		SmartDashboard.putNumber("Rio X", accel.getX());
-		SmartDashboard.putNumber("Rio Y", accel.getY());
-		SmartDashboard.putNumber("Rio Z", accel.getZ());
-
 		SmartDashboard.updateValues();
 
 		Shooter.tick();
@@ -236,6 +218,10 @@ public class Robot extends TimedRobot {
 		DriveAuto.tick();
 		Climber.tick();
 		ColorSensorAndTraverser.tick();
+
+		// SmartDashboard.putNumber("Rio X", accel.getX());
+		// SmartDashboard.putNumber("Rio Y", accel.getY());
+		// SmartDashboard.putNumber("Rio Z", accel.getZ());
 
 	}
 
@@ -281,7 +267,6 @@ public class Robot extends TimedRobot {
 			mAutoProgram = new AutoAlign();
 			mAutoProgram.start(robotPosition);
 		}
-
 	}
 
 	private void setupAutoChoices() {
@@ -404,6 +389,7 @@ public class Robot extends TimedRobot {
 			DriveTrain.showTurnEncodersOnDash();
 			DriveTrain.showDriveEncodersOnDash();
 		}
+		SmartDashboard.updateValues();
 	}
 
 	private static Double round2(Double val) {
