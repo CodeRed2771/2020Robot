@@ -9,17 +9,17 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import com.revrobotics.*;
-import com.revrobotics.Rev2mDistanceSensor.Port;
+// import com.revrobotics.*;
+// import com.revrobotics.Rev2mDistanceSensor.Port;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import edu.wpi.first.wpilibj.IterativeRobot;
+// import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import com.revrobotics.*;
-import com.revrobotics.Rev2mDistanceSensor.Port;
-import com.revrobotics.Rev2mDistanceSensor.RangeProfile;
-import com.revrobotics.Rev2mDistanceSensor.Unit;
+// import com.revrobotics.*;
+// import com.revrobotics.Rev2mDistanceSensor.Port;
+// import com.revrobotics.Rev2mDistanceSensor.RangeProfile;
+// import com.revrobotics.Rev2mDistanceSensor.Unit;
 
 public class DistanceSensor {
     // private Rev2mDistanceSensor distOnboard; 

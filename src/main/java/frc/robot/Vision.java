@@ -18,14 +18,14 @@ public class Vision {
     private static double ty = 0;
     private static double degreesTargetOffGround = 0;
     private static double distance = 0;
-    public static Vision instance;              // 0,  1,  2,  3,  4,   5,   6,    7,    8,   9,   10, 11, 12, 13,  14,  15,     16,  17, 18, 19, 20,   21,  
+    public static Vision instance;              // 0,  1,  2,  3,  4,   5,   6,    7,    8,   9,   10, 11, 12, 13,  14,  15, 16, 17,   18, 19,   20,    21,  
     private static double[] turnAdjustmentArray = {1.5,1.5,1.5,1.5,1.49,1.49,1.355,1.355,1.25,1.25,1.2,1.2,1.2,1.15,1.15,1.1,1.1,1.075,1.1,1.095,1.1195,1.125,
         1.,1.,1.0775,1.0555,1.0555,1.0555,1.0555,1.0555,1.055,1.01555,1.02255,1.02255,1.02255,1.0205,1.02255,1.02255,1.02255,1.02255,1.0225,1.0225,1.0225,1.0225,1.0225,1.0225,1.0225,1.0225,1.0225}; // Adjustment factors -- starts at 0 feet
 //      22,     23,     24,    25,    26,    27,    28,    29,    30,   31,     32,     33,     34,     35,     36,     37,     38,     39,     40,   41,    42,    43     44
 
 
 
-    private static float[] shooterPivoterArray = {0,0,0,0,0,0,0,0,0,0.38292632f,0.48780432f,0.47561008f,0.48048747f,0.43902445f,0.47804806f,0.55f,0.75f,0.76052524f,0.71313335f,0.6992223f,0.7858046f,0.7635147f,0.7634147f,0.7624147f};
+    private static double[] shooterPivoterArray = {0,0,0,0,0,0,0,0,0,0.38292632,0.48780432,0.47561008,0.48048747,0.43902445,0.47804806,0.55,0.75,0.76052524,0.71313335,0.6992223,0.7858046,0.7635147,0.7634147,0.7624147};
 
     public static Vision getInstance() {
         if (instance == null)
@@ -70,18 +70,18 @@ public class Vision {
 
         double distance = getAdjustedDistanceFromTarget();
         SmartDashboard.putNumber("Adjusted Distance", getAdjustedDistanceFromTarget());
-        float originalDistance = (float) distance;                                                                                                                        
-        float upperVal = 0;
-        float desiredShaftPositionOne = 1;                                                    
-        float desiredShaftPositionTwo = 1;                                                    
-        float averageDesiredShaftPositionPerInch = 0;
-        float finalShaftPosition = 1;
+        double originalDistance = distance;                                                                                                                        
+        double upperVal = 0;
+        double desiredShaftPositionOne = 1;                                                    
+        double desiredShaftPositionTwo = 1;                                                    
+        double averageDesiredShaftPositionPerInch = 0;
+        double finalShaftPosition = 1;
 
         distance = Math.floor(distance/12);
         upperVal = (float) distance + 1;
-        desiredShaftPositionOne = shooterPivoterArray[(int) distance];
+        desiredShaftPositionOne = shooterPivoterArray[(int)distance];
         SmartDashboard.putNumber("Desired Shaft Position One", desiredShaftPositionOne);
-        desiredShaftPositionTwo = shooterPivoterArray[(int) upperVal];
+        desiredShaftPositionTwo = shooterPivoterArray[(int)upperVal];
         SmartDashboard.putNumber("Desired Shaft Position Two", desiredShaftPositionTwo);
         averageDesiredShaftPositionPerInch = (desiredShaftPositionTwo - desiredShaftPositionOne) / 12;
         finalShaftPosition = (averageDesiredShaftPositionPerInch * (originalDistance - ((float) distance * 12))) + desiredShaftPositionOne;
