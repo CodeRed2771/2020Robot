@@ -26,10 +26,11 @@ public class Climber {
 
 
     public Climber() {
-		climberMotor = new TalonSRX(Wiring.CLIMBER_MOTOR_ID);
-		climberMotor.configFactoryDefault(10);
-		climberPID = climberMotor.getPIDController();
 		climberMotor = new CANSparkMax(Wiring.CLIMBER_MOTOR_ID, MotorType.kBrushless);
+		// climberMotor.configFactoryDefault(10);
+		climberMotor.restoreFactoryDefaults();
+		climberMotor.setInverted(false);
+		climberPID = climberMotor.getPIDController();
 		climberMotor.restoreFactoryDefaults();
 	}
 
@@ -51,6 +52,7 @@ public class Climber {
 		}
 
 		// NEED SOMETHING FOR THE PID AND SETPOINTS
+
 	}
 
 	public static void dropBellyPan(boolean dropBellyPan) {
