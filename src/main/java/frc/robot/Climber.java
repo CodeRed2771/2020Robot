@@ -26,11 +26,11 @@ public class Climber {
 
 
     public Climber() {
-		// climberMotor = new TalonSRX(Wiring.CLIMBER_MOTOR_ID);
-		// climberMotor.configFactoryDefault(10);
-		// climberPID = climberMotor.getPIDController();
-		// climberMotor = new CANSparkMax(Wiring.CLIMBER_MOTOR_ID, MotorType.kBrushless);
-		// climberMotor.restoreFactoryDefaults();
+		climberMotor = new TalonSRX(Wiring.CLIMBER_MOTOR_ID);
+		climberMotor.configFactoryDefault(10);
+		climberPID = climberMotor.getPIDController();
+		climberMotor = new CANSparkMax(Wiring.CLIMBER_MOTOR_ID, MotorType.kBrushless);
+		climberMotor.restoreFactoryDefaults();
 	}
 
 	public static Climber getInstance () {
