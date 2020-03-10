@@ -65,9 +65,12 @@ public class Robot extends TimedRobot {
 	public void teleopInit() {
 		mAutoProgram.stop();
 		ShooterPivoter.resetPivoter();
+		Intake.stopIntake();
 		DriveTrain.stopDriveAndTurnMotors();
 		DriveTrain.setAllTurnOrientation(0, false); // sets them back to calibrated zero position
 		Shooter.StopShooter();
+		
+		Shooter.closeGate();
 	}
 
 	@Override

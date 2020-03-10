@@ -35,8 +35,10 @@ public class ShooterPivoter {
 
     private static boolean shooterAtPosition = false;
 
-    private static final double minPivotPosition = .829; // back position .... .828
-    private static final double maxPivotPosition = .870; // forward position .... .877
+    // private static final double minPivotPosition = .829; // back position .... .828
+    // private static final double maxPivotPosition = .870; // forward position .... .877
+    private static final double minPivotPosition = .796; // back position .... .828
+    private static final double maxPivotPosition = .837; // forward position .... .877
     private static double targetShaftPosition = maxPivotPosition;
 
     public ShooterPivoter () {
