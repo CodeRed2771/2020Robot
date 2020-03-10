@@ -176,14 +176,23 @@ public class Shooter {
     }
 
     public static void closeGate () {
-        // gate.set(0.45); COMP BOT
-        gate.set(0.8); // PRACTICE
+       
+        if (Calibration.isPracticeBot()) {
+            gate.set(0.8); // PRACTICE
+        } else {
+            gate.set(0.45); // COMP BOT
+        }
+       
         isGateOpen = false;
     }
 
     public static void openGate () {
-        // gate.set(0.33); //COMP ROBOT
-        gate.set(0.53); // PRACTICE
+        if (Calibration.isPracticeBot()) {
+            gate.set(0.53); // PRACTICE
+        } else {
+            gate.set(0.33); // COMP BOT
+        }
+       
         isGateOpen = true;
     }
 

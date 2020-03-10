@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Calibration {
@@ -51,8 +52,6 @@ public class Calibration {
     public final static double TURN_P = 14; // was 10 3.10.19
     public final static double TURN_I = 0.01;
     public final static double TURN_D = 400;
-
-    public final static double SHOOTER_PIVOTER_INITIAL = -.17; // INITIAL SHOOTER PIVOTER
 
     // Physical Module - A
     public final static int DT_A_DRIVE_SPARK_ID = 2;
@@ -131,6 +130,8 @@ public class Calibration {
     public static final int LINKAGE_ACCEL = 500;
     public static final int LINKAGE_VELOCITY = 1000;
 
+    public static final DigitalInput botIndicator = new DigitalInput(9);
+
     public static void loadSwerveCalibration() {
         File calibrationFile = new File("/home/lvuser/swerve.calibration");
         if (calibrationFile.exists()) {
@@ -206,5 +207,9 @@ public class Calibration {
             SmartDashboard.putBoolean("Reset Swerve Calibration", false);
             resetSwerveDriveCalibration();
         }
+    }
+
+    public static boolean isPracticeBot() {
+        return !botIndicator.get();
     }
 }

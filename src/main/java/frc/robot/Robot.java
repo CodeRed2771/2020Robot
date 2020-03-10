@@ -314,6 +314,7 @@ public class Robot extends TimedRobot {
 	public void disabledPeriodic() {
 		showDashboardInfo();
 		SmartDashboard.putNumber("DIST", Vision.getDistanceFromTarget());
+		SmartDashboard.putBoolean("COMP BOT", !Calibration.isPracticeBot());
 
 		if (Calibration.shouldCalibrateSwerve()) {
 			double[] pos = DriveTrain.getAllAbsoluteTurnOrientations();
@@ -353,7 +354,7 @@ public class Robot extends TimedRobot {
 
 	private double forwardAdjust(double fwd, boolean normalDrive) {
 		if (normalDrive) {
-			return fwd;
+			return fwd * .75;
 		} else {
 			return fwd * .45;
 		}

@@ -35,16 +35,22 @@ public class ShooterPivoter {
 
     private static boolean shooterAtPosition = false;
 
-    // private static final double minPivotPosition = .829; // back position .... .828
-    // private static final double maxPivotPosition = .870; // forward position .... .877
-    private static final double minPivotPosition = .796; // back position .... .828
-    private static final double maxPivotPosition = .837; // forward position .... .877
+    private static double minPivotPosition;
+    private static double maxPivotPosition;
     private static double targetShaftPosition = maxPivotPosition;
 
     public ShooterPivoter () {
         pivotMotor = new WPI_TalonSRX(Wiring.SHOOTER_PIVOT_MOTOR_ID);
         pivotMotor.setInverted(InvertType.None);
 
+        if (Calibration.isPracticeBot()) {
+            minPivotPosition = .796; // back position .... .828  PRACT
+            maxPivotPosition = .837; // forward position .... .877
+        } else {
+            minPivotPosition = .829; // back position .... .828  COMP
+            maxPivotPosition = .870; // forward position .... .877
+        }
+        
         // NOTE - none of this current limiting seems to work.
         pivotMotor.configPeakCurrentDuration(200);
         pivotMotor.configPeakCurrentLimit(4);
