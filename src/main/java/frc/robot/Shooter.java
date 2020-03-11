@@ -188,7 +188,7 @@ public class Shooter {
 
     public static void openGate () {
         if (Calibration.isPracticeBot()) {
-            gate.set(0.53); // PRACTICE
+            gate.set(0.50); // PRACTICE
         } else {
             gate.set(0.31); // COMP BOT
         }

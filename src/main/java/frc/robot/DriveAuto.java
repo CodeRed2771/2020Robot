@@ -59,8 +59,6 @@ public class DriveAuto {
         SmartDashboard.putNumber("DRIVE MM VELOCITY", Calibration.DT_MM_VELOCITY);
         SmartDashboard.putNumber("DRIVE MM ACCEL", Calibration.DT_MM_ACCEL);
 
-        SmartDashboard.putBoolean("Tune Drive/Turn PIDs", true);
-
         SmartDashboard.updateValues();
 
         System.out.println("END OF DRIVEAUTO CONSTRUCTOR");
@@ -217,22 +215,6 @@ public class DriveAuto {
         SmartDashboard.putBoolean("TurnCompleted", turnCompleted());
         // SmartDashboard.putNumber("Drive PID Error", DriveTrain.getDriveError());
 
-        // Sets the PID values based on input from the SmartDashboard
-        // This is only needed during tuning
-        if (SmartDashboard.getBoolean("Tune Drive/Turn PIDs", false)) {
-            DriveTrain.setDrivePIDValues(SmartDashboard.getNumber("AUTO DRIVE P", Calibration.AUTO_DRIVE_P),
-                    SmartDashboard.getNumber("AUTO DRIVE I", Calibration.AUTO_DRIVE_I),
-                    SmartDashboard.getNumber("AUTO DRIVE D", Calibration.AUTO_DRIVE_D),
-                    SmartDashboard.getNumber("AUTO DRIVE F", Calibration.AUTO_DRIVE_F));
-
-            DriveTrain.setTurnPIDValues(SmartDashboard.getNumber("TURN P", Calibration.TURN_P),
-                    SmartDashboard.getNumber("TURN I", Calibration.TURN_I),
-                    SmartDashboard.getNumber("TURN D", Calibration.TURN_D));
-
-            DriveTrain.setDriveMMAccel((int) SmartDashboard.getNumber("DRIVE MM ACCEL", Calibration.DT_MM_ACCEL));
-            DriveTrain.setDriveMMVelocity(
-                    (int) SmartDashboard.getNumber("DRIVE MM VELOCITY", Calibration.DT_MM_VELOCITY));
-        }
     }
 
     public static double getDistanceTravelled() {

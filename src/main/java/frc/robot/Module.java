@@ -334,9 +334,10 @@ public class Module {
         drivePID.setFF(f);
     }
 
-    public void setTurnPIDValues(final double p, final double i, final double d) {
+    public void setTurnPIDValues(final double p, final double i, final double d, final int iZone) {
         turn.config_kP(0, p, 0);
         turn.config_kI(0, i, 0);
         turn.config_kD(0, d, 0);
+        turn.config_IntegralZone(0, iZone, 0);
     }
 }

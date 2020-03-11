@@ -41,6 +41,11 @@ public class DriveTrain {
         moduleD = new Module(Calibration.DT_D_DRIVE_SPARK_ID, Calibration.DT_D_TURN_TALON_ID, Calibration.AUTO_DRIVE_P,
                 Calibration.AUTO_DRIVE_I, Calibration.AUTO_DRIVE_D, Calibration.AUTO_DRIVE_IZONE, Calibration.TURN_P,
                 Calibration.TURN_I, Calibration.TURN_D, 200, Calibration.GET_DT_D_ABS_ZERO(), 'D'); // Front right
+
+        SmartDashboard.putNumber("TURN P", Calibration.TURN_P);
+        SmartDashboard.putNumber("TURN I", Calibration.TURN_I);
+        SmartDashboard.putNumber("TURN D", Calibration.TURN_D);
+        SmartDashboard.putNumber("TURN I ZONE", Calibration.TURN_I_ZONE);
     }
 
     public static void setDrivePower(double modAPower, double modBPower, double modCPower, double modDPower) {
@@ -408,7 +413,8 @@ public class DriveTrain {
 
         double temp = (fwd * Math.cos(-RobotGyro.getGyroAngleInRad()))
                 + (strafe * Math.sin(-RobotGyro.getGyroAngleInRad()));
-        strafe = (-fwd * Math.sin(-RobotGyro.getGyroAngleInRad())) + (strafe * Math.cos(-RobotGyro.getGyroAngleInRad()));
+        strafe = (-fwd * Math.sin(-RobotGyro.getGyroAngleInRad()))
+                + (strafe * Math.cos(-RobotGyro.getGyroAngleInRad()));
         fwd = temp;
         humanDrive(fwd, strafe, rot);
     }
@@ -437,14 +443,14 @@ public class DriveTrain {
         moduleD.setDrivePIDValues(p, i, d, f);
     }
 
-    public static void setTurnPIDValues(double p, double i, double d) {
+    public static void setTurnPIDValues(double p, double i, double d, int iZone) {
         if (getInstance() == null)
             return;
 
-        moduleA.setTurnPIDValues(p, i, d);
-        moduleB.setTurnPIDValues(p, i, d);
-        moduleC.setTurnPIDValues(p, i, d);
-        moduleD.setTurnPIDValues(p, i, d);
+        moduleA.setTurnPIDValues(p, i, d, iZone);
+        moduleB.setTurnPIDValues(p, i, d, iZone);
+        moduleC.setTurnPIDValues(p, i, d, iZone);
+        moduleD.setTurnPIDValues(p, i, d, iZone);
     }
 
     public static Double round(Double val, int scale) {
