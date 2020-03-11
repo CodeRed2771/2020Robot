@@ -1,3 +1,5 @@
+package frc.robot;
+
 class ShooterCalibration {
   public static double[] shooterPivoterArray = { 
       0.00000000,  // 0
