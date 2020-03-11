@@ -70,6 +70,10 @@ public class Vision {
         double averageDesiredShaftPositionPerInch = 0;
         double finalShaftPosition = 1;
 
+        if (distance >= ShooterCalibration.shooterPivoterArray.length) {
+            distance = ShooterCalibration.shooterPivoterArray[ShooterCalibration.shooterPivoterArray.length - 1];
+        }
+
         distance = Math.floor(distance/12);
         upperVal = (float) distance + 1;
         desiredShaftPositionOne = ShooterCalibration.shooterPivoterArray[(int)distance];
