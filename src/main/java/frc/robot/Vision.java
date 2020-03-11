@@ -10,9 +10,9 @@ public class Vision {
 
     private static double CameraHeight = 21.625; // MAYBE 24ISH NEEDS TO BE REALLY ACCURATE
     private static double TargetHeight = 89.75; 
-    private static double CameraAngle = 29.5;
     private static double cameraDistanceFromCenterOfRobot = 4.875; // NEEDS TO BE ADJUSTED TO THE DISTANCE THE CAMERA ACTUALLY IS - IS
-    private static double LIMELIGHT_Y_AXIS_FOV = 45.7;
+    private static double CameraAngle = 29.5;
+    private static double cameraDistT_Y_AXIS_FOV = 45.7;
     private static NetworkTable table = null;
     private static double angleOffTarget = 0;
     private static double ty = 0;
@@ -70,12 +70,18 @@ public class Vision {
         double averageDesiredShaftPositionPerInch = 0;
         double finalShaftPosition = 1;
 
+        distance = Math.floor(distance/12);
+
         if (distance >= ShooterCalibration.shooterPivoterArray.length) {
             distance = ShooterCalibration.shooterPivoterArray[ShooterCalibration.shooterPivoterArray.length - 1];
         }
 
-        distance = Math.floor(distance/12);
         upperVal = (float) distance + 1;
+
+        if (upperVal >= ShooterCalibration.shooterPivoterArray.length) {
+            upperVal = ShooterCalibration.shooterPivoterArray[ShooterCalibration.shooterPivoterArray.length - 1];
+        }
+
         desiredShaftPositionOne = ShooterCalibration.shooterPivoterArray[(int)distance];
         SmartDashboard.putNumber("Desired Shaft Position One", desiredShaftPositionOne);
         desiredShaftPositionTwo = ShooterCalibration.shooterPivoterArray[(int)upperVal];
