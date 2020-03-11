@@ -60,7 +60,6 @@ public class Robot extends TimedRobot {
 
 		SmartDashboard.putBoolean("Show Encoders", false);
 		SmartDashboard.putBoolean("Tune Drive-Turn PIDs", false);
-
 	}
 
 	@Override
@@ -71,7 +70,6 @@ public class Robot extends TimedRobot {
 		DriveTrain.stopDriveAndTurnMotors();
 		DriveTrain.setAllTurnOrientation(0, false); // sets them back to calibrated zero position
 		Shooter.StopShooter();
-		
 		Shooter.closeGate();
 	}
 
@@ -105,14 +103,14 @@ public class Robot extends TimedRobot {
 			Shooter.StopShooter();
 		}
 		if (gamepad.lowClimberHeight() || gamepad.climberLowPosition()) {
-			Climber.setlowClimberPosition();
+			Climber.extendHook();
 		}
-		if (gamepad.colorWheelClimberHeight()) {
-			Climber.setColorWheelClimberPosition();
-		}
-		if (gamepad.climber() && gamepad.getRobotCentricModifier()) {
-			Climber.setHighClimberPosition();
-		}
+		// if (gamepad.colorWheelClimberHeight()) {
+		// 	Climber.setColorWheelClimberPosition();
+		// }
+		// if (gamepad.climber() && gamepad.getRobotCentricModifier()) {
+		// 	Climber.setHighClimberPosition();
+		// }
 		if (gamepad.closeShooterPosition()) {
 			ShooterPivoter.shootClosePosition();
 		}

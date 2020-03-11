@@ -7,31 +7,34 @@
 
 package frc.robot;
 
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.ctre.phoenix.motorcontrol.*;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Climber {
 	
 	private static boolean dropBellyPan = false;
 	private static boolean pickUpBellyPan = false;
 	private static Climber instance;
-	private static CANSparkMax climberMotor;
-	private static CANPIDController climberPID;
+	private static CANSparkMax extenderMotor = new CANSparkMax(Wiring.EXTEND_MOTOR_ID, MotorType.kBrushless);
+	private static CANSparkMax liftMotor = new CANSparkMax(Wiring.LIFT_MOTOR_ID, MotorType.kBrushless);
 
+	public static final double BASE_EXTENDED_POSITION = 50;  // tune for actual max extension revolutions
+	public static final double MAX_EXTENDED_POSITION = 75; // needs adjusting
 
     public Climber() {
-		climberMotor = new CANSparkMax(Wiring.CLIMBER_MOTOR_ID, MotorType.kBrushless);
-		// climberMotor.configFactoryDefault(10);
-		climberMotor.restoreFactoryDefaults();
-		climberMotor.setInverted(false);
-		climberPID = climberMotor.getPIDController();
-		climberMotor.restoreFactoryDefaults();
+		extenderMotor.restoreFactoryDefaults();
+		extenderMotor.setIdleMode(IdleMode.kBrake);
+		extenderMotor.getPIDController().setOutputRange(-.3, .3);
+        extenderMotor.getPIDController().setP(1);
+
+		liftMotor.restoreFactoryDefaults();
+        liftMotor.setIdleMode(IdleMode.kBrake);
+        liftMotor.getPIDController().setOutputRange(-1, 1);
+        liftMotor.getPIDController().setP(1);
 	}
 
 	public static Climber getInstance () {
@@ -43,6 +46,9 @@ public class Climber {
 
 	public static void tick() {
 
+		SmartDashboard.putNumber("Climb Extend Enc", extenderMotor.getEncoder().getPosition());
+		SmartDashboard.putNumber("Climb Lift Enc", liftMotor.getEncoder().getPosition());
+	
 		if (dropBellyPan) {
 			// DROPS BELLY PAN
 		}
@@ -50,52 +56,69 @@ public class Climber {
 		if (pickUpBellyPan) {
 			// LOCKS BELLY PAN IN TO CONTINUE CLIMBING
 		}
-
-		// NEED SOMETHING FOR THE PID AND SETPOINTS
-
 	}
 
-	public static void dropBellyPan(boolean dropBellyPan) {
-		Climber.dropBellyPan = dropBellyPan;
+	// extendHook - use for first main extension, then manual adjustment from there
+	public static void extendHook() {
+        extenderMotor.getPIDController().setReference(BASE_EXTENDED_POSITION, ControlType.kPosition);
+	}
+	
+	public static void adjustExtendedHook(double direction) {
+		double newSetpoint;
+
+        if (direction > 0) {
+            newSetpoint = extenderMotor.getEncoder().getPosition() + (39.05 / 2); // half revolution
+            if (newSetpoint >= MAX_EXTENDED_POSITION) {
+            newSetpoint = MAX_EXTENDED_POSITION;
+            }
+        } else {
+            newSetpoint = extenderMotor.getEncoder().getPosition() - (39.05 / 2); // half rotation
+            if (newSetpoint < 0) {
+            newSetpoint = 0;
+            }
+        }
+
+        extenderMotor.getPIDController().setReference(newSetpoint, ControlType.kPosition);
 	}
 
-	public static void pickUpBellyPanAndContinueClimbing (boolean pickUpBellyPan) {
-		Climber.pickUpBellyPan = pickUpBellyPan;
-		// NEED A SETPOINT TO PUT THE CLIMBER AT
+	public static void liftRobot(double direction) {
+		double newSetpoint;
+
+        if (direction > 0) {
+            newSetpoint = liftMotor.getEncoder().getPosition() + (39.05 / 2); // half revolution
+        } else {
+            newSetpoint = liftMotor.getEncoder().getPosition() - (39.05 / 2); // half rotation
+            if (newSetpoint < 0) {
+            newSetpoint = 0;
+            }
+        }
+
+        liftMotor.getPIDController().setReference(newSetpoint, ControlType.kPosition);
 	}
 
-	public static void setlowClimberPosition () {
-		// GIVE SETPOINT FOR LOW CLIMBER POSITION
-	}
+	// public static void dropBellyPan(boolean dropBellyPan) {
+	// 	Climber.dropBellyPan = dropBellyPan;
+	// }
 
-	public static void setColorWheelClimberPosition () {
-		// GIVE SETPOINT FOR COLOR WHEEL CLIMBER POSITION
-	}
+	// public static void pickUpBellyPanAndContinueClimbing (boolean pickUpBellyPan) {
+	// 	Climber.pickUpBellyPan = pickUpBellyPan;
+	// 	// NEED A SETPOINT TO PUT THE CLIMBER AT
+	// }
 
-	public static void setHighClimberPosition () {
-		// GIVE SETPOINT FOR HIGH CLIMBER POSITION
-	}
+	// public static void setlowClimberPosition () {
+	// 	// GIVE SETPOINT FOR LOW CLIMBER POSITION
+	// }
 
-	public static void setIdealClimberPositionToDropBellyPan () {
-		// GIVE SETPOINT FOR REGULAR CLIMB POSITION
-	}
+	// public static void setColorWheelClimberPosition () {
+	// 	// GIVE SETPOINT FOR COLOR WHEEL CLIMBER POSITION
+	// }
 
-	// public static void moveToSetPoint (double direction) {
-        
-    //     double newSetpoint;
+	// public static void setHighClimberPosition () {
+	// 	// GIVE SETPOINT FOR HIGH CLIMBER POSITION
+	// }
 
-	// 	if (direction < 0) {
-	// 		newSetpoint = climberMotor.getCPR();
-	// 		if (newSetpoint <= 0) {
-	// 			newSetpoint = 0;
-	// 		}
-	// 	} else {
-	// 		newSetpoint = climberMotor.getSelectedSensorPosition(0) + 1000;
-	// 		if (newSetpoint > 30000) {
-	// 			newSetpoint = 30000; // 
-	// 		}
-	// 	}
+	// public static void setIdealClimberPositionToDropBellyPan () {
+	// 	// GIVE SETPOINT FOR REGULAR CLIMB POSITION
+	// }
 
-	// 	//  SET THE SETPOINT TO THE FUNCTION LEVEL VARIABLE SETPOINT
-    // }
 }
