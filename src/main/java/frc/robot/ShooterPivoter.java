@@ -53,7 +53,7 @@ public class ShooterPivoter {
         
         // NOTE - none of this current limiting seems to work.
         pivotMotor.configPeakCurrentDuration(200);
-        pivotMotor.configPeakCurrentLimit(4);
+        pivotMotor.configPeakCurrentLimit(10);
         pivotMotor.configContinuousCurrentLimit(4);
         pivotMotor.enableCurrentLimit(true);
 
