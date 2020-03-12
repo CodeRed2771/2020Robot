@@ -93,18 +93,18 @@ public class Robot extends TimedRobot {
 		if (gamepad.intakeUpPosition()) {
 			Intake.moveIntakeUp();
 		}
-		if (gamepad.spinWheel()) {
-			ColorSensorAndTraverser.start3To5TimesSpinning();
-		}
-		if (gamepad.matchColor()) {
-			ColorSensorAndTraverser.startMatchColorSpinning();
-		}
-		if (gamepad.stopShooter() || gamepad.stopShooting()) {
+		// if (gamepad.spinWheel()) {
+		// 	ColorSensorAndTraverser.start3To5TimesSpinning();
+		// }
+		// if (gamepad.matchColor()) {
+		// 	ColorSensorAndTraverser.startMatchColorSpinning();
+		// }
+		if (/*gamepad.stopShooter()*/ gamepad.stopShooting()) {
 			Shooter.StopShooter();
 		}
-		if (gamepad.lowClimberHeight() || gamepad.climberLowPosition()) {
-			Climber.extendHook();
-		}
+		// if (gamepad.lowClimberHeight() || gamepad.climberLowPosition()) {
+		// 	Climber.extendHook();
+		// }
 		// if (gamepad.colorWheelClimberHeight()) {
 		// 	Climber.setColorWheelClimberPosition();
 		// }
@@ -123,41 +123,43 @@ public class Robot extends TimedRobot {
 		if (gamepad.startShooter()) {
 			Shooter.StartShooter();
 		}
-		if (gamepad.levelScale()) {
-			ColorSensorAndTraverser.runTrue(true);
-		}
-		if (gamepad.turboTurning()) {
-			// ADD TURBO TURN
-		}
-		if (gamepad.dropBellyPan()) {
-			Climber.dropBellyPan(true);
-		}
-		if (gamepad.pickUpbellyPanContinueClimb()) {
-			Climber.pickUpBellyPanAndContinueClimbing(true);
-		}
+		// if (gamepad.levelScale()) {
+		// 	ColorSensorAndTraverser.runTrue(true);
+		// }
+		// if (gamepad.turboTurning()) {
+		// 	// ADD TURBO TURN
+		// }
+		// if (gamepad.dropBellyPan()) {
+		// 	Climber.dropBellyPan(true);
+		// }
+		// if (gamepad.pickUpbellyPanContinueClimb()) {
+		// 	Climber.pickUpBellyPanAndContinueClimbing(true);
+		// }
 		if (gamepad.oneShotShooter()) {
 			Shooter.oneShot();
 		}
 		if (gamepad.continualShooter()) {
 			Shooter.continuousShooting();
 		}
-		if (gamepad.getRobotCentricModifier() && gamepad.oneShotShooter()) {
-			Climber.setIdealClimberPositionToDropBellyPan();
-		}
+		// if (gamepad.getRobotCentricModifier() && gamepad.oneShotShooter()) {
+		// 	Climber.setIdealClimberPositionToDropBellyPan();
+		// }
 		if (Math.abs(gamepad.shooterPivoterAdjuster()) > 0.1) {
 			ShooterPivoter.moveToSetPoint(gamepad.shooterPivoterAdjuster());	 // THIS FUNCTIONS NEED TO BE IMPROVISED
 																				// BASED ON WHAT WE ARE GIVEN
 		}
 		if (Math.abs(gamepad.manualClimberAdjuster()) > 0.1) {
-			// Climber.moveToSetPoint(gamepad.manualClimberAdjuster()); // THIS FUNCTIONS NEED TO BE IMPROVISED BASED ON
-																		// WHAT WE ARE GIVEN
+			Climber.adjustExtendedHook(gamepad.manualClimberAdjuster());
 		}
-		if (gamepad.turnTo180Degrees()) {
-			DriveAuto.turnToHeading(180, 1);
+		if (gamepad.oneShotShooter() && gamepad.continualShooter()) {
+			Climber.liftRobot(gamepad.liftSpeed());
 		}
-		if (gamepad.turnToZeroDegrees()) {
-			DriveAuto.turnToHeading(0, 1);
-		}
+		// if (gamepad.turnTo180Degrees()) {
+		// 	DriveAuto.turnToHeading(180, 1);
+		// }
+		// if (gamepad.turnToZeroDegrees()) {
+		// 	DriveAuto.turnToHeading(0, 1);
+		// }
 		if (gamepad.runIntakeBackWards()) {
 			Intake.runIntakeBackwards();
 		}
