@@ -23,11 +23,11 @@ public class Climber {
 	private static CANSparkMax liftMotor = new CANSparkMax(Wiring.LIFT_MOTOR_ID, MotorType.kBrushless);
 
 	public static final double BASE_EXTENDED_POSITION = 50;  // tune for actual max extension revolutions
-	public static final double MAX_EXTENDED_POSITION = 75; // needs adjusting
+	public static final double MAX_EXTENDED_POSITION = 400; // needs adjusting
 
     public Climber() {
 		extenderMotor.restoreFactoryDefaults();
-		extenderMotor.setIdleMode(IdleMode.kBrake);
+		extenderMotor.setIdleMode(IdleMode.kCoast);
 		extenderMotor.getPIDController().setOutputRange(-.3, .3);
         extenderMotor.getPIDController().setP(1);
 
@@ -67,12 +67,12 @@ public class Climber {
 		double newSetpoint;
 
         if (direction > 0) {
-            newSetpoint = extenderMotor.getEncoder().getPosition() + (39.05 / 2); // half revolution
+            newSetpoint = extenderMotor.getEncoder().getPosition() + (15);
             if (newSetpoint >= MAX_EXTENDED_POSITION) {
             newSetpoint = MAX_EXTENDED_POSITION;
             }
         } else {
-            newSetpoint = extenderMotor.getEncoder().getPosition() - (39.05 / 2); // half rotation
+            newSetpoint = extenderMotor.getEncoder().getPosition() - (15);
             if (newSetpoint < 0) {
             newSetpoint = 0;
             }
@@ -85,15 +85,16 @@ public class Climber {
 		double newSetpoint;
 
         if (direction > 0) {
-            newSetpoint = liftMotor.getEncoder().getPosition() + (39.05 / 2); // half revolution
+            newSetpoint = liftMotor.getEncoder().getPosition() + (15); 
         } else {
-            newSetpoint = liftMotor.getEncoder().getPosition() - (39.05 / 2); // half rotation
+            newSetpoint = liftMotor.getEncoder().getPosition() - (15); 
             if (newSetpoint < 0) {
             newSetpoint = 0;
             }
         }
 
-        liftMotor.getPIDController().setReference(newSetpoint, ControlType.kPosition);
+		liftMotor.getPIDController().setReference(newSetpoint, ControlType.kPosition);
+		extenderMotor.set(-.1);
 	}
 
 	// public static void dropBellyPan(boolean dropBellyPan) {

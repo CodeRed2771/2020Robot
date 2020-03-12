@@ -226,7 +226,7 @@ public class Robot extends TimedRobot {
 
 		 // Sets the PID values based on input from the SmartDashboard
         // This is only needed during tuning
-        if (SmartDashboard.getBoolean("Tune Drive-Turn PIDs", false)) {
+        // if (SmartDashboard.getBoolean("Tune Drive-Turn PIDs", false)) {
             DriveTrain.setDrivePIDValues(SmartDashboard.getNumber("AUTO DRIVE P", Calibration.AUTO_DRIVE_P),
                     SmartDashboard.getNumber("AUTO DRIVE I", Calibration.AUTO_DRIVE_I),
                     SmartDashboard.getNumber("AUTO DRIVE D", Calibration.AUTO_DRIVE_D),
@@ -240,7 +240,7 @@ public class Robot extends TimedRobot {
             DriveTrain.setDriveMMAccel((int) SmartDashboard.getNumber("DRIVE MM ACCEL", Calibration.DT_MM_ACCEL));
             DriveTrain.setDriveMMVelocity(
                     (int) SmartDashboard.getNumber("DRIVE MM VELOCITY", Calibration.DT_MM_VELOCITY));
-        }
+        // }
 		// SmartDashboard.putNumber("Rio X", accel.getX());
 		// SmartDashboard.putNumber("Rio Y", accel.getY());
 		// SmartDashboard.putNumber("Rio Z", accel.getZ());
