@@ -22,7 +22,7 @@ public class Robot extends TimedRobot {
 	SendableChooser<String> driveChooser;
 	String autoSelected;
 	KeyMap gamepad;
-	BuiltInAccelerometer accel;
+
 	AutoBaseClass mAutoProgram;
 
 	final String threeBasicBalls = "3 Basic Balls";
@@ -36,7 +36,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		gamepad = new KeyMap();
-		accel = new BuiltInAccelerometer();
+
 		Shooter.getInstance();
 		Shooter.StopShooter();
 		ShooterPivoter.getInstance();
@@ -249,9 +249,7 @@ public class Robot extends TimedRobot {
             DriveTrain.setDriveMMVelocity(
                     (int) SmartDashboard.getNumber("DRIVE MM VELOCITY", Calibration.DT_MM_VELOCITY));
         // }
-		// SmartDashboard.putNumber("Rio X", accel.getX());
-		// SmartDashboard.putNumber("Rio Y", accel.getY());
-		// SmartDashboard.putNumber("Rio Z", accel.getZ());
+
 
 	}
 
