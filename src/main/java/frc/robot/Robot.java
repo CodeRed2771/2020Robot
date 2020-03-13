@@ -31,6 +31,7 @@ public class Robot extends TimedRobot {
 	final String sixBallsLeft = "6 Balls Left";
 	final String autoCalibrator = "Auto Calibrator";
 	final String autoAlign = "Auto Align";
+	private boolean isIntakeUpPosition = true;
 
 	@Override
 	public void robotInit() {
@@ -87,11 +88,17 @@ public class Robot extends TimedRobot {
 		if (gamepad.stopIntake()) {
 			Intake.stopIntake();
 		}
-		if (gamepad.intakeDownPosition()) {
-			Intake.moveIntakeDown();
-		}
+		// if (gamepad.intakeDownPosition()) {
+		// 	Intake.moveIntakeDown();
+		// }
 		if (gamepad.intakeUpPosition()) {
-			Intake.moveIntakeUp();
+			if (isIntakeUpPosition) {
+				Intake.moveIntakeDown();
+				isIntakeUpPosition = false;
+			} else if (isIntakeUpPosition == false) {
+				Intake.moveIntakeUp();
+				isIntakeUpPosition = true;
+			}
 		}
 		// if (gamepad.spinWheel()) {
 		// 	ColorSensorAndTraverser.start3To5TimesSpinning();
@@ -99,12 +106,12 @@ public class Robot extends TimedRobot {
 		// if (gamepad.matchColor()) {
 		// 	ColorSensorAndTraverser.startMatchColorSpinning();
 		// }
-		if (/*gamepad.stopShooter()*/ gamepad.stopShooting()) {
+		if (gamepad.stopShooter() || gamepad.stopShooting()) {
 			Shooter.StopShooter();
 		}
-		// if (gamepad.lowClimberHeight() || gamepad.climberLowPosition()) {
-		// 	Climber.extendHook();
-		// }
+		if (gamepad.lowClimberHeight() && gamepad.stopIntake()) {
+			Climber.extendHook();
+		}
 		// if (gamepad.colorWheelClimberHeight()) {
 		// 	Climber.setColorWheelClimberPosition();
 		// }
@@ -154,10 +161,10 @@ public class Robot extends TimedRobot {
 		if (gamepad.oneShotShooter() && gamepad.continualShooter()) {
 			Climber.liftRobot(gamepad.liftSpeed());
 		}
-		// if (gamepad.turnTo180Degrees()) {
-		// 	DriveAuto.turnToHeading(180, 1);
-		// }
-		// if (gamepad.turnToZeroDegrees()) {
+		if (gamepad.turn180Degrees()) {
+			DriveAuto.turnDegrees(180, 1);
+		}
+		// // if (gamepad.turnToZeroDegrees()) {
 		// 	DriveAuto.turnToHeading(0, 1);
 		// }
 		if (gamepad.runIntakeBackWards()) {

@@ -39,7 +39,7 @@ public class KeyMap extends DirectAccessKeyMap {
     private final HID.Button switchToRobotCentric = LogitechF310.BACK;
     private final HID.Button climberModifier = LogitechF310.A;
     // private final HID.Button automaticallyAdjustRobotToLevelScale = LogitechF310.X;
-    private final HID.Button climbHighPosiButton = LogitechF310.DPAD_DOWN;
+    // private final HID.Button climbHighPosiButton = LogitechF310.DPAD_DOWN;
     private final HID.Button pickUpBellyPanAndContinueClimbing = LogitechF310.DPAD_UP;
     private final HID.Button startVision = LogitechF310.BUMPER_RIGHT;
     private final HID.Button zeroGyro = LogitechF310.START;
@@ -54,10 +54,10 @@ public class KeyMap extends DirectAccessKeyMap {
     private final HID.Button midTrenchPosition = LogitechF310.B;
     private final HID.Button backTrenchPosition = LogitechF310.Y;
     private final HID.Button startShooter = LogitechF310.TRIGGER_RIGHT;
-    // private final HID.Button stopShooting = LogitechF310.BUMPER_RIGHT;
+    private final HID.Button stopShooting = LogitechF310.BUMPER_RIGHT;
     private final HID.Button runIntakeBackWards = LogitechF310.BACK;
     private final HID.Button intakeUpPosition = LogitechF310.DPAD_UP;
-    private final HID.Button intakeDownPosition = LogitechF310.DPAD_DOWN;
+    private final HID.Button climbHighPosiButton = LogitechF310.START;
     // private final HID.Button climberModifier = LogitechF310.;
     // private final HID.Button colorWheelClimberHeight = LogitechF310.;
     private final HID.Button startIntake = LogitechF310.TRIGGER_LEFT;
@@ -86,6 +86,10 @@ public class KeyMap extends DirectAccessKeyMap {
 
     public boolean getZeroGyro() {
         return getHID(gamepad1).button(zeroGyro);
+    }
+
+    public boolean turn180Degrees () {
+        return getHID(gamepad1).button(turn180Degrees);
     }
 
     public double getSwerveRotAxis() {
@@ -151,9 +155,9 @@ public class KeyMap extends DirectAccessKeyMap {
         return getHID(gamepad1).button(startVision);
     }
 
-    // public boolean lowClimberHeight () {
-    //     return getHID(gamepad1).button(climberLowPosition);
-    // }
+    public boolean lowClimberHeight () {
+        return getHID(gamepad1).button(climbHighPosiButton);
+    }
 
     // public double getShooterAdjustment () {
     //     return getHID(gamepad1).axis(shooterAdjuster);
@@ -183,9 +187,9 @@ public class KeyMap extends DirectAccessKeyMap {
         return getHID(gamepad2).button(intakeUpPosition);
     }
 
-    public boolean intakeDownPosition() {
-        return getHID(gamepad2).button(intakeDownPosition);
-    }
+    // public boolean intakeDownPosition() {
+    //     return getHID(gamepad2).button(intakeDownPosition);
+    // }
 
     // public boolean climberLowPosition () {
     //     return getHID(gamepad2).button(lowClimberHeight);
@@ -195,9 +199,9 @@ public class KeyMap extends DirectAccessKeyMap {
         return getHID(gamepad2).button(startShooter);
     }
 
-    // public boolean stopShooter() {
-    //     return getHID(gamepad2).button(stopShooting);
-    // }
+    public boolean stopShooter() {
+        return getHID(gamepad2).button(stopShooting);
+    }
 
     public boolean closeShooterPosition () {
         return getHID(gamepad2).button(closeShooterPosition);
