@@ -235,7 +235,8 @@ public class Robot extends TimedRobot {
             DriveTrain.setTurnPIDValues(SmartDashboard.getNumber("TURN P", Calibration.TURN_P),
                     SmartDashboard.getNumber("TURN I", Calibration.TURN_I),
 					SmartDashboard.getNumber("TURN D", Calibration.TURN_D),
-					(int)SmartDashboard.getNumber("TURN I ZONE", Calibration.TURN_I_ZONE));
+					(int)SmartDashboard.getNumber("TURN I ZONE", Calibration.TURN_I_ZONE),
+					SmartDashboard.getNumber("TURN F", Calibration.TURN_F));
 
             DriveTrain.setDriveMMAccel((int) SmartDashboard.getNumber("DRIVE MM ACCEL", Calibration.DT_MM_ACCEL));
             DriveTrain.setDriveMMVelocity(

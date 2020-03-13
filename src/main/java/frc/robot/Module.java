@@ -17,7 +17,7 @@ public class Module {
     private final CANEncoder driveEncoder;
     private final char mModuleID;
     private final int FULL_ROTATION = 1024;
-    private final double TURN_P, TURN_I, TURN_D, DRIVE_P, DRIVE_I, DRIVE_D;
+    private final double TURN_P, TURN_I, TURN_D, TURN_F, DRIVE_P, DRIVE_I, DRIVE_D;
     private final int TURN_IZONE, DRIVE_IZONE;
     private double turnZeroPos = 0;
     private double currentDriveSetpoint = 0;
@@ -39,7 +39,7 @@ public class Module {
      */
     public Module(final int driveSparkID/* driveTalonID */, final int turnTalonID, final double dP, final double dI,
             final double dD, final int dIZone, final double tP, final double tI, final double tD, final int tIZone,
-            final double tZeroPos, final char moduleID) {
+            final double tF, final double tZeroPos, final char moduleID) {
 
         drive = new CANSparkMax(driveSparkID, MotorType.kBrushless);
         drive.restoreFactoryDefaults();
@@ -84,12 +84,14 @@ public class Module {
         TURN_P = tP;
         TURN_I = tI;
         TURN_D = tD;
+        TURN_F = tF;
         TURN_IZONE = tIZone;
 
         turn.config_kP(0, TURN_P, 0);
         turn.config_kI(0, TURN_I, 0);
         turn.config_kD(0, TURN_D, 0);
         turn.config_IntegralZone(0, TURN_IZONE, 0);
+        turn.config_kF(0, TURN_F, 0);
         turn.selectProfileSlot(0, 0);
 
         turn.configClosedloopRamp(.1, 0);
@@ -334,10 +336,11 @@ public class Module {
         drivePID.setFF(f);
     }
 
-    public void setTurnPIDValues(final double p, final double i, final double d, final int iZone) {
+    public void setTurnPIDValues(final double p, final double i, final double d, final int iZone, final double f) {
         turn.config_kP(0, p, 0);
         turn.config_kI(0, i, 0);
         turn.config_kD(0, d, 0);
         turn.config_IntegralZone(0, iZone, 0);
+        turn.config_kF(0, f, 0);
     }
 }

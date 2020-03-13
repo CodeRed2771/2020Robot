@@ -31,21 +31,22 @@ public class DriveTrain {
     private DriveTrain() {
         moduleA = new Module(Calibration.DT_A_DRIVE_SPARK_ID, Calibration.DT_A_TURN_TALON_ID, Calibration.AUTO_DRIVE_P,
                 Calibration.AUTO_DRIVE_I, Calibration.AUTO_DRIVE_D, Calibration.AUTO_DRIVE_IZONE, Calibration.TURN_P,
-                Calibration.TURN_I, Calibration.TURN_D, 200, Calibration.GET_DT_A_ABS_ZERO(), 'A'); // Front left
+                Calibration.TURN_I, Calibration.TURN_D, Calibration.TURN_I_ZONE, Calibration.TURN_F, Calibration.GET_DT_A_ABS_ZERO(), 'A'); // Front left
         moduleB = new Module(Calibration.DT_B_DRIVE_SPARK_ID, Calibration.DT_B_TURN_TALON_ID, Calibration.AUTO_DRIVE_P,
                 Calibration.AUTO_DRIVE_I, Calibration.AUTO_DRIVE_D, Calibration.AUTO_DRIVE_IZONE, Calibration.TURN_P,
-                Calibration.TURN_I, Calibration.TURN_D, 200, Calibration.GET_DT_B_ABS_ZERO(), 'B'); // Back right
+                Calibration.TURN_I, Calibration.TURN_D, Calibration.TURN_I_ZONE, Calibration.TURN_F, Calibration.GET_DT_B_ABS_ZERO(), 'B'); // Back right
         moduleC = new Module(Calibration.DT_C_DRIVE_SPARK_ID, Calibration.DT_C_TURN_TALON_ID, Calibration.AUTO_DRIVE_P,
                 Calibration.AUTO_DRIVE_I, Calibration.AUTO_DRIVE_D, Calibration.AUTO_DRIVE_IZONE, Calibration.TURN_P,
-                Calibration.TURN_I, Calibration.TURN_D, 200, Calibration.GET_DT_C_ABS_ZERO(), 'C'); // Back left
+                Calibration.TURN_I, Calibration.TURN_D, Calibration.TURN_I_ZONE, Calibration.TURN_F, Calibration.GET_DT_C_ABS_ZERO(), 'C'); // Back left
         moduleD = new Module(Calibration.DT_D_DRIVE_SPARK_ID, Calibration.DT_D_TURN_TALON_ID, Calibration.AUTO_DRIVE_P,
                 Calibration.AUTO_DRIVE_I, Calibration.AUTO_DRIVE_D, Calibration.AUTO_DRIVE_IZONE, Calibration.TURN_P,
-                Calibration.TURN_I, Calibration.TURN_D, 200, Calibration.GET_DT_D_ABS_ZERO(), 'D'); // Front right
+                Calibration.TURN_I, Calibration.TURN_D, Calibration.TURN_I_ZONE, Calibration.TURN_F, Calibration.GET_DT_D_ABS_ZERO(), 'D'); // Front right
 
         SmartDashboard.putNumber("TURN P", Calibration.TURN_P);
         SmartDashboard.putNumber("TURN I", Calibration.TURN_I);
         SmartDashboard.putNumber("TURN D", Calibration.TURN_D);
         SmartDashboard.putNumber("TURN I ZONE", Calibration.TURN_I_ZONE);
+        SmartDashboard.putNumber("TURN F", Calibration.TURN_F);
     }
 
     public static void setDrivePower(double modAPower, double modBPower, double modCPower, double modDPower) {
@@ -443,14 +444,14 @@ public class DriveTrain {
         moduleD.setDrivePIDValues(p, i, d, f);
     }
 
-    public static void setTurnPIDValues(double p, double i, double d, int iZone) {
+    public static void setTurnPIDValues(double p, double i, double d, int iZone, double f) {
         if (getInstance() == null)
             return;
 
-        moduleA.setTurnPIDValues(p, i, d, iZone);
-        moduleB.setTurnPIDValues(p, i, d, iZone);
-        moduleC.setTurnPIDValues(p, i, d, iZone);
-        moduleD.setTurnPIDValues(p, i, d, iZone);
+        moduleA.setTurnPIDValues(p, i, d, iZone, f);
+        moduleB.setTurnPIDValues(p, i, d, iZone, f);
+        moduleC.setTurnPIDValues(p, i, d, iZone, f);
+        moduleD.setTurnPIDValues(p, i, d, iZone, f);
     }
 
     public static Double round(Double val, int scale) {

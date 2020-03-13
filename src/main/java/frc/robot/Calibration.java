@@ -49,10 +49,11 @@ public class Calibration {
     public final static double VISION_ROT_I = 0;
     public final static double VISION_ROT_D = 0;
 
-    public final static double TURN_P = 14; // was 10 3.10.19
-    public final static double TURN_I = 0.6;
+    public final static double TURN_P = 15; // was 10 3.10.19
+    public final static double TURN_I = 0.2;
     public final static double TURN_D = 425;
-    public final static int TURN_I_ZONE = 6;
+    public final static int TURN_I_ZONE = 20;
+    public final static double TURN_F = 0;
 
     // Physical Module - A
     public final static int DT_A_DRIVE_SPARK_ID = 2;
