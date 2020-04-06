@@ -8,13 +8,11 @@ import java.util.*;
 
 public class Vision {
 
-    private static double CameraHeight = 21.625; // MAYBE 24ISH NEEDS TO BE REALLY ACCURATE
+    private static double CameraHeight = 21.625;
     private static double TargetHeight = 89.75; 
-    private static double cameraDistanceFromCenterOfRobot = 4.875; // NEEDS TO BE ADJUSTED TO THE DISTANCE THE CAMERA ACTUALLY IS - IS
+    private static double cameraDistanceFromCenterOfRobot = 4.875; 
     private static double CameraAngle = 29.5;
-    private static double cameraDistT_Y_AXIS_FOV = 45.7;
     private static NetworkTable table = null;
-    private static double angleOffTarget = 0;
     private static double ty = 0;
     private static double degreesTargetOffGround = 0;
     private static double distance = 0;
@@ -50,10 +48,24 @@ public class Vision {
                                    
         distance = Math.floor(distance/12);                                 // THIS IS THE CODE WE ARE GOING TO USE TO GET
         upperVal = distance + 1;                                            // THE DISTANCE ADJUSTED FACTOR - IS
-        adjustFactorOne = VisionCalibration.turnAdjustmentArray[(int) distance];
-        adjustFactorTwo = VisionCalibration.turnAdjustmentArray[(int) upperVal];
-        averageAdjustFactorPerInch = (adjustFactorTwo - adjustFactorOne) / 12;
-        finalAdjustedFactor = (averageAdjustFactorPerInch * (originalDistance - (distance * 12))) + adjustFactorOne;
+
+        if (distance > VisionCalibration.turnAdjustmentArray.length - 1) {
+            upperVal = VisionCalibration.turnAdjustmentArray.length - 1;
+            distance = upperVal;
+        }
+
+        if (distance != upperVal) {
+            adjustFactorOne = VisionCalibration.turnAdjustmentArray[(int) distance];
+            adjustFactorTwo = VisionCalibration.turnAdjustmentArray[(int) upperVal];
+            averageAdjustFactorPerInch = (adjustFactorTwo - adjustFactorOne) / 12;
+            finalAdjustedFactor = (averageAdjustFactorPerInch * (originalDistance - (distance * 12))) + adjustFactorOne;
+        } else {
+            finalAdjustedFactor = VisionCalibration.turnAdjustmentArray[(int)distance];
+        }
+        // adjustFactorOne = VisionCalibration.turnAdjustmentArray[(int) distance];
+        // adjustFactorTwo = VisionCalibration.turnAdjustmentArray[(int) upperVal];
+        // averageAdjustFactorPerInch = (adjustFactorTwo - adjustFactorOne) / 12;
+        // finalAdjustedFactor = (averageAdjustFactorPerInch * (originalDistance - (distance * 12))) + adjustFactorOne;
         SmartDashboard.putNumber("FINAL ADJUSTED FACTOR", finalAdjustedFactor);
         return finalAdjustedFactor * getAngleOffset();
     }
@@ -71,24 +83,26 @@ public class Vision {
         double finalShaftPosition = 1;
 
         distance = Math.floor(distance/12);
-
-        if (distance >= ShooterCalibration.shooterPivoterArray.length) {
-            distance = ShooterCalibration.shooterPivoterArray[ShooterCalibration.shooterPivoterArray.length - 1];
-        }
-
         upperVal = (float) distance + 1;
 
-        if (upperVal >= ShooterCalibration.shooterPivoterArray.length) {
-            upperVal = ShooterCalibration.shooterPivoterArray[ShooterCalibration.shooterPivoterArray.length - 1];
+        if (distance > ShooterCalibration.shooterPivoterArray.length - 1) {
+            upperVal = ShooterCalibration.shooterPivoterArray.length - 1;
+            distance = upperVal;
         }
 
-        desiredShaftPositionOne = ShooterCalibration.shooterPivoterArray[(int)distance];
-        SmartDashboard.putNumber("Desired Shaft Position One", desiredShaftPositionOne);
-        desiredShaftPositionTwo = ShooterCalibration.shooterPivoterArray[(int)upperVal];
-        SmartDashboard.putNumber("Desired Shaft Position Two", desiredShaftPositionTwo);
-        averageDesiredShaftPositionPerInch = (desiredShaftPositionTwo - desiredShaftPositionOne) / 12;
-        finalShaftPosition = (averageDesiredShaftPositionPerInch * (originalDistance - ((float) distance * 12))) + desiredShaftPositionOne;
-        SmartDashboard.putNumber("Final Shaft Position", finalShaftPosition);
+        if (distance != upperVal) {
+            desiredShaftPositionOne = ShooterCalibration.shooterPivoterArray[(int)distance];
+            desiredShaftPositionTwo = ShooterCalibration.shooterPivoterArray[(int)upperVal];
+            averageDesiredShaftPositionPerInch = (desiredShaftPositionTwo - desiredShaftPositionOne) / 12;
+            finalShaftPosition = (averageDesiredShaftPositionPerInch * (originalDistance - ((float) distance * 12))) + desiredShaftPositionOne;
+        } else {
+            finalShaftPosition = ShooterCalibration.shooterPivoterArray[(int)distance];
+        }
+
+        // desiredShaftPositionOne = ShooterCalibration.shooterPivoterArray[(int)distance];
+        // desiredShaftPositionTwo = ShooterCalibration.shooterPivoterArray[(int)upperVal];
+        // averageDesiredShaftPositionPerInch = (desiredShaftPositionTwo - desiredShaftPositionOne) / 12;
+        // finalShaftPosition = (averageDesiredShaftPositionPerInch * (originalDistance - ((float) distance * 12))) + desiredShaftPositionOne;
         return finalShaftPosition;
     }
 

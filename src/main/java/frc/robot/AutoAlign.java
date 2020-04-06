@@ -60,7 +60,7 @@ public class AutoAlign extends AutoBaseClass {
                     setStep(5);
                 }
                 if (autoShoot()){
-                    if (Shooter.isShooterEnabled() == false) {
+                    if (!Shooter.isShooterEnabled()) {
                         Shooter.StartShooter();
                     }
                 }
@@ -72,9 +72,9 @@ public class AutoAlign extends AutoBaseClass {
                 break;
             case 4:
                 angleOffset = Vision.getDistanceAdjustedAngle();
-                SmartDashboard.putNumber("Adj Angle Offset", angleOffset);
-                SmartDashboard.putNumber("Angle Offset", Vision.getAngleOffset());
-                SmartDashboard.putBoolean("Sees Target", Vision.seesTarget());
+                // SmartDashboard.putNumber("Adj Angle Offset", angleOffset);
+                // SmartDashboard.putNumber("Angle Offset", Vision.getAngleOffset());
+                // SmartDashboard.putBoolean("Sees Target", Vision.seesTarget());
                 if (Vision.onTarget()) {
                     advanceStep();
                 } else {
